@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Move : MonoBehaviour
+public class CharacterLook : MonoBehaviour
 {
+    [SerializeField] private bool _isLooking;
     [SerializeField] private float _rotationSpeed;
-    [SerializeField] private DynamicJoystick _joystick;
-
-    private Animator _animator;
+    [SerializeField] private FixedJoystick _joystick;
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
-        _joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<DynamicJoystick>();
+        _joystick = GameObject.FindGameObjectWithTag("PlayerLookJoystick").GetComponent<FixedJoystick>();
     }
 
     private void FixedUpdate()
@@ -23,14 +19,21 @@ public class Move : MonoBehaviour
         Vector3 lookRot = new Vector3(horizontal, 0, vertical);
         lookRot.Normalize();
 
-        float setMove = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
-        _animator.SetFloat("Moving", setMove);
-
         if (horizontal != 0 || vertical != 0)
         {
+            _isLooking = true;
             Quaternion lookDir = Quaternion.LookRotation(lookRot);
             Quaternion targetRot = Quaternion.Slerp(transform.rotation, lookDir, _rotationSpeed);
             transform.rotation = targetRot;
         }
+        else
+        {
+            _isLooking = false;
+        }
+    }
+
+    public bool IsLooking()
+    { 
+        return _isLooking;
     }
 }
