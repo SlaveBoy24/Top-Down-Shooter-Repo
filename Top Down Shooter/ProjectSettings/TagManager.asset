@@ -5,8 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Bullet
-  - Joystick
   - MainCharacter
+  - PlayerLookJoystick
+  - PlayerMoveJoystick
   layers:
   - Default
   - TransparentFX
