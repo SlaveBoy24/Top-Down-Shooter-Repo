@@ -20,9 +20,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private IEnumerator LobbyInitialization()
     {
-        yield return new WaitUntil(()=>PhotonConnection.Instance.IsConnected());
+        yield return new WaitUntil(()=>IsConnectedToServer());
 
         testCreateRoomBtn.SetActive(true);
+    }
+
+    private bool IsConnectedToServer()
+    {
+        if (PhotonConnection.Instance)
+            return PhotonConnection.Instance.IsConnected();
+        else
+            return false;
     }
 
     public void CreateRoom()
@@ -47,7 +55,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
                                     .Substring(0, 8); // Adjust length as needed
         }
 
-        PhotonNetwork.JoinOrCreateRoom(shortUniqueId, roomOptions, null);
+        PhotonNetwork.CreateRoom(shortUniqueId, roomOptions, null);
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        base.OnCreateRoomFailed(returnCode, message);
+
+        CreateRoom();
     }
 
     public override void OnJoinedRoom()
@@ -59,7 +74,31 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         Room currentRoom = PhotonNetwork.CurrentRoom;
 
+        Debug.Log($"i am {PhotonNetwork.NickName} - {PhotonNetwork.LocalPlayer.UserId}");
+        Debug.Log($"master's index {currentRoom.masterClientId}");
+        Debug.Log($"master is {currentRoom.Players[currentRoom.masterClientId].NickName} - {currentRoom.Players[currentRoom.masterClientId].UserId}");
+
         Debug.Log($"Connected to Room {currentRoom.Name}");
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+    }
+
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
+    {
+        base.OnRoomPropertiesUpdate(propertiesThatChanged);
     }
 
     public void StartGame()

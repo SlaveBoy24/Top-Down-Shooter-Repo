@@ -25,7 +25,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     private void ConnectToServer()
     {
         Debug.Log("Connecting");
-
+        PhotonNetwork.NickName = "dencha24";
         PhotonNetwork.ConnectUsingSettings();
     }
 
