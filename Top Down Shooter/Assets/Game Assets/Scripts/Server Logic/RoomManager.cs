@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Security.Cryptography;
@@ -12,6 +13,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public GameObject testCreateRoomBtn;
     public GameObject testStartGameBtn;
+
+    [SerializeField] private bool _isInRoom;
+    [SerializeField] private string _currentRoomName;
+    [SerializeField] private List<TextMeshProUGUI> _playersNicknames;
 
     private void Start()
     {
@@ -35,8 +40,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        base.OnJoinedLobby();
-
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsVisible = false;
 
@@ -56,6 +59,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
 
         PhotonNetwork.CreateRoom(shortUniqueId, roomOptions, null);
+    }
+
+    public void JoinRoom(string name)
+    { 
+        
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)

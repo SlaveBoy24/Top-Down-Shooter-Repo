@@ -161,6 +161,16 @@ namespace Photon.Chat.Demo
             this.chatClient.AuthValues = new AuthenticationValues(this.UserName);
             this.chatClient.ConnectUsingSettings(this.chatAppSettings);
 
+            Debug.Log(chatAppSettings.AppIdChat);
+            Debug.Log(chatAppSettings.AppVersion);
+            Debug.Log(chatAppSettings.FixedRegion);
+            Debug.Log(chatAppSettings.NetworkLogging);
+            Debug.Log(chatAppSettings.Protocol);
+            Debug.Log(chatAppSettings.EnableProtocolFallback);
+            Debug.Log(chatAppSettings.Server);
+            Debug.Log(chatAppSettings.Port);
+            Debug.Log(chatAppSettings.ProxyServer);
+
             this.ChannelToggleToInstantiate.gameObject.SetActive(false);
             Debug.Log("Connecting as: " + this.UserName);
 
