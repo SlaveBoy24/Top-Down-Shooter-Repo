@@ -11,6 +11,7 @@ using System;
 public class RoomManager : MonoBehaviourPunCallbacks
 {
 
+    public GameObject testLobbyPanel;
     public GameObject testCreateRoomBtn;
     public GameObject testStartGameBtn;
 
@@ -27,6 +28,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         yield return new WaitUntil(()=>IsConnectedToServer());
 
+        testCreateRoomBtn.SetActive(testLobbyPanel);
         testCreateRoomBtn.SetActive(true);
     }
 
