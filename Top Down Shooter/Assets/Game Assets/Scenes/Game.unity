@@ -2465,6 +2465,21 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3047777809015295719, guid: 828af0d4c6cc0f74dabcc1ec952fae5c,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 116
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788332292883063990, guid: 828af0d4c6cc0f74dabcc1ec952fae5c,
+        type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8363636701200167086, guid: 828af0d4c6cc0f74dabcc1ec952fae5c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8363636701200167086, guid: 828af0d4c6cc0f74dabcc1ec952fae5c,
         type: 3}
       propertyPath: solver.effectors.Array.data[5].positionWeight
