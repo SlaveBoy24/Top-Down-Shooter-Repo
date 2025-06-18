@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using Photon.Pun;
 
 
@@ -9,6 +10,9 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     public static PhotonConnection Instance;
     [SerializeField] private bool _connectedToServer;
     [SerializeField] private bool _connectedToLobby;
+
+    public GameObject NicknamePanelTest;
+    public TMP_InputField NicknameInputTest;
 
     private void Start()
     {
@@ -22,16 +26,33 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
             Destroy(gameObject);
     }
 
+    public void SetNickname()
+    { 
+        string nickname = NicknameInputTest.text;
+        PhotonNetwork.NickName = nickname;
+        PlayerPrefs.SetString("Nickname", nickname);
+        NicknamePanelTest.SetActive(false);
+        PhotonNetwork.ConnectUsingSettings();
+    }
+
     private void ConnectToServer()
     {
         Debug.Log("Connecting");
 
-        PhotonNetwork.NickName = "dencha24";
-        PhotonNetwork.ConnectUsingSettings();
+        if (PlayerPrefs.HasKey("Nickname"))
+        {
+            PhotonNetwork.NickName = PlayerPrefs.GetString("Nickname");
+            PhotonNetwork.ConnectUsingSettings();
+        }
+        else
+        {
+            NicknamePanelTest.SetActive(true);
+        }
     }
 
     public override void OnConnectedToMaster()
     {
+        Debug.Log(PhotonNetwork.LocalPlayer.UserId);
         base.OnConnectedToMaster();
         _connectedToServer = true;
         Debug.Log("Connected to Server");

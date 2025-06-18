@@ -8,16 +8,20 @@ using System.Security.Cryptography;
 using System.Text;
 using System;
 
-public class RoomManager : MonoBehaviourPunCallbacks
+public class PhotonRoom : MonoBehaviourPunCallbacks
 {
 
     public GameObject testLobbyPanel;
     public GameObject testCreateRoomBtn;
-    public GameObject testStartGameBtn;
+    public GameObject testRoomPanel;
 
     [SerializeField] private bool _isInRoom;
-    [SerializeField] private string _currentRoomName;
     [SerializeField] private List<TextMeshProUGUI> _playersNicknames;
+
+    [SerializeField] private GameObject _findRoomPanel;
+    [SerializeField] private TMP_InputField _findRoomInput;
+
+    [SerializeField] private RoomManager _roomManager;
 
     private void Start()
     {
@@ -26,10 +30,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private IEnumerator LobbyInitialization()
     {
-        yield return new WaitUntil(()=>IsConnectedToServer());
+        yield return new WaitUntil(() => IsConnectedToServer());
 
-        testCreateRoomBtn.SetActive(testLobbyPanel);
-        testCreateRoomBtn.SetActive(true);
+        _roomManager = FindAnyObjectByType<RoomManager>();
+        _roomManager.Initialize(this);
+
+        testLobbyPanel.SetActive(true);
     }
 
     private bool IsConnectedToServer()
@@ -43,6 +49,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public void CreateRoom()
     {
         RoomOptions roomOptions = new RoomOptions();
+        roomOptions.PublishUserId = true;
+        roomOptions.MaxPlayers = 4;
         roomOptions.IsVisible = false;
 
         string shortUniqueId = "";
@@ -63,9 +71,18 @@ public class RoomManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(shortUniqueId, roomOptions, null);
     }
 
-    public void JoinRoom(string name)
-    { 
-        
+    public void JoinRoom()
+    {
+        PhotonNetwork.JoinRoom(_findRoomInput.text);
+
+        _findRoomPanel.SetActive(false);
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        base.OnJoinRoomFailed(returnCode, message);
+
+        Debug.Log("бля не получилось");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -75,30 +92,51 @@ public class RoomManager : MonoBehaviourPunCallbacks
         CreateRoom();
     }
 
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+
+        _isInRoom = false;
+
+        testCreateRoomBtn.SetActive(true);
+        testRoomPanel.SetActive(false);
+    }
+
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
+        
+        _isInRoom = true;
 
         testCreateRoomBtn.SetActive(false);
-        testStartGameBtn.SetActive(true);
+        testRoomPanel.SetActive(true);
 
         Room currentRoom = PhotonNetwork.CurrentRoom;
+        _roomManager.SetRoom(currentRoom);
+        Player localPlayer = PhotonNetwork.LocalPlayer;
 
-        Debug.Log($"i am {PhotonNetwork.NickName} - {PhotonNetwork.LocalPlayer.UserId}");
-        Debug.Log($"master's index {currentRoom.masterClientId}");
-        Debug.Log($"master is {currentRoom.Players[currentRoom.masterClientId].NickName} - {currentRoom.Players[currentRoom.masterClientId].UserId}");
+        ExitGames.Client.Photon.Hashtable roomCustomProperties = currentRoom.CustomProperties;
 
-        Debug.Log($"Connected to Room {currentRoom.Name}");
+        roomCustomProperties.Add(localPlayer.NickName, localPlayer.IsMasterClient);
+
+        currentRoom.SetCustomProperties(roomCustomProperties);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
+
+        _roomManager.UpdatePlayerList();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
+
+        Room currentRoom = PhotonNetwork.CurrentRoom;
+        ExitGames.Client.Photon.Hashtable roomCustomProperties = currentRoom.CustomProperties;
+        roomCustomProperties.Remove(otherPlayer.NickName);
+        currentRoom.SetCustomProperties(roomCustomProperties);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -109,6 +147,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
         base.OnRoomPropertiesUpdate(propertiesThatChanged);
+
+        _roomManager.UpdatePlayerList();
     }
 
     public void StartGame()
