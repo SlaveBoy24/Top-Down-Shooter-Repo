@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
+  m_Name: CatStatue
+  m_EditorClassIdentifier: 
+  Type: 0
+  ValueType: 3
+  Icon: {fileID: 21300000, guid: 4dc381e2399ca074896bc554c8b8cda8, type: 3}
+  Cost: 2000000
+  Heal: 0
+  SlowDownMovementPercent: 0
+  DamageBlockPercent: 0
+  SlotCount: 0
+  DamageDeal: 0
+  ArmourPenetration: 0
+  MaxBulletCount: 0
