@@ -65,6 +65,7 @@ public class Move : MonoBehaviour
                 _animator.SetFloat("Moving Y", animationDirection.z);
             }
             Vector3 moveVelocity = CalculateMovement(lookRot, strengthOfMove);
+            return;
             _rb.AddForce(moveVelocity, ForceMode.VelocityChange);
         }
         else
