@@ -56,10 +56,29 @@ public class NetworkClient : SocketIOComponent
 
             Debug.Log("Player ID: " + data.id);
 
-            _networkIdentity.id = data.id;
-            data.mail = _networkIdentity.mail;
+            _networkIdentity.Player.id = data.id;
+            data.mail = _networkIdentity.Player.mail;
 
             _socket.Emit("init_confirmed", new JSONObject(JsonUtility.ToJson(data)));
+        });
+
+        On("username_init", (E) =>
+        {
+            PlayerData data = new PlayerData();
+            data = JsonUtility.FromJson<PlayerData>(E.data.ToString());
+
+            Debug.Log($"Player ID: {data.id}, Player Username: {data.username}");
+
+            if (data.username == "")
+            {
+                _networkIdentity.SetUsernamePanel.SetActive(true);
+                Debug.Log("SetUsername()");
+            }
+            else
+            {
+                _networkIdentity.Player.username = data.username;
+                _networkIdentity.SetUsernamePanel.SetActive(false);
+            }
         });
 
         /*On("spawnOther", (E) =>
