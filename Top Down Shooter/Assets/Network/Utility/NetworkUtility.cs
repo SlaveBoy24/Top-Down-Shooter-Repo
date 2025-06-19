@@ -125,7 +125,8 @@ public class V4 // Quaternion
 public class PlayerData
 {    
     public string id;
-    public V3 position;    
+    public string mail;
+    public string status;   
 }
 
 

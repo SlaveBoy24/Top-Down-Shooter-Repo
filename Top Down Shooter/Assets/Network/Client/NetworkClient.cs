@@ -6,127 +6,78 @@ using SocketIO;
 using UDPSocket;
 using Project;
 using Project.Utility;
+using UnityEditor.ShaderGraph.Serialization;
 
 public class NetworkClient : SocketIOComponent
 {
-    public static NetworkClient instance;
-    private SocketIOComponent socket;
-    private UDPSocketComponent socketUDP;
-    [SerializeField] private string ip = "127.0.0.1";
-    [SerializeField] private int port = 7777;
-    private NetworkWorld networkWorld;
+    public static NetworkClient Instance;
+    private SocketIOComponent _socket;
+    [SerializeField] private string _ip = "127.0.0.1";
+    [SerializeField] private int _port = 80;
+    private NetworkIdentity _networkIdentity;
     public void Awake()
     {
-        SetAddress(ip, port);
+        SetAddress(_ip, _port);
+        Debug.Log($"Setup Address - {_ip}:{_port}");
 
-        NetworkClient.instance = this;
+        NetworkClient.Instance = this;
         base.Awake();
     }
 
     public override void Start()
     {
-        networkWorld = NetworkWorld.instance;
-        socketUDP = gameObject.GetComponent<UDPSocketComponent>();
+        DontDestroyOnLoad(this.gameObject);
+        _networkIdentity = Instance.GetComponent<NetworkIdentity>();
 
         base.Start();
         ConnectClient();
 
         SetSocketReference(this);
-        SetSocketReference(socketUDP);
     }
 
     public void ConnectClient()
     {
         SetupEventsTCP();
-        SetupEventsUDP();
 
         base.Connect();
-        ConnectUDP();
-    }
-
-    public void ConnectUDP()
-    {
-        socketUDP.connect(ip, port);
-        socketUDP.udpSocketState = UDPSocketComponent.UDPSocketState.CONNECTED;
-    }
-
-    public void Update()
-    {
-        if (socketUDP.udpSocketState != UDPSocketComponent.UDPSocketState.CONNECTED)
-        {
-            socketUDP.udpSocketState = UDPSocketComponent.UDPSocketState.CONNECTED;
-        }
-
-        base.Update();
-    }
-
-    private void SetupEventsUDP()
-    {        
-        socketUDP.On("updatePl", new Action<UDPSocketEvent>(OnUpdateTransform));	
-    }
-
-    private void OnUpdateTransform(UDPSocketEvent msg)
-    {
-           
-        PlayerData data = new PlayerData();
-		data = JsonUtility.FromJson<PlayerData>(msg.pack[1]); 
-
-        networkWorld.UpdatePlayer(data);
-                     
-    }
-
-    private void SpawnPlayer(PlayerData data, bool idenity)
-    {
-        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);        
-        cube.transform.position = NetworkUtility.ToVector3(data.position); 
-
-        NetworkIdentity identity = cube.AddComponent<NetworkIdentity>();
-        identity.SetId(data.id);
-        identity.SetMine(idenity);
-        identity.SetSocketTCP(socket);
-        identity.SetSocketUDP(socketUDP);
-
-        NetworkTransform networkTransform = cube.AddComponent<NetworkTransform>();
-        
-        networkWorld.AddPlayer(data.id, networkTransform);
     }
 
     private void SetupEventsTCP()
     {
         On("open", (E) =>
-        {            
-            Debug.Log("Connected made to the Server");            
+        {
+            Debug.Log("Connected made to the Server");
         });        
 
-        On("spawnPlayer", (E) =>
+        On("init", (E) =>
         {
-            networkWorld.ClearWorld();
-
             PlayerData data = new PlayerData();
             data = JsonUtility.FromJson<PlayerData>(E.data.ToString());
 
-            Debug.Log("Spawn player: " + data.id);
-           
-            SpawnPlayer(data, true);
-            
+            Debug.Log("Player ID: " + data.id);
+
+            _networkIdentity.id = data.id;
+            data.mail = _networkIdentity.mail;
+
+            _socket.Emit("init_confirmed", new JSONObject(JsonUtility.ToJson(data)));
         });
 
-        On("spawnOther", (E) =>
+        /*On("spawnOther", (E) =>
         {
             PlayerData data = new PlayerData();
             data = JsonUtility.FromJson<PlayerData>(E.data.ToString());
 
             Debug.Log("Spawn player: " + data.id);
 
-            SpawnPlayer(data, false);
+            //SpawnPlayer(data, false);
 
         });
 
         On("disconnected", (E) =>
         {
             string id = E.data["id"].ToString().RemoveQuotes();
-            networkWorld.DeletePlayer(id);
-        });
+            //networkWorld.DeletePlayer(id);
+        });*/
 
         On("close", (E) =>
         {            
@@ -136,30 +87,16 @@ public class NetworkClient : SocketIOComponent
         });
     }
 
-    public UDPSocketComponent GetSocketUDP()
-    {
-        return socketUDP;
-    }
-
-    public void SetSocketReference(UDPSocketComponent Socket)
-    {
-        socketUDP = Socket;
-    }
-
     public SocketIOComponent GetSocket()
     {
-        return socket;
+        return _socket;
     }
 
     public void SetSocketReference(SocketIOComponent Socket)
     {
-        socket = Socket;
+        this._socket = Socket;
     }
 
-    public void DisconnectUDP()
-    {
-        socketUDP.udpSocketState = UDPSocketComponent.UDPSocketState.DISCONNECTED;
-    }
 }
 
 // GetSocket().Emit("rpc", new JSONObject(JsonUtility.ToJson(data))); // Послать TCP
