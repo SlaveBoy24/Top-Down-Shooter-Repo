@@ -123,9 +123,11 @@ public class V4 // Quaternion
 
 [Serializable]
 public class PlayerData
-{    
+{
     public string id;
-    public V3 position;    
+    public string mail;
+    [HideInInspector]public string status;
+    public string username;  
 }
 
 
