@@ -5,9 +5,10 @@ public class NetworkIdentity : MonoBehaviour
 {
     public PlayerData Player = new PlayerData();
     public GameObject SetUsernamePanel;
-    private void Start()
+    public TMP_Text ProfileUsername;
+    public void InitInformation()
     {
-
+        ProfileUsername.text = Player.username;
     }
     public void CheckUsername(TMP_InputField inputField)
     {

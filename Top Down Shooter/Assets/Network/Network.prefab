@@ -45,6 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d549f3e843baf3d42a832f33da90de3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player:
+    id: 
+    player_id: 0
+    mail: 
+    status: 
+    username: 
+  SetUsernamePanel: {fileID: 0}
+  ProfileUsername: {fileID: 0}
 --- !u!114 &4981495936232984740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,5 +69,6 @@ MonoBehaviour:
   ackExpirationTime: 1800
   pingInterval: 25
   pingTimeout: 60
-  ip: 195.123.217.231
-  port: 7777
+  _ip: 127.0.0.1
+  _port: 7777
+  NetworkIdentity: {fileID: 0}

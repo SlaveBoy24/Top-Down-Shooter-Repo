@@ -125,6 +125,7 @@ public class V4 // Quaternion
 public class PlayerData
 {
     public string id;
+    public int player_id;
     public string mail;
     [HideInInspector]public string status;
     public string username;  

@@ -10,6 +10,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         
         GameObject dropped = eventData.pointerDrag;
         Item itemBehaviour = dropped.GetComponent<Item>();
+        if (itemBehaviour == null) return;
 
         if ((itemBehaviour.item.Type != Type) && (Type != ItemType.None)) return;
 

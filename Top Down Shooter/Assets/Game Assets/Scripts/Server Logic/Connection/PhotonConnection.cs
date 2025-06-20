@@ -10,7 +10,6 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     public static PhotonConnection Instance;
     [SerializeField] private bool _connectedToServer;
     [SerializeField] private bool _connectedToLobby;
-
     public GameObject LoadingPanelTest;
     public GameObject NicknamePanelTest;
     public TMP_InputField NicknameInputTest;
@@ -27,12 +26,11 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
             Destroy(gameObject);
     }
 
-    public void SetNickname()
+    public void SetNickname(string nickname)
     { 
-        string nickname = NicknameInputTest.text;
         PhotonNetwork.NickName = nickname;
         PlayerPrefs.SetString("Nickname", nickname);
-        NicknamePanelTest.SetActive(false);
+        //NicknamePanelTest.SetActive(false);
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -40,11 +38,16 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     {
         Debug.Log("Connecting");
 
+        //NetworkClient.Instance;
+
         LoadingPanelTest.SetActive(true);
 
-        if (PlayerPrefs.HasKey("Nickname"))
+        PhotonNetwork.ConnectUsingSettings();
+
+        return;
+        if (PlayerPrefs.HasKey("PlayerID"))
         {
-            PhotonNetwork.NickName = PlayerPrefs.GetString("Nickname");
+            //PhotonNetwork.NickName = PlayerPrefs.GetString("Nickname");
             PhotonNetwork.ConnectUsingSettings();
         }
         else
