@@ -11,6 +11,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     [SerializeField] private bool _connectedToServer;
     [SerializeField] private bool _connectedToLobby;
 
+    public GameObject LoadingPanelTest;
     public GameObject NicknamePanelTest;
     public TMP_InputField NicknameInputTest;
 
@@ -39,6 +40,8 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     {
         Debug.Log("Connecting");
 
+        LoadingPanelTest.SetActive(true);
+
         if (PlayerPrefs.HasKey("Nickname"))
         {
             PhotonNetwork.NickName = PlayerPrefs.GetString("Nickname");
@@ -64,6 +67,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         _connectedToLobby = true;
+        LoadingPanelTest.SetActive(false);
         Debug.Log("Connected to Lobby");
     }
 

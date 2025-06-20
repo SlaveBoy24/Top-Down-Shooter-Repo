@@ -10,17 +10,10 @@ using System;
 
 public class PhotonRoom : MonoBehaviourPunCallbacks
 {
-
     public GameObject testLobbyPanel;
-    public GameObject testCreateRoomBtn;
-    public GameObject testRoomPanel;
 
     [SerializeField] private bool _isInRoom;
-    [SerializeField] private List<TextMeshProUGUI> _playersNicknames;
-
-    [SerializeField] private GameObject _findRoomPanel;
-    [SerializeField] private TMP_InputField _findRoomInput;
-
+    [SerializeField] private List<string> _playersNicknames;
     [SerializeField] private RoomManager _roomManager;
 
     private void Start()
@@ -73,9 +66,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
 
     public void JoinRoom()
     {
-        PhotonNetwork.JoinRoom(_findRoomInput.text);
+        /*PhotonNetwork.JoinRoom(_findRoomInput.text);
 
-        _findRoomPanel.SetActive(false);
+        _findRoomPanel.SetActive(false);*/
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
@@ -98,8 +91,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
 
         _isInRoom = false;
 
-        testCreateRoomBtn.SetActive(true);
-        testRoomPanel.SetActive(false);
+        /*testCreateRoomBtn.SetActive(true);
+        testRoomPanel.SetActive(false);*/
     }
 
     public override void OnJoinedRoom()
@@ -108,8 +101,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
         
         _isInRoom = true;
 
-        testCreateRoomBtn.SetActive(false);
-        testRoomPanel.SetActive(true);
+        /*testCreateRoomBtn.SetActive(false);
+        testRoomPanel.SetActive(true);*/
 
         Room currentRoom = PhotonNetwork.CurrentRoom;
         _roomManager.SetRoom(currentRoom);
