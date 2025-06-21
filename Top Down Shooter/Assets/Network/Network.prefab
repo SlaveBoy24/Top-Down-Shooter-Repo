@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 214787064525349256}
   - component: {fileID: 8980393263087096977}
+  - component: {fileID: 6915539937504373226}
   - component: {fileID: 4981495936232984740}
   m_Layer: 0
   m_Name: Network
@@ -51,8 +52,25 @@ MonoBehaviour:
     mail: 
     status: 
     username: 
-  SetUsernamePanel: {fileID: 0}
+  _usernamePanel: {fileID: 0}
   ProfileUsername: {fileID: 0}
+--- !u!114 &6915539937504373226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4368581149981369620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b1e60cd688a4924ebe91f7fdf6937b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefabFriendProfile: {fileID: 1717586176449338328, guid: 2066cc28b3d85e641a75a5c3301c0633,
+    type: 3}
+  _friendsPanel: {fileID: 0}
+  _friends:
+    friends: []
 --- !u!114 &4981495936232984740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,3 +90,4 @@ MonoBehaviour:
   _ip: 127.0.0.1
   _port: 7777
   NetworkIdentity: {fileID: 0}
+  NetworkFriends: {fileID: 0}

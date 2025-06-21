@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SocketIO;
-using UDPSocket;
 using Project;
 using Project.Utility;
-using UnityEditor.ShaderGraph.Serialization;
 
 public class NetworkClient : SocketIOComponent
 {
@@ -15,6 +13,7 @@ public class NetworkClient : SocketIOComponent
     [SerializeField] private string _ip = "127.0.0.1";
     [SerializeField] private int _port = 80;
     [HideInInspector]public NetworkIdentity NetworkIdentity;
+    [HideInInspector]public NetworkFriends NetworkFriends;
     public void Awake()
     {
         SetAddress(_ip, _port);
@@ -28,6 +27,7 @@ public class NetworkClient : SocketIOComponent
     {
         DontDestroyOnLoad(this.gameObject);
         NetworkIdentity = Instance.GetComponent<NetworkIdentity>();
+        NetworkFriends = Instance.GetComponent<NetworkFriends>();
 
         base.Start();
         ConnectClient();
@@ -37,17 +37,28 @@ public class NetworkClient : SocketIOComponent
 
     public void ConnectClient()
     {
-        SetupEventsTCP();
+        SetupEvents();
+        SetupEventsForFriendSystem();
 
         base.Connect();
     }
+    private void SetupEventsForFriendSystem()
+    {
+        On("friend_list", (E) =>
+        {
+            Friends friends_data = new Friends();
+            friends_data = JsonUtility.FromJson<Friends>(E.data.ToString());
 
-    private void SetupEventsTCP()
+            NetworkFriends.SetupFriendList(friends_data);
+        });
+    }
+
+    private void SetupEvents()
     {
         On("open", (E) =>
         {
             Debug.Log("Connected made to the Server");
-        });        
+        });
 
         On("init", (E) =>
         {
@@ -87,37 +98,21 @@ public class NetworkClient : SocketIOComponent
 
             if (data.username == "")
             {
-                NetworkIdentity.SetUsernamePanel.SetActive(true);
+                NetworkIdentity.ShowUsernamePanel(true);
                 Debug.Log("SetUsername()");
             }
             else
             {
                 NetworkIdentity.Player.username = data.username;
-                NetworkIdentity.SetUsernamePanel.SetActive(false);
+                NetworkIdentity.ShowUsernamePanel(false);
 
                 NetworkIdentity.InitInformation();
+                NetworkFriends.InitFriendsInfo();
             }
         });
 
-        /*On("spawnOther", (E) =>
-        {
-            PlayerData data = new PlayerData();
-            data = JsonUtility.FromJson<PlayerData>(E.data.ToString());
-
-            Debug.Log("Spawn player: " + data.id);
-
-            //SpawnPlayer(data, false);
-
-        });
-
-        On("disconnected", (E) =>
-        {
-            string id = E.data["id"].ToString().RemoveQuotes();
-            //networkWorld.DeletePlayer(id);
-        });*/
-
         On("close", (E) =>
-        {            
+        {
             Debug.Log("Disconnected Client");
             //base.Close(); //Заглушить реконект
 

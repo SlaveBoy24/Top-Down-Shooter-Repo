@@ -131,4 +131,17 @@ public class PlayerData
     public string username;  
 }
 
+[Serializable]
+public class Friends
+{
+    public List<Friend> list;
+}
 
+[Serializable]
+public class Friend
+{
+    public string id;
+    public string user_id;
+    public string username;
+    public string status;
+}
