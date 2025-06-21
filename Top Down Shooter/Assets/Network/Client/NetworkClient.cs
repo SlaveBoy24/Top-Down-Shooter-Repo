@@ -5,6 +5,7 @@ using UnityEngine;
 using SocketIO;
 using Project;
 using Project.Utility;
+using Photon.Realtime;
 
 public class NetworkClient : SocketIOComponent
 {
@@ -117,6 +118,8 @@ public class NetworkClient : SocketIOComponent
                 NetworkIdentity.InitInformation();
                 NetworkFriends.InitFriendsInfo();
             }
+
+            _socket.Emit("past_init", new JSONObject(JsonUtility.ToJson(NetworkIdentity.Player)));
         });
 
         On("close", (E) =>
