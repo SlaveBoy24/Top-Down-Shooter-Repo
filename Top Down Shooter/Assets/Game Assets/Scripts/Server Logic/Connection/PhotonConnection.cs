@@ -20,40 +20,19 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
         {
             Instance = this;
             DontDestroyOnLoad(this);
-            ConnectToServer();
         }
         else
             Destroy(gameObject);
+
+        LoadingPanelTest.SetActive(true);
     }
 
-    public void SetNickname(string nickname)
-    { 
-        PhotonNetwork.NickName = nickname;
-        PlayerPrefs.SetString("Nickname", nickname);
-        //NicknamePanelTest.SetActive(false);
-        PhotonNetwork.ConnectUsingSettings();
-    }
-
-    private void ConnectToServer()
+    public void ConnectToServer()
     {
         Debug.Log("Connecting");
 
-        //NetworkClient.Instance;
-
-        LoadingPanelTest.SetActive(true);
-
+        PhotonNetwork.NickName = NetworkClient.Instance.NetworkIdentity.Player.username;
         PhotonNetwork.ConnectUsingSettings();
-
-        return;
-        if (PlayerPrefs.HasKey("PlayerID"))
-        {
-            //PhotonNetwork.NickName = PlayerPrefs.GetString("Nickname");
-            PhotonNetwork.ConnectUsingSettings();
-        }
-        else
-        {
-            NicknamePanelTest.SetActive(true);
-        }
     }
 
     public override void OnConnectedToMaster()

@@ -6,10 +6,12 @@ public class NetworkIdentity : MonoBehaviour
     public PlayerData Player = new PlayerData();
     [SerializeField]private GameObject _usernamePanel;
     public TMP_Text ProfileUsername;
+
     public void ShowUsernamePanel(bool value)
     {
         _usernamePanel.SetActive(value);
     }
+
     public void InitInformation()
     {
         ProfileUsername.text = Player.username;

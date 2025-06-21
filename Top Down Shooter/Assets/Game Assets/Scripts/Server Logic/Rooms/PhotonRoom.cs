@@ -12,7 +12,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
 {
     public GameObject testLobbyPanel;
 
-    [SerializeField] private bool _isInRoom;
     [SerializeField] private List<string> _playersNicknames;
     [SerializeField] private RoomManager _roomManager;
 
@@ -89,8 +88,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
     {
         base.OnLeftRoom();
 
-        _isInRoom = false;
-
         /*testCreateRoomBtn.SetActive(true);
         testRoomPanel.SetActive(false);*/
     }
@@ -98,8 +95,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        
-        _isInRoom = true;
 
         /*testCreateRoomBtn.SetActive(false);
         testRoomPanel.SetActive(true);*/

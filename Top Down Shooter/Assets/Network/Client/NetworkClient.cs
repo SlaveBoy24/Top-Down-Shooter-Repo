@@ -117,6 +117,8 @@ public class NetworkClient : SocketIOComponent
 
                 NetworkIdentity.InitInformation();
                 NetworkFriends.InitFriendsInfo();
+
+                PhotonConnection.Instance.ConnectToServer();
             }
 
             _socket.Emit("past_init", new JSONObject(JsonUtility.ToJson(NetworkIdentity.Player)));
