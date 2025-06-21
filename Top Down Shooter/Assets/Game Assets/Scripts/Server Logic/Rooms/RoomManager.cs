@@ -6,6 +6,13 @@ using TMPro;
 using Photon.Realtime;
 using Photon.Pun;
 
+public class LobbyPlayer
+{
+    public GameObject PlayerObject;
+    public Transform PlayerPosition;
+    public bool IsHost;
+}
+
 public class RoomManager : MonoBehaviour
 {
     [SerializeField] private PhotonRoom _photonRoom;
