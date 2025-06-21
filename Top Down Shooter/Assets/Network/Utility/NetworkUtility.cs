@@ -145,3 +145,9 @@ public class Friend
     public string username;
     public string status;
 }
+
+[Serializable]
+public class Invite
+{
+    public string where;
+}

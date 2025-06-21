@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NetworkFriends : MonoBehaviour
 {
@@ -37,6 +38,10 @@ public class NetworkFriends : MonoBehaviour
         var status_smile = friend.status == "offline" ? "red" : "green";
 
         label.text = $"{friend.username} <color={status_smile}>●</color>";
+
+        var button = friendGameObject.GetComponentInChildren<Button>();
+
+        button.onClick.AddListener(() => InviteFriend(friend));
     }
 
     public void InitFriendsInfo()
@@ -45,5 +50,9 @@ public class NetworkFriends : MonoBehaviour
             .Emit("get_friend_list");
     }
 
-    
+    public void InviteFriend(Friend friend)
+    {
+        NetworkClient.Instance.GetSocket()
+            .Emit("invite_friend", new JSONObject(JsonUtility.ToJson(friend)));
+    }
 }

@@ -51,6 +51,14 @@ public class NetworkClient : SocketIOComponent
 
             NetworkFriends.SetupFriendList(friends_data);
         });
+
+        On("invite_friend", (E) =>
+        {
+            Invite newInvite = new Invite();
+            newInvite = JsonUtility.FromJson<Invite>(E.data.ToString());
+
+            Debug.Log($"new invite from {newInvite.where}");
+        });
     }
 
     private void SetupEvents()
