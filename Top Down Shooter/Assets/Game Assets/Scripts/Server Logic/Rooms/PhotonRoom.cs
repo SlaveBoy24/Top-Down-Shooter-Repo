@@ -69,9 +69,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(shortUniqueId, roomOptions, null);
     }
 
-    public void JoinFriendRoom(string username)
-    {
 
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
     }
 
     public void JoinRoom(string name)
@@ -97,8 +98,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
     {
         base.OnLeftRoom();
 
-        /*testCreateRoomBtn.SetActive(true);
-        testRoomPanel.SetActive(false);*/
+        _roomManager.ResetRoom();
     }
 
     public override void OnJoinedRoom()
@@ -107,15 +107,15 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
 
         ActionsToExecuteOnRoomJoin?.Invoke();
 
-        /*testCreateRoomBtn.SetActive(false);
-        testRoomPanel.SetActive(true);*/
-
         Room currentRoom = PhotonNetwork.CurrentRoom;
         Player localPlayer = PhotonNetwork.LocalPlayer;
 
         ExitGames.Client.Photon.Hashtable roomCustomProperties = currentRoom.CustomProperties;
 
-        roomCustomProperties.Add(localPlayer.NickName, localPlayer.IsMasterClient);
+        if (!roomCustomProperties.ContainsKey(localPlayer.NickName))
+            roomCustomProperties.Add(localPlayer.NickName, localPlayer.IsMasterClient);
+        else
+            roomCustomProperties[localPlayer.NickName] = localPlayer.IsMasterClient;
 
         currentRoom.SetCustomProperties(roomCustomProperties);
         _roomManager.SetRoom(currentRoom);
@@ -124,8 +124,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
-
-        _roomManager.UpdatePlayerList();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -134,8 +132,11 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
 
         Room currentRoom = PhotonNetwork.CurrentRoom;
         ExitGames.Client.Photon.Hashtable roomCustomProperties = currentRoom.CustomProperties;
-        roomCustomProperties.Remove(otherPlayer.NickName);
+        if (roomCustomProperties.ContainsKey(otherPlayer.NickName));
+            roomCustomProperties.Remove(otherPlayer.NickName);
         currentRoom.SetCustomProperties(roomCustomProperties);
+
+        _roomManager.RemovePlayer(otherPlayer);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)

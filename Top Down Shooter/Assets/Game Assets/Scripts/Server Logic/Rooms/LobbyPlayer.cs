@@ -32,7 +32,7 @@ public class LobbyPlayer : MonoBehaviour
 
     public void SetUI(bool hasButtons=true)
     {
-        if (PhotonNetwork.CurrentRoom != null)
+        if (PhotonNetwork.CurrentRoom != null && Player != null)
         {
             string playerState = "not ready";
             if (IsReady)

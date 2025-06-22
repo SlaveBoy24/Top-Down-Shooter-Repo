@@ -55,21 +55,18 @@ public class RoomManager : MonoBehaviour
         _playerInstances[0].SetPlayer(PhotonNetwork.LocalPlayer, _playerPrefab, true, true);
 
         _testStartGameBtn.SetActive(true);
-        _testChangeReadyStateBtn.SetActive(!false);
+        _testChangeReadyStateBtn.SetActive(false);
     }
 
     public void UpdatePlayerList()
     {
-        int playerCount = _currentRoom.PlayerCount;
         ExitGames.Client.Photon.Hashtable customRoomProperties = _currentRoom.CustomProperties;
 
-        for (int i = 0; i < playerCount; i++)
+        foreach (KeyValuePair<int, Player> entry in _currentRoom.Players)
         {
-            Player player = _currentRoom.Players[i+1];
-            Debug.Log($"playerCount - {playerCount}; id - {i}; player - {player};");
+            Player player = entry.Value;
             if (player == null)
                 continue;
-
             if (!PlayerInList(player))
             {
                 bool isReady = (bool)customRoomProperties[player.NickName];
@@ -95,9 +92,10 @@ public class RoomManager : MonoBehaviour
     private bool PlayerInList(Player player)
     {
         for (int i = 0; i < _playerInstances.Count; i++)
-        { 
-            if (_playerInstances[i].Player.UserId == player.UserId)
-                return true;
+        {
+            if (_playerInstances[i].Player != null)
+                if (_playerInstances[i].Player.UserId == player.UserId)
+                    return true;
         }
 
         return false;
@@ -118,10 +116,9 @@ public class RoomManager : MonoBehaviour
     {
         for (int i = 0; i < _playerInstances.Count; i++)
         {
-            if (_playerInstances[i].Player.UserId == player.UserId)
-            {
-                _playerInstances[i].Clear();
-            }
+            if (_playerInstances[i].Player != null)
+                if (_playerInstances[i].Player.UserId == player.UserId)
+                    _playerInstances[i].Clear();
         }
     }
 
