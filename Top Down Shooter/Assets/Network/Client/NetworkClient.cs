@@ -10,20 +10,28 @@ using Photon.Realtime;
 public class NetworkClient : SocketIOComponent
 {
     public static NetworkClient Instance;
+    [SerializeField] private bool _isInitialized;
     private SocketIOComponent _socket;
     [SerializeField] private string _ip = "127.0.0.1";
     [SerializeField] private int _port = 80;
     [HideInInspector]public NetworkIdentity NetworkIdentity;
-    [HideInInspector]public NetworkFriends NetworkFriends;
+    [SerializeField] private FriendController _friendController;
 
     [SerializeField] private GameObject _testInvitePrefab;
 
+
     public void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+            Destroy(this);
+        
         SetAddress(_ip, _port);
         Debug.Log($"Setup Address - {_ip}:{_port}");
 
-        NetworkClient.Instance = this;
         base.Awake();
     }
 
@@ -31,7 +39,6 @@ public class NetworkClient : SocketIOComponent
     {
         DontDestroyOnLoad(this.gameObject);
         NetworkIdentity = Instance.GetComponent<NetworkIdentity>();
-        NetworkFriends = Instance.GetComponent<NetworkFriends>();
 
         base.Start();
         ConnectClient();
@@ -53,7 +60,10 @@ public class NetworkClient : SocketIOComponent
             Friends friends_data = new Friends();
             friends_data = JsonUtility.FromJson<Friends>(E.data.ToString());
 
-            NetworkFriends.SetupFriendList(friends_data);
+            if (_friendController == null)
+                _friendController = FindFirstObjectByType<FriendController>();
+
+            _friendController.SetupFriendList(friends_data);
         });
 
         On("invite_friend", (E) =>
@@ -122,8 +132,9 @@ public class NetworkClient : SocketIOComponent
                 NetworkIdentity.ShowUsernamePanel(false);
 
                 NetworkIdentity.InitInformation();
-                NetworkFriends.InitFriendsInfo();
 
+                _isInitialized = true;
+                
                 PhotonConnection.Instance.ConnectToServer();
             }
 
@@ -146,6 +157,11 @@ public class NetworkClient : SocketIOComponent
     public void SetSocketReference(SocketIOComponent Socket)
     {
         this._socket = Socket;
+    }
+
+    public bool IsInitialized()
+    {
+        return _isInitialized;
     }
 
 }
