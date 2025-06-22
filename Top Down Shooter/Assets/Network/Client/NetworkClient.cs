@@ -17,8 +17,10 @@ public class NetworkClient : SocketIOComponent
     [HideInInspector]public NetworkIdentity NetworkIdentity;
     [SerializeField] private FriendController _friendController;
 
-    [SerializeField] private GameObject _testInvitePrefab;
+    [SerializeField] private GameObject _notificationZone;
 
+    [SerializeField] private GameObject _testInvitePrefab;
+    [SerializeField] private GameObject _testDeclineInvitePrefab;
 
     public void Awake()
     {
@@ -66,15 +68,35 @@ public class NetworkClient : SocketIOComponent
             _friendController.SetupFriendList(friends_data);
         });
 
+        On("ping_from_friend", (E) =>
+        {
+            PingFromFriend ping_from_friend_data = new PingFromFriend();
+            ping_from_friend_data = JsonUtility.FromJson<PingFromFriend>(E.data.ToString());
+
+            if (_friendController == null)
+                _friendController = FindFirstObjectByType<FriendController>();
+
+            _friendController.UpdateFriendStatus(ping_from_friend_data);
+        });
+
         On("invite_friend", (E) =>
         {
-            Invite newInvite = new Invite();
-            newInvite = JsonUtility.FromJson<Invite>(E.data.ToString());
+            var newInvite = JsonUtility.FromJson<Invite>(E.data.ToString());
 
-            Debug.Log($"new invite from {newInvite.where}");
+            Debug.Log($"invite from {newInvite.where_username}");
 
             InvitePanel invite = Instantiate(_testInvitePrefab).GetComponent<InvitePanel>();
-            invite.SetRoomName(newInvite.where);
+            invite.InitInvitePanel(newInvite);
+        });
+
+        On("invite_decline", (E) =>
+        {
+            var newInvite = JsonUtility.FromJson<Invite>(E.data.ToString());
+
+            Debug.Log($"decline invite from {newInvite.to_username}");
+
+            DeclineInvitePanel invite = Instantiate(_testDeclineInvitePrefab, _notificationZone.transform).GetComponent<DeclineInvitePanel>();
+            invite.InitDeclineInvitePanel(newInvite);
         });
     }
 

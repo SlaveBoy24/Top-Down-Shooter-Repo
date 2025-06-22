@@ -11,16 +11,32 @@ public class FriendInfoPanel : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI _nickname;
     [SerializeField] private GameObject _inviteButton;
+    public string GetUsername()
+    {
+        return _friend.username;
+    }
+    public void SetStatus(string status)
+    {
+        _isOnline = CheckStatus(status);
 
+        SetUI();
+    }
+    public bool CheckStatus(string status)
+    {
+        switch (status)
+        {
+            case "online":
+                return true;
+            default:
+                return false;
+        }
+    }
     public void SetInfoPanel(Friend friend, FriendController friendController)
     {
         _friendController = friendController;
         _friend = friend;
 
-        if (_friend.status == "offline")
-            _isOnline = false;
-        else
-            _isOnline = true;
+        _isOnline = CheckStatus(_friend.status);
 
         SetUI();
     }

@@ -144,11 +144,26 @@ public class Friend
     public string user_id;
     public string username;
     public string status;
-    public string roomNameTest;
 }
 
 [Serializable]
 public class Invite
 {
-    public string where;
+    public string where_username;
+    public string to_username;
+    public string photon_room;
+
+    public Invite(Friend friend, string photon_room)
+    {
+        where_username = NetworkClient.Instance.NetworkIdentity.Player.username;
+        to_username = friend.username;
+        this.photon_room = photon_room;
+    }
+}
+
+[Serializable]
+public class PingFromFriend
+{
+    public string username;
+    public string status;
 }

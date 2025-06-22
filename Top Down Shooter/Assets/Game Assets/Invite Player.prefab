@@ -470,7 +470,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5643031799400967311}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6481759668799120772}
+        m_TargetAssemblyTypeName: InvitePanel, Assembly-CSharp
+        m_MethodName: Decline
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6338546490663991063
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,6 +732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _roomName: 
+  _whoSendInvite: 
 --- !u!1 &7579859011053186555
 GameObject:
   m_ObjectHideFlags: 0

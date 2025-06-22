@@ -2,6 +2,7 @@
 using Photon.Pun;
 using System.Collections.Generic;
 using System.Collections;
+using Photon.Realtime;
 
 public class FriendController : MonoBehaviour
 {
@@ -63,6 +64,17 @@ public class FriendController : MonoBehaviour
             case "findFriends":
                 _findFriendsPanel.SetActive(true);
                 break;
+        }
+    }
+
+    public void UpdateFriendStatus(PingFromFriend pingFromFriend)
+    {
+        foreach (FriendInfoPanel friend in _friendsInfoPanels)
+        {
+            if (friend.GetUsername() == pingFromFriend.username)
+            {
+                friend.SetStatus(pingFromFriend.status);
+            }
         }
     }
 
@@ -135,8 +147,9 @@ public class FriendController : MonoBehaviour
 
     private void Invite(Friend friend)
     {
-        friend.roomNameTest = PhotonNetwork.CurrentRoom.Name;
+        Invite invite = new Invite(friend, PhotonNetwork.CurrentRoom.Name);
+
         NetworkClient.Instance.GetSocket()
-            .Emit("invite_friend", new JSONObject(JsonUtility.ToJson(friend)));
+            .Emit("invite_friend", new JSONObject(JsonUtility.ToJson(invite)));
     }
 }
