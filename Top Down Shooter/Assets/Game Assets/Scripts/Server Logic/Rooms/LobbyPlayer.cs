@@ -37,8 +37,8 @@ public class LobbyPlayer : MonoBehaviour
             string playerState = "not ready";
             if (IsReady)
                 playerState = "ready";
-
-            PlayerUI.SetNickname(Player.NickName);
+            if (Player != null)
+                PlayerUI.SetNickname(Player.NickName);
             PlayerUI.SetStatus(playerState);
             if (hasButtons)
                 PlayerUI.SetButtons(Player);

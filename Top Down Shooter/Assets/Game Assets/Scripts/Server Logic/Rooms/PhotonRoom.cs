@@ -7,10 +7,13 @@ using Photon.Realtime;
 using System.Security.Cryptography;
 using System.Text;
 using System;
+using UnityEngine.Events;
 
 public class PhotonRoom : MonoBehaviourPunCallbacks
 {
     public GameObject testLobbyPanel;
+
+    public Action ActionsToExecuteOnRoomJoin;
 
     [SerializeField] private List<string> _playersNicknames;
     [SerializeField] private RoomManager _roomManager;
@@ -38,7 +41,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
             return false;
     }
 
-    public void CreateRoom()
+    public void CreateRoom(Action action = null)
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.PublishUserId = true;
@@ -60,14 +63,20 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
                                     .Substring(0, 8); // Adjust length as needed
         }
 
+        if (action != null)
+            ActionsToExecuteOnRoomJoin += action;
+
         PhotonNetwork.CreateRoom(shortUniqueId, roomOptions, null);
     }
 
-    public void JoinRoom()
+    public void JoinFriendRoom(string username)
     {
-        /*PhotonNetwork.JoinRoom(_findRoomInput.text);
 
-        _findRoomPanel.SetActive(false);*/
+    }
+
+    public void JoinRoom(string name)
+    {
+        PhotonNetwork.JoinRoom(name);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
@@ -96,11 +105,12 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
 
+        ActionsToExecuteOnRoomJoin?.Invoke();
+
         /*testCreateRoomBtn.SetActive(false);
         testRoomPanel.SetActive(true);*/
 
         Room currentRoom = PhotonNetwork.CurrentRoom;
-        _roomManager.SetRoom(currentRoom);
         Player localPlayer = PhotonNetwork.LocalPlayer;
 
         ExitGames.Client.Photon.Hashtable roomCustomProperties = currentRoom.CustomProperties;
@@ -108,6 +118,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
         roomCustomProperties.Add(localPlayer.NickName, localPlayer.IsMasterClient);
 
         currentRoom.SetCustomProperties(roomCustomProperties);
+        _roomManager.SetRoom(currentRoom);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)

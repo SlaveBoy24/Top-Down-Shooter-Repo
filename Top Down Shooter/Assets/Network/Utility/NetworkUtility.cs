@@ -144,6 +144,7 @@ public class Friend
     public string user_id;
     public string username;
     public string status;
+    public string roomNameTest;
 }
 
 [Serializable]

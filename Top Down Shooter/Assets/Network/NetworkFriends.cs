@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class NetworkFriends : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class NetworkFriends : MonoBehaviour
     [SerializeField] private GameObject _friendsPanel;
 
     [SerializeField] private Friends _friends = new Friends();
+
+    [SerializeField] private PhotonRoom _photonRoom;
 
     public void SetupFriendList(Friends value)
     {
@@ -52,6 +55,18 @@ public class NetworkFriends : MonoBehaviour
 
     public void InviteFriend(Friend friend)
     {
+        if (_photonRoom == null)
+            _photonRoom = FindFirstObjectByType<PhotonRoom>();
+
+        if (PhotonNetwork.CurrentRoom == null)
+            _photonRoom.CreateRoom(() => Invite(friend));
+        else
+            Invite(friend);
+    }
+
+    private void Invite(Friend friend)
+    {
+        friend.roomNameTest = PhotonNetwork.CurrentRoom.Name;
         NetworkClient.Instance.GetSocket()
             .Emit("invite_friend", new JSONObject(JsonUtility.ToJson(friend)));
     }

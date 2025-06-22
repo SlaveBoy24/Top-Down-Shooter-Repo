@@ -15,6 +15,9 @@ public class NetworkClient : SocketIOComponent
     [SerializeField] private int _port = 80;
     [HideInInspector]public NetworkIdentity NetworkIdentity;
     [HideInInspector]public NetworkFriends NetworkFriends;
+
+    [SerializeField] private GameObject _testInvitePrefab;
+
     public void Awake()
     {
         SetAddress(_ip, _port);
@@ -59,6 +62,9 @@ public class NetworkClient : SocketIOComponent
             newInvite = JsonUtility.FromJson<Invite>(E.data.ToString());
 
             Debug.Log($"new invite from {newInvite.where}");
+
+            InvitePanel invite = Instantiate(_testInvitePrefab).GetComponent<InvitePanel>();
+            invite.SetRoomName(newInvite.where);
         });
     }
 
