@@ -11,6 +11,10 @@ public class FriendInfoPanel : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI _nickname;
     [SerializeField] private GameObject _inviteButton;
+    [SerializeField] private GameObject _acceptButton;
+    [SerializeField] private GameObject _declineButton;
+    [SerializeField] private GameObject _addFriendButton;
+
     public string GetUsername()
     {
         return _friend.username;
@@ -19,7 +23,7 @@ public class FriendInfoPanel : MonoBehaviour
     {
         _isOnline = CheckStatus(status);
 
-        SetUI();
+        SetUI(1);
     }
     public bool CheckStatus(string status)
     {
@@ -31,14 +35,14 @@ public class FriendInfoPanel : MonoBehaviour
                 return false;
         }
     }
-    public void SetInfoPanel(Friend friend, FriendController friendController)
+    public void SetInfoPanel(Friend friend, FriendController friendController, int idInfoPanel)
     {
         _friendController = friendController;
         _friend = friend;
 
         _isOnline = CheckStatus(_friend.status);
 
-        SetUI();
+        SetUI(idInfoPanel);
     }
 
     public void InviteFriend()
@@ -46,15 +50,60 @@ public class FriendInfoPanel : MonoBehaviour
         _friendController.InviteFriend(_friend);
     }
 
-    private void SetUI()
-    { 
-        string lampColour = _isOnline ? "green" : "red";
-        _nickname.text = $"{_friend.username} <color={lampColour}>●</color>";
+    public void AcceptFriendRequest()
+    {
+        _friendController.AcceptFriendRequest(_friend);
 
-        if (_isOnline)
-            _inviteButton.SetActive(true);
-        else
-            _inviteButton.SetActive(false);
+        Destroy(gameObject);
+    }
+
+    public void DeclineFriendRequest()
+    {
+        _friendController.DeclineFriendRequest(_friend);
+
+        Destroy(gameObject);
+    }
+
+    public void AddFriend()
+    {
+        _friendController.AddFriend(_friend);
+    }
+
+    private void SetUI(int idInfoPanel)
+    {
+        switch (idInfoPanel)
+        {
+            case 0:
+                _acceptButton.SetActive(true);
+                _declineButton.SetActive(true);
+                _inviteButton.SetActive(false);
+                _addFriendButton.SetActive(false);
+
+                _nickname.text = $"{_friend.username}";
+                break;
+            case 1:
+                _acceptButton.SetActive(false);
+                _declineButton.SetActive(false);
+                _addFriendButton.SetActive(false);
+
+                string lampColour = _isOnline ? "green" : "red";
+                _nickname.text = $"{_friend.username} <color={lampColour}>●</color>";
+
+                if (_isOnline)
+                    _inviteButton.SetActive(true);
+                else
+                    _inviteButton.SetActive(false);
+                break;
+            case 2:
+                _acceptButton.SetActive(false);
+                _declineButton.SetActive(false);
+                _inviteButton.SetActive(false);
+                _addFriendButton.SetActive(true);
+
+                _nickname.text = $"{_friend.username}";
+                break;
+        }
+
     }
 
 }

@@ -3,6 +3,7 @@ using Photon.Pun;
 using System.Collections.Generic;
 using System.Collections;
 using Photon.Realtime;
+using TMPro;
 
 public class FriendController : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class FriendController : MonoBehaviour
     [SerializeField] private Transform _friendsContainer;
     [SerializeField] private Transform _requestContainer;
     [SerializeField] private Transform _findFriendsContainer;
-    
+
     [Header("UI Instances Lists")]
     [SerializeField] private List<FriendInfoPanel> _friendsInfoPanels;
     [SerializeField] private List<FriendInfoPanel> _requestInfoPanels;
@@ -43,6 +44,7 @@ public class FriendController : MonoBehaviour
         yield return new WaitUntil(() => NetworkClient.Instance.IsInitialized());
 
         NetworkClient.Instance.GetSocket().Emit("get_friend_list");
+        NetworkClient.Instance.GetSocket().Emit("get_request_friend_list");
     }
 
     public void ShowPanel(string value)
@@ -87,7 +89,7 @@ public class FriendController : MonoBehaviour
 
         foreach (Friend friend in _friends.list)
         {
-            AddElementToList(friend, _friendsInfoPanels, _friendsContainer);
+            AddElementToList(friend, _friendsInfoPanels, _friendsContainer, 1);
         }
     }
 
@@ -97,9 +99,9 @@ public class FriendController : MonoBehaviour
 
         ClearList(_requestInfoPanels);
 
-        foreach (Friend friend in _friends.list)
+        foreach (Friend friend in _request.list)
         {
-            AddElementToList(friend, _requestInfoPanels, _requestContainer);
+            AddElementToList(friend, _requestInfoPanels, _requestContainer, 0);
         }
     }
 
@@ -109,16 +111,16 @@ public class FriendController : MonoBehaviour
 
         ClearList(_findFriendsInfoPanels);
 
-        foreach (Friend friend in _friends.list)
+        foreach (Friend friend in _findFriends.list)
         {
-            AddElementToList(friend, _findFriendsInfoPanels, _findFriendsContainer);
+            AddElementToList(friend, _findFriendsInfoPanels, _findFriendsContainer, 2);
         }
     }
     #endregion
 
     public void ClearList(List<FriendInfoPanel> list)
     {
-        foreach(var item in list)
+        foreach (var item in list)
         {
             Destroy(item.gameObject);
         }
@@ -126,10 +128,10 @@ public class FriendController : MonoBehaviour
         list.Clear();
     }
 
-    public void AddElementToList(Friend friend, List<FriendInfoPanel> list, Transform container)
+    public void AddElementToList(Friend friend, List<FriendInfoPanel> list, Transform container, int idInfoPanel)
     {
         FriendInfoPanel friendInfoPanel = Instantiate(_prefabFriendProfile, container).GetComponent<FriendInfoPanel>();
-        friendInfoPanel.SetInfoPanel(friend, this);
+        friendInfoPanel.SetInfoPanel(friend, this, idInfoPanel);
 
         list.Add(friendInfoPanel);
     }
@@ -151,5 +153,32 @@ public class FriendController : MonoBehaviour
 
         NetworkClient.Instance.GetSocket()
             .Emit("invite_friend", new JSONObject(JsonUtility.ToJson(invite)));
+    }
+
+    public void AddFriend(Friend friend)
+    {
+        NetworkClient.Instance.GetSocket()
+            .Emit("add_friend", new JSONObject(JsonUtility.ToJson(friend)));
+    }
+
+    public void AcceptFriendRequest(Friend friend)
+    {
+        NetworkClient.Instance.GetSocket()
+            .Emit("accept_friend_request", new JSONObject(JsonUtility.ToJson(friend)));
+    }
+
+    public void DeclineFriendRequest(Friend friend)
+    {
+        NetworkClient.Instance.GetSocket()
+            .Emit("decline_friend_request", new JSONObject(JsonUtility.ToJson(friend)));
+    }
+
+    public void SearchFriend(TMP_InputField tMP_InputField)
+    {
+        SearchFriend searchFriend = new SearchFriend();
+        searchFriend.username = tMP_InputField.text;
+
+        NetworkClient.Instance.GetSocket()
+            .Emit("search_friend", new JSONObject(JsonUtility.ToJson(searchFriend)));
     }
 }

@@ -3,15 +3,13 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class DeclineInvitePanel : MonoBehaviour
+public class NotificationPanel : MonoBehaviour
 {
-    [SerializeField] private Invite _inviteData;
-    public void InitDeclineInvitePanel(Invite invite)
+    public void InitNotificationPanel(string text)
     {
-        _inviteData = invite;
-
         var declineInviteText = GetComponentInChildren<TMP_Text>();
-        declineInviteText.text = $"{_inviteData.to_username} declined your invite";
+        declineInviteText.text = text;
+
         StartCoroutine(DestroyThis());
     }
 

@@ -68,6 +68,38 @@ public class NetworkClient : SocketIOComponent
             _friendController.SetupFriendList(friends_data);
         });
 
+        On("request_friend_list", (E) =>
+        {
+            Friends friends_data = new Friends();
+            friends_data = JsonUtility.FromJson<Friends>(E.data.ToString());
+
+            if (_friendController == null)
+                _friendController = FindFirstObjectByType<FriendController>();
+
+            _friendController.SetupRequestList(friends_data);
+        });
+
+        On("search_friend_list", (E) =>
+        {
+            Friends friends_data = new Friends();
+            friends_data = JsonUtility.FromJson<Friends>(E.data.ToString());
+
+            if (_friendController == null)
+                _friendController = FindFirstObjectByType<FriendController>();
+
+            _friendController.SetupFindFriendsList(friends_data);
+        });
+
+        On("friend_list_update", (E) =>
+        {
+            Instance.GetSocket().Emit("get_friend_list");
+        });
+
+        On("request_friend_list_update", (E) =>
+        {
+            Instance.GetSocket().Emit("get_request_friend_list");
+        });
+
         On("ping_from_friend", (E) =>
         {
             PingFromFriend ping_from_friend_data = new PingFromFriend();
@@ -95,8 +127,8 @@ public class NetworkClient : SocketIOComponent
 
             Debug.Log($"decline invite from {newInvite.to_username}");
 
-            DeclineInvitePanel invite = Instantiate(_testDeclineInvitePrefab, _notificationZone.transform).GetComponent<DeclineInvitePanel>();
-            invite.InitDeclineInvitePanel(newInvite);
+            NotificationPanel declineInvite = Instantiate(_testDeclineInvitePrefab, _notificationZone.transform).GetComponent<NotificationPanel>();
+            declineInvite.InitNotificationPanel($"{newInvite.to_username} declined your invite");
         });
     }
 
@@ -124,6 +156,12 @@ public class NetworkClient : SocketIOComponent
             }
 
             _socket.Emit("init_confirmed", new JSONObject(JsonUtility.ToJson(data)));
+        });
+
+        On("username_not_agree", (E) =>
+        {
+            NotificationPanel usernameNotAgree = Instantiate(_testDeclineInvitePrefab, _notificationZone.transform).GetComponent<NotificationPanel>();
+            usernameNotAgree.InitNotificationPanel("Wrong username, try something else!");
         });
 
         On("username_init", (E) =>

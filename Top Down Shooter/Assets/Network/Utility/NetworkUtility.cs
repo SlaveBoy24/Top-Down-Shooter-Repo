@@ -167,3 +167,9 @@ public class PingFromFriend
     public string username;
     public string status;
 }
+
+[Serializable]
+public class SearchFriend
+{
+    public string username;
+}
