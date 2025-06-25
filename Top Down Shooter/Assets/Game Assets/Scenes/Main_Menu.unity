@@ -7583,20 +7583,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4981495936232984740, guid: 93bc807cdc951914a9c5768545d81b15,
         type: 3}
-      propertyPath: _ip
-      value: 192.168.1.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981495936232984740, guid: 93bc807cdc951914a9c5768545d81b15,
-        type: 3}
       propertyPath: _notificationZone
       value: 
       objectReference: {fileID: 1783775161}
-    - target: {fileID: 4981495936232984740, guid: 93bc807cdc951914a9c5768545d81b15,
-        type: 3}
-      propertyPath: _testDeclineInvitePrefab
-      value: 
-      objectReference: {fileID: 1901302702405914942, guid: 084a7aeb9286e214e95a6dc9c0315720,
-        type: 3}
     - target: {fileID: 8980393263087096977, guid: 93bc807cdc951914a9c5768545d81b15,
         type: 3}
       propertyPath: _usernamePanel

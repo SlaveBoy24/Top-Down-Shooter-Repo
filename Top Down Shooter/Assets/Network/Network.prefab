@@ -65,14 +65,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2371eddd89162254abbe5e955832b53f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reconnectDelay: 5
+  reconnectDelay: 60
   ackExpirationTime: 1800
-  pingInterval: 25
-  pingTimeout: 60
+  pingInterval: 80
+  pingTimeout: 120
   _isInitialized: 0
-  _ip: 217.28.222.29
+  _ip: 77.239.98.157
   _port: 7777
   NetworkIdentity: {fileID: 0}
   _friendController: {fileID: 0}
+  _notificationZone: {fileID: 0}
   _testInvitePrefab: {fileID: 6480579930416491070, guid: 7e4552768e7b04546b1e66b270c64598,
+    type: 3}
+  _testDeclineInvitePrefab: {fileID: 1901302702405914942, guid: 084a7aeb9286e214e95a6dc9c0315720,
     type: 3}
