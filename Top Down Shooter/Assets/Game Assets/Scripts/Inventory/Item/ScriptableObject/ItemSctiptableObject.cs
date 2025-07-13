@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ItemSctiptableObject", menuName = "Game Scriptable Objects/ItemSctiptableObject")]
+[Serializable]
 public class ItemSctiptableObject : ScriptableObject
 {
     public ItemType Type;

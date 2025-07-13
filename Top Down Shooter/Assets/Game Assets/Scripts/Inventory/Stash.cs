@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stash : MonoBehaviour
 {
@@ -9,33 +13,54 @@ public class Stash : MonoBehaviour
     public GameObject SlotPrefab;
     public GameObject BlockSlotPrefab;
     public int SlotInLine = 8;
-
+    public ItemType SlotType = ItemType.None;
     public int SlotCount;
     public int BlockedSlotCount;
 
-    private void Start()
+    [SerializeField] private Item[] _items;
+
+    public Item[] Items { get => _items; }
+
+    private void Awake()
     {
         Despawn();
         SetSize();
         SpawnSlots();
     }
+
+    private void Start()
+    {
+        this.InvokeStash();
+    }
     private void Despawn()
     {
-        while (GridParent.transform.childCount > 0) {
+        while (GridParent.transform.childCount > 0)
+        {
             DestroyImmediate(GridParent.transform.GetChild(0).gameObject);
         }
     }
     private void SpawnSlots()
     {
         for (int i = 0; i < SlotCount; i++)
-            Instantiate(SlotPrefab, GridParent);
+        {
+            var slot = Instantiate(SlotPrefab, GridParent);
+            slot.GetComponentInChildren<GridLayoutGroup>().cellSize = new Vector2(CellSize, CellSize);
+            var slot_settings = slot.GetComponentInChildren<InventorySlot>();
+            slot_settings.Stash = this;
+            slot_settings.SlotID = i;
+            slot_settings.Type = SlotType;
+        }
         for (int i = 0; i < BlockedSlotCount; i++)
-            Instantiate(BlockSlotPrefab, GridParent);
+        {
+            var block_slot = Instantiate(BlockSlotPrefab, GridParent);
+        }
+
+        _items = new Item[SlotCount];
     }
-    private int GetLineCount(int slot) => Mathf.CeilToInt((float)(slot)/SlotInLine);
+    private int GetLineCount(int slot) => Mathf.CeilToInt((float)(slot) / SlotInLine);
     private void SetSize()
     {
-        var gph = CellSize * GetLineCount(SlotCount+BlockedSlotCount);
+        var gph = CellSize * GetLineCount(SlotCount + BlockedSlotCount);
 
         var rectGridParent = GridParent.GetComponent<RectTransform>();
         rectGridParent.sizeDelta = new Vector2(rectGridParent.sizeDelta.x, gph);

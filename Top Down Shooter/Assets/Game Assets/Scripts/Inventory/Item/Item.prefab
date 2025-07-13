@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ImageItem: {fileID: 0}
   ParentAfterDrag: {fileID: 0}
-  item: {fileID: 11400000, guid: 36c6fccbc71a13b4288d15d051930cfb, type: 2}
+  item: {fileID: 11400000, guid: ed4c420f4e4265f41a2c6bb32034f743, type: 2}
 --- !u!1 &8154048637326843484
 GameObject:
   m_ObjectHideFlags: 0

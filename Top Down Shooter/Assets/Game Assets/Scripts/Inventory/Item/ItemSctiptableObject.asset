@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ItemSctiptableObject
   m_EditorClassIdentifier: 
   Type: 42
-  ValueType: 3
+  ValueType: 2
   Icon: {fileID: 21300000, guid: a72d6c2c08d1936408a9b544ebf214ab, type: 3}
   Cost: 0
   Heal: 0
