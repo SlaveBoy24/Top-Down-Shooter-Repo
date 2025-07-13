@@ -9,8 +9,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     public ItemType Type = ItemType.None;
     public void OnDrop(PointerEventData eventData)
     {
-        if (transform.childCount != 0) return;
-
         GameObject dropped = eventData.pointerDrag;
         Item itemBehaviour = dropped.GetComponent<Item>();
         InventorySlot PastParent = null;
@@ -19,6 +17,53 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
         if (itemBehaviour.ParentAfterDrag != null)
             PastParent = itemBehaviour.ParentAfterDrag.GetComponent<InventorySlot>();
+
+        if ((itemBehaviour.item.Type == ItemType.Backpack) && (PastParent.Stash.gameObject.name == "Backpack Slot"))
+        {
+            if (!GlobalStashes.Backpack.isFree())
+            {
+                NetworkClient.Instance.CreateRedNotification("Empty ur backpack!");
+                Debug.LogError("Empty ur backpack!");
+                return;
+            }
+        }
+
+        if ((PastParent.Stash.gameObject.name == "Backpack Slot") && (Stash.gameObject.name == "Backpack"))
+        {
+            NetworkClient.Instance.CreateRedNotification("You can't put a backpack in a backpack!");
+            Debug.LogError("You can't put a backpack in a backpack!");
+            return;
+        }
+
+        if (transform.childCount != 0)
+        {
+            var childrenItem = transform.GetChild(0).GetComponent<Item>();
+
+            if (childrenItem.item.name == itemBehaviour.item.name)
+            {
+                if (childrenItem.item.CanStack)
+                {
+                    if (childrenItem.item.MaxStackValue >= (childrenItem.Count + itemBehaviour.Count))
+                    {
+                        childrenItem.Count += itemBehaviour.Count;
+                        PastParent.Stash.SetNullItem(PastParent.SlotID);
+
+                        Destroy(itemBehaviour.gameObject);
+
+                        childrenItem.UpdateText();
+
+                        GlobalStashes.Invoke(Stash, PastParent.Stash);
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"u stack bigger then limit {childrenItem.Count}+{itemBehaviour.Count}={childrenItem.Count + itemBehaviour.Count}>{childrenItem.item.MaxStackValue}");
+                        return;
+                    }
+                }
+            }
+
+            return;
+        }
 
         if ((itemBehaviour.item.Type != Type) && (Type != ItemType.None)) return;
 

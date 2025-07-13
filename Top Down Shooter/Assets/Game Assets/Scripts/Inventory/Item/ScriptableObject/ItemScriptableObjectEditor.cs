@@ -6,18 +6,20 @@ using UnityEditor;
 [CustomEditor(typeof(ItemScriptableObject))]
 public class ItemSctiptableObjectEditor : Editor
 {
-    ItemScriptableObject _itemSctiptableObject;
-    SerializedObject _serializedItemSctiptableObject;
-    SerializedProperty _TypeProp;
-    SerializedProperty _TypeValueProp;
-    SerializedProperty _IconProp;
+    private ItemScriptableObject _itemSctiptableObject;
+    private SerializedObject _serializedItemSctiptableObject;
+    private SerializedProperty _typeProp;
+    private SerializedProperty _typeValueProp;
+    private SerializedProperty _iconProp;
+    private SerializedProperty _boolStackProp;
     private void OnEnable()
     {
         _itemSctiptableObject = target as ItemScriptableObject;
         _serializedItemSctiptableObject = new SerializedObject(_itemSctiptableObject);
-        _TypeProp = _serializedItemSctiptableObject.FindProperty("Type");
-        _TypeValueProp = _serializedItemSctiptableObject.FindProperty("ValueType");
-        _IconProp = _serializedItemSctiptableObject.FindProperty("Icon");
+        _typeProp = _serializedItemSctiptableObject.FindProperty("Type");
+        _typeValueProp = _serializedItemSctiptableObject.FindProperty("ValueType");
+        _iconProp = _serializedItemSctiptableObject.FindProperty("Icon");
+        _boolStackProp = _serializedItemSctiptableObject.FindProperty("CanStack");
     }
 
     public override void OnInspectorGUI()
@@ -36,7 +38,7 @@ public class ItemSctiptableObjectEditor : Editor
 
     private void DrawCustomInspector()
     {
-        EditorGUILayout.PropertyField(_TypeProp, new GUIContent("Тип предмета"));
+        EditorGUILayout.PropertyField(_typeProp, new GUIContent("Тип предмета"));
 
         if(_itemSctiptableObject.Type == ItemType.None)
             EditorGUILayout.HelpBox("При выборе типа придмета будут доступны дополнительные поля для заполнения!", MessageType.Info);
@@ -62,19 +64,32 @@ public class ItemSctiptableObjectEditor : Editor
         EditorStyles.label.normal.textColor = color;
         EditorStyles.label.focused.textColor = color;
 
-        EditorGUILayout.PropertyField(_TypeValueProp, new GUIContent("Тип стоимости", "Отоброжение важности и редкости"));
+        EditorGUILayout.PropertyField(_typeValueProp, new GUIContent("Тип стоимости", "Отоброжение важности и редкости"));
 
         EditorStyles.label.normal.textColor = old;
         EditorStyles.label.focused.textColor = oldActive;
 
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-        EditorGUILayout.PropertyField(_IconProp, new GUIContent("Иконка"));
+        EditorGUILayout.PropertyField(_iconProp, new GUIContent("Иконка"));
 
         _itemSctiptableObject.Cost = EditorGUILayout.IntField(
             new GUIContent("Стоимость", "Стоимость предмета"),
             _itemSctiptableObject.Cost
         );
+
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+        //_boolStackProp
+        
+        EditorGUILayout.PropertyField(_boolStackProp, new GUIContent("Можно ли стакать?", ""));
+
+        _itemSctiptableObject.MaxStackValue = EditorGUILayout.IntField(
+            new GUIContent("Макс. кол-во в стаке", ""),
+            _itemSctiptableObject.MaxStackValue
+        );
+
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
         switch (_itemSctiptableObject.Type)
         {
@@ -104,8 +119,9 @@ public class ItemSctiptableObjectEditor : Editor
                     _itemSctiptableObject.SlotCount
                 );
                 break;
-                
-            case ItemType.WeaponMain: case ItemType.WeaponSecondary:
+
+            case ItemType.WeaponMain:
+            case ItemType.WeaponSecondary:
                 _itemSctiptableObject.DamageDeal = EditorGUILayout.IntField(
                     new GUIContent("Урон"),
                     _itemSctiptableObject.DamageDeal

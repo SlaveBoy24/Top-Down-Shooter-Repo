@@ -14,6 +14,7 @@ public class Stash : MonoBehaviour
     public GameObject BlockSlotPrefab;
     public int SlotInLine = 8;
     public ItemType SlotType = ItemType.None;
+    public int DefaultSlotCount = 4;
     public int SlotCount;
     public int BlockedSlotCount;
 
@@ -28,9 +29,24 @@ public class Stash : MonoBehaviour
         SpawnSlots();
     }
 
+    public void UpdateSlotCount(params int[] Count)
+    {
+        if (Count.Length > 0)
+            SlotCount = Count[0];
+        else
+            SlotCount = DefaultSlotCount;
+
+        Despawn();
+        SetSize();
+        SpawnSlots();
+
+        this.InvokeStash();
+    }
+
     private void Start()
     {
-        this.InvokeStash();
+        if(gameObject.name != "Backpack")
+            this.InvokeStash();
     }
     private void Despawn()
     {
@@ -68,5 +84,8 @@ public class Stash : MonoBehaviour
         var h = TitleH + gph;
         var rect = GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(rect.sizeDelta.x, h);
+
+        this.gameObject.SetActive(false);
+        this.gameObject.SetActive(true);
     }
 }

@@ -20,6 +20,20 @@ public static class ItemMethods
 
         return -1;
     }
+    public static bool isFree(this Stash stash)
+    {
+        var slots = stash.Items;
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i] != null)
+            {
+                return false;    
+            }
+        }
+
+        return true;
+    }
     public static void SpawnItem(this Stash stash, GameObject itemPrefab, ItemScriptableObject item)
     {
         int slotID = stash.FindFreeSlot();
@@ -61,7 +75,7 @@ public static class ItemMethods
         SetupItem(itemScript, item, stash, slotID, itemGameObject, true);
     }
 
-    public static void SpawnItemByKeyWithID(this Stash stash, GameObject itemPrefab, string key, int slotID)
+    public static void SpawnItemByKeyWithID(this Stash stash, GameObject itemPrefab, string key, int slotID, int count)
     {
         var itemGameObject = GameObject.Instantiate(itemPrefab);
         var itemScript = itemGameObject.GetComponent<Item>();
@@ -74,6 +88,8 @@ public static class ItemMethods
             Debug.LogError($"Not found item by name {key}");
             return;
         }
+
+        itemScript.Count = count;
 
         SetupItem(itemScript, item, stash, slotID, itemGameObject, false);
     }

@@ -3,9 +3,18 @@ using UnityEngine;
 
 public class NetworkIdentity : MonoBehaviour
 {
+    public delegate void InitInformationEventHandler(PlayerData data);
+    public event InitInformationEventHandler InitInformationEvent;
+    [HideInInspector]public bool IsInited = false;
+
     public PlayerData Player = new PlayerData();
-    [SerializeField]private GameObject _usernamePanel;
-    public TMP_Text ProfileUsername;
+    [SerializeField] private GameObject _usernamePanel;
+
+    [HideInInspector]public static NetworkIdentity Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void ShowUsernamePanel(bool value)
     {
@@ -14,7 +23,9 @@ public class NetworkIdentity : MonoBehaviour
 
     public void InitInformation()
     {
-        ProfileUsername.text = Player.username;
+        InitInformationEvent?.Invoke(Player);
+        IsInited = true;
+        //ProfileUsername.text = Player.username;
     }
 
     public void CheckUsername(TMP_InputField inputField)
