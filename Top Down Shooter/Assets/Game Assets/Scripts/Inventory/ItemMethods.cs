@@ -20,7 +20,7 @@ public static class ItemMethods
 
         return -1;
     }
-    public static void SpawnItem(this Stash stash, GameObject itemPrefab, ItemSctiptableObject item)
+    public static void SpawnItem(this Stash stash, GameObject itemPrefab, ItemScriptableObject item)
     {
         int slotID = stash.FindFreeSlot();
 
@@ -49,7 +49,7 @@ public static class ItemMethods
         var itemGameObject = GameObject.Instantiate(itemPrefab);
         var itemScript = itemGameObject.GetComponent<Item>();
 
-        ItemSctiptableObject item = null;
+        ItemScriptableObject item = null;
         ItemPool.All.TryGetValue(key, out item);
 
         if (item == null)
@@ -66,7 +66,7 @@ public static class ItemMethods
         var itemGameObject = GameObject.Instantiate(itemPrefab);
         var itemScript = itemGameObject.GetComponent<Item>();
 
-        ItemSctiptableObject item = null;
+        ItemScriptableObject item = null;
         ItemPool.All.TryGetValue(key, out item);
 
         if (item == null)
@@ -78,7 +78,7 @@ public static class ItemMethods
         SetupItem(itemScript, item, stash, slotID, itemGameObject, false);
     }
 
-    public static void SetupItem(Item itemScript, ItemSctiptableObject item, Stash stash, int slotID, GameObject itemGameObject, bool isUpdate)
+    public static void SetupItem(Item itemScript, ItemScriptableObject item, Stash stash, int slotID, GameObject itemGameObject, bool isUpdate)
     {
         itemScript.item = item;
 

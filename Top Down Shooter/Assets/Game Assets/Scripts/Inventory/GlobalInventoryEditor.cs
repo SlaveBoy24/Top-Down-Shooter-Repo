@@ -6,7 +6,7 @@ using UnityEngine;
 [CustomEditor(typeof(GlobalInventory))]
 public class GlobalInventoryEditor : Editor
 {
-    private ItemSctiptableObject ItemScriptableObject;
+    private ItemScriptableObject ItemScriptableObjectField;
     private string key;
     public override void OnInspectorGUI()
     {
@@ -18,27 +18,27 @@ public class GlobalInventoryEditor : Editor
 
         EditorGUI.indentLevel++;
 
-        ItemScriptableObject = (ItemSctiptableObject)EditorGUILayout.ObjectField(
+        ItemScriptableObjectField = (ItemScriptableObject)EditorGUILayout.ObjectField(
                 "Item To Spawn",
-                ItemScriptableObject,
-                typeof(ItemSctiptableObject),
+                ItemScriptableObjectField,
+                typeof(ItemScriptableObject),
                 false);
             
         key = EditorGUILayout.TextField("Item To Spawn By Name", key);
 
         serializedObject.ApplyModifiedProperties();
 
-        if ((ItemScriptableObject != null) || (key != ""))
+        if ((ItemScriptableObjectField != null) || (key != ""))
         {
-            if (ItemScriptableObject != null)
-                EditorGUILayout.HelpBox($"Loaded: {ItemScriptableObject.name}", MessageType.Info);
+            if (ItemScriptableObjectField != null)
+                EditorGUILayout.HelpBox($"Loaded: {ItemScriptableObjectField.name}", MessageType.Info);
 
             if (GUILayout.Button("Spawn"))
             {
-                if (ItemScriptableObject == null)
+                if (ItemScriptableObjectField == null)
                     GlobalStashes.Backpack.SpawnItemByKey(targetComponent.ItemPrefab, key);
                 else
-                    GlobalStashes.Backpack.SpawnItem(targetComponent.ItemPrefab, ItemScriptableObject);
+                    GlobalStashes.Backpack.SpawnItem(targetComponent.ItemPrefab, ItemScriptableObjectField);
             }
         }
 

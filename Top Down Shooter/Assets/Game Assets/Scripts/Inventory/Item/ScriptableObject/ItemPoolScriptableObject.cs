@@ -23,13 +23,13 @@ public class ItemPoolScriptableObjectEditor : Editor
         if (GUILayout.Button("Grab All Items"))
         {
             targetComponent.ItemsPoolList.Clear();
-            var guids = AssetDatabase.FindAssets("t:ItemSctiptableObject");
+            var guids = AssetDatabase.FindAssets("t:ItemScriptableObject");
 
             for (int i = 0; i < guids.Length; i++)
             {
                 var path = AssetDatabase.GUIDToAssetPath(guids[i]);
 
-                var item = AssetDatabase.LoadAssetAtPath<ItemSctiptableObject>(path);
+                var item = AssetDatabase.LoadAssetAtPath<ItemScriptableObject>(path);
 
                 targetComponent.ItemsPoolList.Add(new LikeDict(item.name.CamelToSnake(), item));
             }
@@ -68,8 +68,8 @@ public class ItemPoolScriptableObject : ScriptableObject
 public class LikeDict
 {
     public string key;
-    public ItemSctiptableObject value;
-    public LikeDict(string k, ItemSctiptableObject v)
+    public ItemScriptableObject value;
+    public LikeDict(string k, ItemScriptableObject v)
     {
         key = k;
         value = v;

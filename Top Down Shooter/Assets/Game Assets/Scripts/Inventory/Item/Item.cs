@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Item : ItemBehaviour
 {
-    public ItemSctiptableObject item;
+    public ItemScriptableObject item;
     public override void Start()
     {
         base.Start();

@@ -3,17 +3,17 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 
-[CustomEditor(typeof(ItemSctiptableObject))]
+[CustomEditor(typeof(ItemScriptableObject))]
 public class ItemSctiptableObjectEditor : Editor
 {
-    ItemSctiptableObject _itemSctiptableObject;
+    ItemScriptableObject _itemSctiptableObject;
     SerializedObject _serializedItemSctiptableObject;
     SerializedProperty _TypeProp;
     SerializedProperty _TypeValueProp;
     SerializedProperty _IconProp;
     private void OnEnable()
     {
-        _itemSctiptableObject = target as ItemSctiptableObject;
+        _itemSctiptableObject = target as ItemScriptableObject;
         _serializedItemSctiptableObject = new SerializedObject(_itemSctiptableObject);
         _TypeProp = _serializedItemSctiptableObject.FindProperty("Type");
         _TypeValueProp = _serializedItemSctiptableObject.FindProperty("ValueType");

@@ -4,7 +4,7 @@ using UnityEngine;
 public class ItemPool : MonoBehaviour
 {
     [SerializeField] private ItemPoolScriptableObject itemPoolScriptableObject;
-    public static Dictionary<string, ItemSctiptableObject> All;
+    public static Dictionary<string, ItemScriptableObject> All;
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
