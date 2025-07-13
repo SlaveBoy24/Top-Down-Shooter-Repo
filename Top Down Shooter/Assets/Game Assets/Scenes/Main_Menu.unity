@@ -7758,6 +7758,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4981495936232984740, guid: 93bc807cdc951914a9c5768545d81b15,
         type: 3}
+      propertyPath: pingTimeout
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981495936232984740, guid: 93bc807cdc951914a9c5768545d81b15,
+        type: 3}
+      propertyPath: pingInterval
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981495936232984740, guid: 93bc807cdc951914a9c5768545d81b15,
+        type: 3}
       propertyPath: _notificationZone
       value: 
       objectReference: {fileID: 1783775161}
