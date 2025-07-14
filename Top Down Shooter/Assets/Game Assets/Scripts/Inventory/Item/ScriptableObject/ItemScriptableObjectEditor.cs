@@ -12,6 +12,7 @@ public class ItemSctiptableObjectEditor : Editor
     private SerializedProperty _typeValueProp;
     private SerializedProperty _iconProp;
     private SerializedProperty _boolStackProp;
+    private SerializedProperty _clothScriptableObjectProp;
     private void OnEnable()
     {
         _itemSctiptableObject = target as ItemScriptableObject;
@@ -20,6 +21,7 @@ public class ItemSctiptableObjectEditor : Editor
         _typeValueProp = _serializedItemSctiptableObject.FindProperty("ValueType");
         _iconProp = _serializedItemSctiptableObject.FindProperty("Icon");
         _boolStackProp = _serializedItemSctiptableObject.FindProperty("CanStack");
+        _clothScriptableObjectProp = _serializedItemSctiptableObject.FindProperty("ClothScriptableObject");
     }
 
     public override void OnInspectorGUI()
@@ -111,6 +113,7 @@ public class ItemSctiptableObjectEditor : Editor
                     new GUIContent("Блок урона", "Процент блокирования урона от попадания"),
                     _itemSctiptableObject.DamageBlockPercent
                 );
+                EditorGUILayout.PropertyField(_clothScriptableObjectProp, new GUIContent("Скриптабля", ""));
                 break;
 
             case ItemType.Backpack:

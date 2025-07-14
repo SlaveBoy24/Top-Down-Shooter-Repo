@@ -18,6 +18,7 @@ public class ItemScriptableObject : ScriptableObject
     // Armour
     public float SlowDownMovementPercent;
     public float DamageBlockPercent;
+    public ClothModel ClothScriptableObject;
     // Backpack
     public int SlotCount;
     // Weapon

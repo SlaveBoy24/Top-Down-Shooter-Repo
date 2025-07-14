@@ -73,7 +73,6 @@ public class GlobalInventory : MonoBehaviour
         switch (e.transform.gameObject.name)
         {
             case "Backpack Slot":
-
                 if (e.Items[0] != null)
                     GlobalStashes.Backpack.UpdateSlotCount(e.Items[0].item.SlotCount);
                 else
@@ -81,11 +80,17 @@ public class GlobalInventory : MonoBehaviour
 
                 break;
             default:
+                var clothSystem = RoomManager.LocalPlayerObject.GetComponent<ClothSystem>();
+
                 if (e.Items[0] == null)
                 {
+                    clothSystem.DeEquipCloth(e.transform.gameObject.name);
+
                     Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - ITEM NULL");
                     return;
                 }
+
+                clothSystem.EquipCloth(new ClothBase(e));
 
                 Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - {e.Items[0].item.name.CamelToSnake()}");
                 break;
