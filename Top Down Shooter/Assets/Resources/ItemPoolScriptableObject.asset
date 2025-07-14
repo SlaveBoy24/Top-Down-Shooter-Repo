@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: ItemPoolScriptableObject
   m_EditorClassIdentifier: 
   ItemsPoolList:
+  - key: lwas_chest_armour
+    value: {fileID: 11400000, guid: ddc4bcd34f3727744ac8f0ea3a2b65c1, type: 2}
+  - key: balaclava
+    value: {fileID: 11400000, guid: f1a6af67b4773964087f840cc1335db7, type: 2}
   - key: cat_statue
     value: {fileID: 11400000, guid: 36c6fccbc71a13b4288d15d051930cfb, type: 2}
   - key: item_sctiptable_object
     value: {fileID: 11400000, guid: ed4c420f4e4265f41a2c6bb32034f743, type: 2}
+  - key: test_backpack
+    value: {fileID: 11400000, guid: 017607e0429923049b8a7cbbc8367516, type: 2}
+  - key: test_stack
+    value: {fileID: 11400000, guid: b55c487211ef9024e97fdd35f7302aef, type: 2}
