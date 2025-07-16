@@ -8,6 +8,11 @@ public class InteractorCollider : MonoBehaviour
     [SerializeField] private string _allowedTag;
     [SerializeField] private List<GameObject> _interactionObjects;
 
+    private void Start()
+    {
+        _interactor = GameObject.FindGameObjectWithTag("Interactor").GetComponent<Interactor>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == _allowedTag)
