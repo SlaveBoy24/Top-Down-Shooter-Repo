@@ -10,11 +10,13 @@ public static class JSONStash
     {
         public int sid; // slot id
         public string son; // scriptable object name 
+        public int c; // count
         // почему такие имена? -> потому что в json они будут короче, тем самым json будет меньше байт 
         public ItemWrapper(int id, Item item)
         {
             sid = id;
             son = $"{item.item.name.CamelToSnake()}";
+            c = item.Count;
         }
     }
     [Serializable]

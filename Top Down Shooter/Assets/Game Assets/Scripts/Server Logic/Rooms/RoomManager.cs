@@ -16,6 +16,8 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private List<LobbyPlayer> _playerInstances;
     [SerializeField] private GameObject _playerPrefab;
 
+    public static GameObject LocalPlayerObject;
+
     [SerializeField] private GameObject _testStartGameBtn;
     [SerializeField] private GameObject _testChangeReadyStateBtn;
 

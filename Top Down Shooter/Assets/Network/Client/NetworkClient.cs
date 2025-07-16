@@ -132,6 +132,12 @@ public class NetworkClient : SocketIOComponent
         });
     }
 
+    public void CreateRedNotification(string text)
+    {
+        NotificationPanel declineInvite = Instantiate(_testDeclineInvitePrefab, _notificationZone.transform).GetComponent<NotificationPanel>();
+        declineInvite.InitNotificationPanel($"{text}");
+    }
+
     private void SetupEvents()
     {
         On("open", (E) =>
@@ -169,6 +175,8 @@ public class NetworkClient : SocketIOComponent
             PlayerData data = new PlayerData();
             data = JsonUtility.FromJson<PlayerData>(E.data.ToString());
 
+            Debug.LogWarning($"{E.data.ToString()}");
+
             Debug.Log($"Player ID: {data.player_id}, Player Username: {data.username}");
 
             if (!PlayerPrefs.HasKey("PlayerID"))
@@ -189,12 +197,16 @@ public class NetworkClient : SocketIOComponent
             else
             {
                 NetworkIdentity.Player.username = data.username;
+
+                NetworkIdentity.Player.money = data.money;
+                NetworkIdentity.Player.gems = data.gems;
+
                 NetworkIdentity.ShowUsernamePanel(false);
 
                 NetworkIdentity.InitInformation();
 
                 _isInitialized = true;
-                
+
                 PhotonConnection.Instance.ConnectToServer();
             }
 

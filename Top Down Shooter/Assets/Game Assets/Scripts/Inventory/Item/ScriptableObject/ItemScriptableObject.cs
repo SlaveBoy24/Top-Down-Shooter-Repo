@@ -9,11 +9,16 @@ public class ItemScriptableObject : ScriptableObject
     public ItemValueType ValueType;
     public Sprite Icon;
     public int Cost;
+
+    public bool CanStack;
+    public int MaxStackValue;
+
     // Medical
     public float Heal;
     // Armour
     public float SlowDownMovementPercent;
     public float DamageBlockPercent;
+    public ClothModel ClothScriptableObject;
     // Backpack
     public int SlotCount;
     // Weapon

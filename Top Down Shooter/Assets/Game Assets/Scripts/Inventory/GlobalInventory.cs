@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class GlobalInventory : MonoBehaviour
 {
+    [HideInInspector]public static GlobalInventory Instance;
     public GameObject ItemPrefab;
     private void Awake()
     {
+        Instance = this;
         var stashes = GetComponentsInChildren<Stash>();
         GlobalStashes.Backpack = stashes[6];
         GlobalStashes.Stash = stashes[7];
@@ -29,8 +31,10 @@ public class GlobalInventory : MonoBehaviour
 
         foreach (JSONStash.ItemWrapper item in Items.i)
         {
-            e.Stash.SpawnItemByKeyWithID(ItemPrefab, item.son, item.sid);
+            e.Stash.SpawnItemByKeyWithID(ItemPrefab, item.son, item.sid, item.c);
         }
+
+        CheckChangeEquipmentSlot(e);
     }
 
     private void OnChangeInventoryEvent(GlobalStashes.EventArgs e)
@@ -66,13 +70,31 @@ public class GlobalInventory : MonoBehaviour
 
     private void OnChangeEquipmentEvent(Stash e)
     {
-        if (e.Items[0] == null)
+        switch (e.transform.gameObject.name)
         {
-            Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - ITEM NULL");
-            return;
-        }
+            case "Backpack Slot":
+                if (e.Items[0] != null)
+                    GlobalStashes.Backpack.UpdateSlotCount(e.Items[0].item.SlotCount);
+                else
+                    GlobalStashes.Backpack.UpdateSlotCount();
 
-        Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - {e.Items[0].item.name.CamelToSnake()}");
+                break;
+            default:
+                var clothSystem = RoomManager.LocalPlayerObject.GetComponent<ClothSystem>();
+
+                if (e.Items[0] == null)
+                {
+                    clothSystem.DeEquipCloth(e.transform.gameObject.name);
+
+                    Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - ITEM NULL");
+                    return;
+                }
+
+                clothSystem.EquipCloth(new ClothBase(e));
+
+                Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - {e.Items[0].item.name.CamelToSnake()}");
+                break;
+        }
     }
 }
 
