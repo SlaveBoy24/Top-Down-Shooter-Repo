@@ -13,9 +13,9 @@ public class InteractorCollider : MonoBehaviour
         if (other.tag == _allowedTag)
         {
             _interactionObjects.Add(other.gameObject);
+            _interactor.AddInterationObject(other.gameObject);
         }
 
-        _interactor.AddInterationObject(other.gameObject);
     }
 
     private void OnTriggerExit(Collider other)
@@ -23,8 +23,8 @@ public class InteractorCollider : MonoBehaviour
         if (_interactionObjects.Contains(other.gameObject))
         { 
             _interactionObjects.Remove(other.gameObject);
+            _interactor.RemoveInteractionObject(other.gameObject);
         }
 
-        _interactor.RemoveInteractionObject(other.gameObject);
     }
 }

@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class InteractionItem : InteractionObject
 {
+    private void Start()
+    {
+        _lockedStatus = InteractionLockedStatus.Unlocked;
+    }
+
     public override void Interact()
     {
 

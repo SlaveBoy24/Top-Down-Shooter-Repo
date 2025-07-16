@@ -66,7 +66,7 @@ public class ItemSctiptableObjectEditor : Editor
         EditorStyles.label.normal.textColor = color;
         EditorStyles.label.focused.textColor = color;
 
-        EditorGUILayout.PropertyField(_typeValueProp, new GUIContent("Тип стоимости", "Отоброжение важности и редкости"));
+        EditorGUILayout.PropertyField(_typeValueProp, new GUIContent("Редкость", "Отображение важности и редкости"));
 
         EditorStyles.label.normal.textColor = old;
         EditorStyles.label.focused.textColor = oldActive;

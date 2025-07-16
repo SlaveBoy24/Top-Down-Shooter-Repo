@@ -3,15 +3,85 @@ using System.Collections.Generic;
 
 public class Interactor : MonoBehaviour
 {
-    [SerializeField] private List<InteractionObject> _stashes;
+    [Header("Lists")]
     [SerializeField] private List<InteractionObject> _items;
     [SerializeField] private List<InteractionObject> _doors;
+    [SerializeField] private List<InteractionObject> _stashes;
+
+    [Header("Buttons")]
+    [SerializeField] private GameObject _unlockButton;
+    [SerializeField] private GameObject _interactButton;
+
+    public void Interact()
+    {
+        _doors[0].Interact();
+    }
+
+    public void Unlock()
+    {
+        if (GetLockedDoorOrStash() == -1)
+        {
+            UpdateUI();
+            return;
+        }
+
+        int stashIndex = GetElementWithLockedStatus(_stashes, InteractionLockedStatus.Locked);
+        if (stashIndex != -1)
+        {
+
+        }
+        else
+        {
+            int doorIndex = GetElementWithLockedStatus(_doors, InteractionLockedStatus.Locked);
+            if (doorIndex == -1)
+            {
+                UpdateUI();
+                return;
+            }
+        }
+    }
+
+    #region InteractorUiLogic
+    private void UpdateUI()
+    {
+        DisableButtons();
+
+        if (_items.Count > 0 || GetUnlockedDoorIndex() != -1)
+        {
+            _interactButton.SetActive(true);
+        }
+
+        if (GetLockedDoorOrStash() != -1)
+        { 
+            _unlockButton.SetActive(true);
+        }
+    }
+
+    private int GetUnlockedDoorIndex()
+    {
+        return GetElementWithLockedStatus(_doors, InteractionLockedStatus.Unlocked);
+    }
+
+    private int GetLockedDoorOrStash()
+    {
+        List<InteractionObject> allObjects = new List<InteractionObject>();
+        allObjects.AddRange(_stashes);
+        allObjects.AddRange(_doors);
+
+        return GetElementWithLockedStatus(allObjects, InteractionLockedStatus.Locked);
+    }
+
+    private void DisableButtons()
+    {
+        _unlockButton.SetActive(false);
+        _interactButton.SetActive(false);
+    }
+    #endregion
 
     public void AddInterationObject(GameObject obj)
     {
         InteractionObject intercationObject = obj.GetComponent<InteractionObject>();
         List<InteractionObject> list = GetList(intercationObject);
-
         if (list == null)
             return;
 
@@ -20,6 +90,8 @@ public class Interactor : MonoBehaviour
 
         if (intercationObject.IsAbleToInteract())
             list.Add(intercationObject);
+
+        UpdateUI();
     }
 
     public void RemoveInteractionObject(GameObject obj)
@@ -34,11 +106,19 @@ public class Interactor : MonoBehaviour
             return;
 
         list.Remove(intercationObject);
+
+        UpdateUI();
     }
 
-    public void UpdateInteraction(List<GameObject> objects)
+    private int GetElementWithLockedStatus(List<InteractionObject> list, InteractionLockedStatus status)
     {
-        
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].GetInteractionLockedStatus() == status)
+                return i;
+        }
+
+        return -1;
     }
 
     private List<InteractionObject> GetList(InteractionObject obj)
