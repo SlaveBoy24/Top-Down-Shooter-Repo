@@ -37,7 +37,8 @@ public class LootTableController : MonoBehaviour
 
         foreach (InteractionObject stash in stashes)
         {
-            _stashes.Add(stash.GetComponent<InteractionStash>());
+            if (stash.GetInteractionLockedStatus() == InteractionLockedStatus.Unlocked)
+                _stashes.Add(stash.GetComponent<InteractionStash>());
         }
 
         if (_stashes.Count > 0)

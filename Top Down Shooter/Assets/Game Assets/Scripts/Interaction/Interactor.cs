@@ -18,7 +18,18 @@ public class Interactor : MonoBehaviour
 
     public void Interact()
     {
-        _doors[0].Interact();
+        if (_items.Count > 0)
+        {
+            _items[0].Interact();
+            _items.RemoveAt(0);
+        }
+        else
+        {
+            _doors[0].Interact();
+            _doors.RemoveAt(0);
+        }
+        
+        UpdateUI();
     }
 
     public void Unlock()
