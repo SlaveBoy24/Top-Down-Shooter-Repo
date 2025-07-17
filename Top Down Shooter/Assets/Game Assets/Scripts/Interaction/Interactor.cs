@@ -8,9 +8,13 @@ public class Interactor : MonoBehaviour
     [SerializeField] private List<InteractionObject> _doors;
     [SerializeField] private List<InteractionObject> _stashes;
 
-    [Header("Buttons")]
+    [Header("Buttons and Panels")]
     [SerializeField] private GameObject _unlockButton;
     [SerializeField] private GameObject _interactButton;
+    [SerializeField] private GameObject _lootPanel;
+
+    [Header("Controllers")]
+    [SerializeField] private LootTableController _lootTableController;
 
     public void Interact()
     {
@@ -55,6 +59,8 @@ public class Interactor : MonoBehaviour
         { 
             _unlockButton.SetActive(true);
         }
+
+        _lootTableController.SetItemList(_stashes);
     }
 
     private int GetUnlockedDoorIndex()
@@ -75,6 +81,7 @@ public class Interactor : MonoBehaviour
     {
         _unlockButton.SetActive(false);
         _interactButton.SetActive(false);
+        _lootPanel.SetActive(false);
     }
     #endregion
 
