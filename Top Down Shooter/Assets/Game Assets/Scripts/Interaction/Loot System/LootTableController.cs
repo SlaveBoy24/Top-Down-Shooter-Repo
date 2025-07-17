@@ -6,6 +6,7 @@ public class LootTableController : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject _lootTablePanel;
     [SerializeField] private Transform _itemsContainer;
+    [SerializeField] private GameObject _buttonFillImage;
 
     [Header("Logic")]
     [SerializeField] private bool _isOpened;
@@ -16,13 +17,15 @@ public class LootTableController : MonoBehaviour
     private void Start()
     {
         _isOpened = true;
-        _lootTablePanel.SetActive(true);
+        _lootTablePanel.SetActive(_isOpened);
+        _buttonFillImage.SetActive(_isOpened);
     }
 
     public void SetLootTableActiveState()
     {
         _isOpened = !_isOpened;
         _lootTablePanel.SetActive(_isOpened);
+        _buttonFillImage.SetActive(_isOpened);
     }
 
     public void SetItemList(List<InteractionObject> stashes)
