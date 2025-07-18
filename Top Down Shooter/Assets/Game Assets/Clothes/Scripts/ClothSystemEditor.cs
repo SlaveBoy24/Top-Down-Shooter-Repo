@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 
 [CustomEditor(typeof(ClothSystem)), CanEditMultipleObjects]
@@ -27,3 +28,4 @@ public class ClothSystemEditor : Editor
         targetScript.EquipCloth(new ClothBase(cloth));
     }
 }
+#endif

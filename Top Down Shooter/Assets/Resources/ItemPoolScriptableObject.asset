@@ -17,6 +17,8 @@ MonoBehaviour:
     value: {fileID: 11400000, guid: ddc4bcd34f3727744ac8f0ea3a2b65c1, type: 2}
   - key: balaclava
     value: {fileID: 11400000, guid: f1a6af67b4773964087f840cc1335db7, type: 2}
+  - key: lwas_chest_armour_jeans
+    value: {fileID: 11400000, guid: 9773369a98e050f458c00e2e94c79b53, type: 2}
   - key: cat_statue
     value: {fileID: 11400000, guid: 36c6fccbc71a13b4288d15d051930cfb, type: 2}
   - key: item_sctiptable_object

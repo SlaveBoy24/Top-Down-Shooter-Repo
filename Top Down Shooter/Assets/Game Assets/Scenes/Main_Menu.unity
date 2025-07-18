@@ -6747,8 +6747,8 @@ GameObject:
   m_Component:
   - component: {fileID: 488126676}
   - component: {fileID: 488126678}
-  - component: {fileID: 488126679}
   - component: {fileID: 488126677}
+  - component: {fileID: 488126679}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
