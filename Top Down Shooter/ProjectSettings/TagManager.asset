@@ -8,6 +8,8 @@ TagManager:
   - MainCharacter
   - PlayerLookJoystick
   - PlayerMoveJoystick
+  - Interactable
+  - Interactor
   layers:
   - Default
   - TransparentFX
