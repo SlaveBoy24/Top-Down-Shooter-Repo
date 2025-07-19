@@ -5,6 +5,7 @@ using TMPro;
 public class LootTableUiElement : MonoBehaviour
 {
     [Header("Logic")]
+    [SerializeField] private LootTableController _controller;
     [SerializeField] private InteractionStash _parentStash;
     [SerializeField] private StashItem _stashItem;
 
@@ -13,8 +14,9 @@ public class LootTableUiElement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _name;
     [SerializeField] private TextMeshProUGUI _amount;
 
-    public void SetElement(StashItem stashItem, InteractionStash stash)
+    public void SetElement(StashItem stashItem, InteractionStash stash, LootTableController controller)
     {
+        _controller = controller;
         _stashItem = stashItem;
         _parentStash = stash;
 

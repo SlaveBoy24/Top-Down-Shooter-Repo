@@ -7,7 +7,7 @@ public enum Difficult
     Hard
 }
 
-public class MIniGame : MonoBehaviour
+public class MiniGame : MonoBehaviour
 {
     [Header("Main Parameters")]
     [SerializeField] protected string _name;
@@ -17,6 +17,11 @@ public class MIniGame : MonoBehaviour
     [SerializeField] protected int _requiredPerkLevel;
 
     public virtual void Initialize()
+    { 
+    
+    }
+
+    public virtual void ClearMiniGame()
     { 
     
     }

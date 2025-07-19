@@ -15,6 +15,7 @@ public class Interactor : MonoBehaviour
 
     [Header("Controllers")]
     [SerializeField] private LootTableController _lootTableController;
+    [SerializeField] private LockBreaking _lockBreakingMiniGame;
 
     public void Interact()
     {
@@ -43,7 +44,7 @@ public class Interactor : MonoBehaviour
         int stashIndex = GetElementWithLockedStatus(_stashes, InteractionLockedStatus.Locked);
         if (stashIndex != -1)
         {
-
+            _lockBreakingMiniGame.Initialize();
         }
         else
         {

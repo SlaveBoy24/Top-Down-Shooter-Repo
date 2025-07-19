@@ -12,11 +12,6 @@ public class InteractionStash : InteractionObject
 {
     [SerializeField] private List<StashItem> _items;
 
-    public override void Interact()
-    {
-
-    }
-
     public override bool IsAbleToInteract()
     {
         UpdateList();

@@ -65,7 +65,7 @@ public class LootTableController : MonoBehaviour
     {
         LootTableUiElement uiItem = Instantiate(_uiItemPrefab, _itemsContainer).GetComponent<LootTableUiElement>();
         _uiItems.Add(uiItem);
-        uiItem.SetElement(item, stash);
+        uiItem.SetElement(item, stash, this);
     }
 
     private void ResetList()
