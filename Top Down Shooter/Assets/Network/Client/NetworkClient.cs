@@ -150,6 +150,8 @@ public class NetworkClient : SocketIOComponent
             PlayerData data = new PlayerData();
             data = JsonUtility.FromJson<PlayerData>(E.data.ToString());
 
+            Debug.Log(E.data.ToString());
+
             Debug.Log("Player ID: " + data.id);
 
             NetworkIdentity.Player.id = data.id;
@@ -157,8 +159,11 @@ public class NetworkClient : SocketIOComponent
             if (PlayerPrefs.HasKey("PlayerID"))
             {
                 int player_id = PlayerPrefs.GetInt("PlayerID");
-                NetworkIdentity.Player.player_id = player_id;
-                data.player_id = player_id;
+                if (player_id != 0)
+                {
+                    NetworkIdentity.Player.player_id = player_id;
+                    data.player_id = player_id;
+                }
             }
 
             _socket.Emit("init_confirmed", new JSONObject(JsonUtility.ToJson(data)));
@@ -179,9 +184,10 @@ public class NetworkClient : SocketIOComponent
 
             Debug.Log($"Player ID: {data.player_id}, Player Username: {data.username}");
 
-            if (!PlayerPrefs.HasKey("PlayerID"))
+            if ((!PlayerPrefs.HasKey("PlayerID")) || (PlayerPrefs.GetInt("PlayerID") == 0))
             {
                 PlayerPrefs.SetInt("PlayerID", data.player_id);
+                NetworkIdentity.Player.player_id = data.player_id;
             }
 
             if (data.mail != "")
