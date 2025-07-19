@@ -2825,6 +2825,7 @@ MonoBehaviour:
   _name: 
   _difficult: 0
   _requiredPerkLevel: 0
+  _interactor: {fileID: 1631503444}
   _picklock: {fileID: 2098262850}
   _lockerSticksSpawnPoint: {fileID: 2040251570}
   _lockerStickPrefab: {fileID: 5269659799371615134, guid: 7c329acc8de67e54b8865b1f7669c75d,
@@ -2832,7 +2833,7 @@ MonoBehaviour:
   _picklockHealts: 5
   _lockerSticks: []
   _isPlaying: 0
-  _rotationSpeed: 0
+  _rotationSpeed: 100
 --- !u!114 &376253074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5708,7 +5709,7 @@ GameObject:
   - component: {fileID: 1015465832}
   - component: {fileID: 1015465831}
   m_Layer: 5
-  m_Name: Try Pick Button
+  m_Name: Try Unlock Stick Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5778,7 +5779,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1015465832}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 376253073}
+        m_TargetAssemblyTypeName: LockBreaking, Assembly-CSharp
+        m_MethodName: TryUnlockStick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1015465832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11361,14 +11374,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098262850}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.023996014, w: 0.9997121}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1285029632}
   m_Father: {fileID: 1921056528}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 2.75}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -11581,7 +11594,7 @@ GameObject:
   - component: {fileID: 33559188999011904}
   - component: {fileID: 33559188999011903}
   m_Layer: 0
-  m_Name: TEST INTERACT CHEST 2
+  m_Name: TEST INTERACT CHEST 2 CLOSED
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

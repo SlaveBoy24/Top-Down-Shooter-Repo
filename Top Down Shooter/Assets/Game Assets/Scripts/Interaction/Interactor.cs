@@ -44,7 +44,7 @@ public class Interactor : MonoBehaviour
         int stashIndex = GetElementWithLockedStatus(_stashes, InteractionLockedStatus.Locked);
         if (stashIndex != -1)
         {
-            _lockBreakingMiniGame.Initialize();
+            _lockBreakingMiniGame.Initialize(_stashes[stashIndex]);
         }
         else
         {
@@ -58,7 +58,7 @@ public class Interactor : MonoBehaviour
     }
 
     #region InteractorUiLogic
-    private void UpdateUI()
+    public void UpdateUI()
     {
         DisableButtons();
 

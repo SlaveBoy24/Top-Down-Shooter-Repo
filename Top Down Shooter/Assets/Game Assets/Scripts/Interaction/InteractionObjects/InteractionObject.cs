@@ -30,6 +30,11 @@ public class InteractionObject : MonoBehaviour
         return _lockedStatus;
     }
 
+    public virtual void Unlock()
+    { 
+    
+    }
+
     public virtual void Interact()
     { 
     

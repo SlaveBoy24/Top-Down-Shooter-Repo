@@ -15,12 +15,14 @@ public class LockerStick
     {
         Object.transform.localScale = new Vector3(1, 0.8f, 1);
         Icon.color = new Color(0, 0, 0, 0.5f);
+        IsLocked = false;
     }
 }
 
 public class LockBreaking : MiniGame
 {
     [Header("Required Objects")]
+    [SerializeField] private Interactor _interactor;
     [SerializeField] private GameObject _picklock;
     [SerializeField] private GameObject _lockerSticksSpawnPoint;
     [SerializeField] private GameObject _lockerStickPrefab;
@@ -31,8 +33,10 @@ public class LockBreaking : MiniGame
     [SerializeField] private bool _isPlaying;
     [SerializeField] private int _rotationSpeed;
 
-    public override void Initialize()
+    public override void Initialize(InteractionObject interactionObject)
     {
+        base.Initialize(interactionObject);
+
         ClearMiniGame();
         SetupDifficult();
 
@@ -68,16 +72,18 @@ public class LockBreaking : MiniGame
         switch (_difficult)
         {
             case Difficult.Easy:
-                SetupLockerSticks(Random.Range(3, 5));
+                SetupLockerSticks(Random.Range(3, 5), 2f);
                 break;
             case Difficult.Medium:
+                SetupLockerSticks(Random.Range(3, 6), 1.6f);
                 break;
             case Difficult.Hard:
+                SetupLockerSticks(Random.Range(4, 8), 1.2f);
                 break;
         }
     }
 
-    private void SetupLockerSticks(int amount)
+    private void SetupLockerSticks(int amount, float diffScaleX)
     {
         for (int i = 0; i < amount; i++)
         { 
@@ -85,6 +91,7 @@ public class LockBreaking : MiniGame
 
             stick.Object = Instantiate(_lockerStickPrefab, _lockerSticksSpawnPoint.transform);
             stick.Object.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+            stick.Object.transform.localScale = new Vector3(diffScaleX, 1, 1);
             stick.Icon = stick.Object.transform.GetChild(0).GetComponent<Image>();
 
             _lockerSticks.Add(stick);
@@ -102,14 +109,73 @@ public class LockBreaking : MiniGame
         yield return null;
     }
 
-    public void TryPickLock()
-    { 
-    
+    public void TryUnlockStick()
+    {
+        float picklockRotationZ = _picklock.transform.localRotation.eulerAngles.z;
+        float unlockRange = GetStickUnlockRange();
+        foreach (LockerStick stick in _lockerSticks)
+        {
+            if (!stick.IsLocked)
+                continue;
+
+            float stickRotationZ = stick.Object.transform.localRotation.eulerAngles.z;
+            float minZ = stickRotationZ - unlockRange;
+            float maxZ = stickRotationZ + unlockRange;
+
+            Debug.Log($"stick {stickRotationZ} - picklock {picklockRotationZ}, min {minZ}, max {maxZ}");
+
+            if (picklockRotationZ <= maxZ && picklockRotationZ >= minZ)
+            {
+                stick.Unlock();
+                CheckMinigame();
+                return;
+            }
+            else
+            {
+                Debug.Log("Чек некст");
+            }
+        }
+    }
+
+    private float GetStickUnlockRange()
+    {
+        switch (_difficult)
+        {
+            case Difficult.Easy:
+                return 5f;
+            case Difficult.Medium:
+                return 3.5f;
+            case Difficult.Hard:
+                return 2.75f;
+            default:
+                return 5f;
+        }
+    }
+
+    private void CheckMinigame()
+    {
+        bool isUnlocked = true;
+
+        foreach (LockerStick stick in _lockerSticks)
+        {
+            if (stick.IsLocked)
+            {
+                isUnlocked = false;
+                break;
+            }
+        }
+
+        if (isUnlocked)
+        {
+            Success();
+        }
     }
 
     public override void Success()
     {
         ClearMiniGame();
+        _interactionObject.Unlock();
+        _interactor.UpdateUI();
     }
 
     public override void Failed()

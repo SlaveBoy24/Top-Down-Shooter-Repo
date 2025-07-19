@@ -31,6 +31,11 @@ public class InteractionStash : InteractionObject
         }
     }
 
+    public override void Unlock()
+    {
+        _lockedStatus = InteractionLockedStatus.Unlocked;
+    }
+
     public List<StashItem> GetList()
     { 
         return _items;
