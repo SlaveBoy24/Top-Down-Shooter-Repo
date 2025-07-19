@@ -1,0 +1,22 @@
+key;eng;rus
+mainMenu_stash;STASH;ХРАНИЛИЩЕ
+mainMenu_shop;SHOP;МАГАЗИН
+mainMenu_start;START;СТАРТ
+mainMenu_friends;Friends;Друзья
+friendPanel_find;FIND FRIEND;НАЙТИ ДРУЗЕЙ
+friendPanel_search;SEARCH;ИСКАТЬ
+friendPanel_type;Enter text…;Введите текст…
+inventory_back;BACK;НАЗАД
+inventory_title;INVENTORY;ИНВЕНТАРЬ
+inventory_backpack;BACKPACK;РЮКХАК
+inventory_stash;STASH;ХРАНИЛИЩЕ
+inventory_level;Level;Уровень
+inventory_nickname;Nickname;Имя
+inventory_money;Money;Деньги
+inventory_gems;Gems;Гемы
+inventory_info;INFO;ИНФОРМАЦИЯ
+inventory_split;SPLIT;РАЗДЕЛИТЬ
+loading_title;LOADING;ЗАГРУЗКА
+username_title;Enter your nickname<br>it must be unique;Введите своё имя<br>Оно должно быть уникальным
+username_type;ENTER YOUR NICKNAME…;ВВЕДИТЕ ИМЯ…
+username_accept;ACCEPT;ПРИНЯТЬ
