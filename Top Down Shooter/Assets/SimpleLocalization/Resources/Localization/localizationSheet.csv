@@ -1,0 +1,22 @@
+Key,English,Russian,Spanish
+mainMenu_stash,STASH,ХРАНИЛИЩЕ,ALIJO
+mainMenu_shop,SHOP,МАГАЗИН,TIENDA
+mainMenu_start,START,СТАРТ,INICIO
+mainMenu_friends,Friends,Друзья,Amigos
+friendPanel_find,FIND FRIEND,НАЙТИ ДРУЗЕЙ,ENCONTRAR AMIGO
+friendPanel_search,SEARCH,ИСКАТЬ,BUSCAR
+friendPanel_type,Enter text…,Введите текст…,Introducir texto…
+inventory_back,BACK,НАЗАД,ATRÁS
+inventory_title,INVENTORY,ИНВЕНТАРЬ,INVENTARIO
+inventory_backpack,BACKPACK,РЮКЗАК,MOCHILA
+inventory_stash,STASH,ХРАНИЛИЩЕ,ALIJO
+inventory_level,Level,Уровень,Nivel
+inventory_nickname,Nickname,Имя,Apodo
+inventory_money,Money,Деньги,Dinero
+inventory_gems,Gems,Гемы,Gemas
+inventory_info,INFO,ИНФОРМАЦИЯ,INFO
+inventory_split,SPLIT,РАЗДЕЛИТЬ,DIVISIÓN
+loading_title,LOADING,ЗАГРУЗКА,CARGANDO
+username_title,Enter your nickname<br>It must be unique,Введите своё имя<br>Оно должно быть уникальным,Ingrese su apodo< br>Debe ser único
+username_type,ENTER YOUR NICKNAME…,ВВЕДИТЕ ИМЯ…,INGRESE SU APODO…
+username_accept,ACCEPT,ПРИНЯТЬ,ACEPTAR
