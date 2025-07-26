@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public static class ItemMethods
@@ -100,9 +101,15 @@ public static class ItemMethods
 
         itemScript.enabled = true;
 
-        Transform slot = stash.GridParent.GetChild(slotID);
+        var slots = stash.GridParent.GetComponentsInChildren<InventorySlot>(true);
 
-        itemGameObject.transform.SetParent(slot);
+        foreach (InventorySlot s in slots)
+        {
+            if (s.SlotID == slotID)
+            {
+                itemGameObject.transform.SetParent(s.gameObject.transform);
+            }
+        }
 
         itemScript.SetItem(stash, slotID);
 

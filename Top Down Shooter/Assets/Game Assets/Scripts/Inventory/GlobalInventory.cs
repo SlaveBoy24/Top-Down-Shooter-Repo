@@ -28,14 +28,15 @@ public class GlobalInventory : MonoBehaviour
         GlobalStashes.OnChangeInventoryEvent += OnChangeInventoryEvent;
         GlobalStashes.OnReadyStashEvent += OnReadyStashEvent;
 
-        Backpack.Initialize();
         BackpackSlot.Initialize();
-        Stash.Initialize();
         ArmourHeadSlot.Initialize();
         ArmourChestSlot.Initialize();
         ArmourLegsSlot.Initialize();
         MainWeaponSlot.Initialize();
         SecondaryWeaponSlot.Initialize();
+
+        //Backpack.Initialize();
+        Stash.Initialize();
     }
 
     private void OnReadyStashEvent(GlobalStashes.EventArgs e)
@@ -51,6 +52,7 @@ public class GlobalInventory : MonoBehaviour
 
         foreach (JSONStash.ItemWrapper item in Items.i)
         {
+            Debug.Log($"item {item.sid}");
             e.Stash.SpawnItemByKeyWithID(ItemPrefab, item.son, item.sid, item.c);
         }
 
@@ -102,8 +104,6 @@ public class GlobalInventory : MonoBehaviour
             default:
                 yield return new WaitUntil(() => RoomManager.Test());
 
-                //Debug.LogError(RoomManager.Test());
-
                 var clothSystem = RoomManager.LocalPlayerObject.GetComponent<ClothSystem>();
 
                 if (e.Items[0] == null)
@@ -146,7 +146,6 @@ public static class GlobalStashes
     public static event OnReadyStash OnReadyStashEvent;
     public static void InvokeStash(this Stash stash)
     {
-        Debug.LogWarning($"ABOBA {stash.name}");
         OnReadyStashEvent?.Invoke(new EventArgs(stash));
     }
     [SerializeField] public static Stash Backpack;

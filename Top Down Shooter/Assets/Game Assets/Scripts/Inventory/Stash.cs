@@ -35,8 +35,7 @@ public class Stash : MonoBehaviour
         SetSize();
         SpawnSlots();
 
-        if(gameObject.name != "Backpack")
-            this.InvokeStash();
+        this.InvokeStash();
     }
 
     public void UpdateSlotCount(params int[] Count)
@@ -50,7 +49,7 @@ public class Stash : MonoBehaviour
         SetSize();
         SpawnSlots();
 
-        this.InvokeStash();
+        GlobalStashes.Backpack.InvokeStash();
     }
 
     private void Start()
@@ -58,7 +57,7 @@ public class Stash : MonoBehaviour
         //if(gameObject.name != "Backpack")
            // this.InvokeStash();
     }
-    private void Despawn()
+    private bool Despawn()
     {
         Transform[] childrens = GridParent.GetComponentsInChildren<Transform>(true);
 
@@ -69,8 +68,10 @@ public class Stash : MonoBehaviour
 
             Destroy(children.gameObject);
         }
+
+        return true;
     }
-    private void SpawnSlots()
+    private bool SpawnSlots()
     {
         for (int i = 0; i < SlotCount; i++)
         {
@@ -87,9 +88,11 @@ public class Stash : MonoBehaviour
         }
 
         _items = new Item[SlotCount];
+
+        return true;
     }
     private int GetLineCount(int slot) => Mathf.CeilToInt((float)(slot) / SlotInLine);
-    private void SetSize()
+    private bool SetSize()
     {
         var gph = CellSize * GetLineCount(SlotCount + BlockedSlotCount);
 
@@ -102,5 +105,7 @@ public class Stash : MonoBehaviour
 
         this.gameObject.SetActive(false);
         this.gameObject.SetActive(true);
+
+        return true;
     }
 }
