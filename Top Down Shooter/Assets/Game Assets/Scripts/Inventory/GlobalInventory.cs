@@ -111,7 +111,7 @@ public class GlobalInventory : MonoBehaviour
                     clothSystem.DeEquipCloth(e.transform.gameObject.name);
 
                     Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - ITEM NULL");
-                    yield return null;
+                    break;
                 }
 
                 clothSystem.EquipCloth(new ClothBase(e));
@@ -119,8 +119,6 @@ public class GlobalInventory : MonoBehaviour
                 Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - {e.Items[0].item.name.CamelToSnake()}");
                 break;
         }
-
-        yield return null;
     }
 }
 
