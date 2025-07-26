@@ -18,6 +18,13 @@ public class RoomManager : MonoBehaviour
 
     public static GameObject LocalPlayerObject;
 
+    public static bool Test()
+    {
+        if (LocalPlayerObject == null)
+            return false;
+        return true;
+    }
+
     [SerializeField] private GameObject _testStartGameBtn;
     [SerializeField] private GameObject _testChangeReadyStateBtn;
 

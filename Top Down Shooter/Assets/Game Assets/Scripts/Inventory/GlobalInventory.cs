@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,15 +8,34 @@ public class GlobalInventory : MonoBehaviour
 {
     [HideInInspector]public static GlobalInventory Instance;
     public GameObject ItemPrefab;
+
+    [SerializeField]protected Stash Backpack;
+    [SerializeField]protected Stash Stash;
+    public Stash ArmourHeadSlot;
+    public Stash ArmourChestSlot;
+    public Stash ArmourLegsSlot;
+    public Stash MainWeaponSlot;
+    public Stash SecondaryWeaponSlot;
+    public Stash BackpackSlot;
+
     public void Initialize()
     {
         Instance = this;
-        var stashes = GetComponentsInChildren<Stash>();
-        GlobalStashes.Backpack = stashes[6];
-        GlobalStashes.Stash = stashes[7];
+
+        GlobalStashes.Backpack = Backpack;
+        GlobalStashes.Stash = Stash;
 
         GlobalStashes.OnChangeInventoryEvent += OnChangeInventoryEvent;
         GlobalStashes.OnReadyStashEvent += OnReadyStashEvent;
+
+        Backpack.Initialize();
+        BackpackSlot.Initialize();
+        Stash.Initialize();
+        ArmourHeadSlot.Initialize();
+        ArmourChestSlot.Initialize();
+        ArmourLegsSlot.Initialize();
+        MainWeaponSlot.Initialize();
+        SecondaryWeaponSlot.Initialize();
     }
 
     private void OnReadyStashEvent(GlobalStashes.EventArgs e)
@@ -62,13 +82,13 @@ public class GlobalInventory : MonoBehaviour
                 case "Stash":
                     continue;
                 default:
-                    OnChangeEquipmentEvent(stash);
+                    StartCoroutine(OnChangeEquipmentEvent(stash));
                     break;
             }
         }
     }
 
-    private void OnChangeEquipmentEvent(Stash e)
+    private IEnumerator OnChangeEquipmentEvent(Stash e)
     {
         switch (e.transform.gameObject.name)
         {
@@ -80,6 +100,10 @@ public class GlobalInventory : MonoBehaviour
 
                 break;
             default:
+                yield return new WaitUntil(() => RoomManager.Test());
+
+                //Debug.LogError(RoomManager.Test());
+
                 var clothSystem = RoomManager.LocalPlayerObject.GetComponent<ClothSystem>();
 
                 if (e.Items[0] == null)
@@ -87,7 +111,7 @@ public class GlobalInventory : MonoBehaviour
                     clothSystem.DeEquipCloth(e.transform.gameObject.name);
 
                     Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - ITEM NULL");
-                    return;
+                    yield return null;
                 }
 
                 clothSystem.EquipCloth(new ClothBase(e));
@@ -95,6 +119,8 @@ public class GlobalInventory : MonoBehaviour
                 Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - {e.Items[0].item.name.CamelToSnake()}");
                 break;
         }
+
+        yield return null;
     }
 }
 
@@ -122,6 +148,7 @@ public static class GlobalStashes
     public static event OnReadyStash OnReadyStashEvent;
     public static void InvokeStash(this Stash stash)
     {
+        Debug.LogWarning($"ABOBA {stash.name}");
         OnReadyStashEvent?.Invoke(new EventArgs(stash));
     }
     [SerializeField] public static Stash Backpack;

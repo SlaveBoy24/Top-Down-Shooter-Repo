@@ -24,9 +24,19 @@ public class Stash : MonoBehaviour
 
     private void Awake()
     {
+        /*Despawn();
+        SetSize();
+        SpawnSlots();*/
+    }
+
+    public void Initialize()
+    {
         Despawn();
         SetSize();
         SpawnSlots();
+
+        if(gameObject.name != "Backpack")
+            this.InvokeStash();
     }
 
     public void UpdateSlotCount(params int[] Count)
@@ -45,14 +55,19 @@ public class Stash : MonoBehaviour
 
     private void Start()
     {
-        if(gameObject.name != "Backpack")
-            this.InvokeStash();
+        //if(gameObject.name != "Backpack")
+           // this.InvokeStash();
     }
     private void Despawn()
     {
-        while (GridParent.transform.childCount > 0)
+        Transform[] childrens = GridParent.GetComponentsInChildren<Transform>(true);
+
+        foreach (Transform children in childrens)
         {
-            DestroyImmediate(GridParent.transform.GetChild(0).gameObject);
+            if (children == GridParent)
+                continue;
+
+            Destroy(children.gameObject);
         }
     }
     private void SpawnSlots()
@@ -60,8 +75,8 @@ public class Stash : MonoBehaviour
         for (int i = 0; i < SlotCount; i++)
         {
             var slot = Instantiate(SlotPrefab, GridParent);
-            slot.GetComponentInChildren<GridLayoutGroup>().cellSize = new Vector2(CellSize, CellSize);
-            var slot_settings = slot.GetComponentInChildren<InventorySlot>();
+            slot.GetComponentInChildren<GridLayoutGroup>(true).cellSize = new Vector2(CellSize, CellSize);
+            var slot_settings = slot.GetComponentInChildren<InventorySlot>(true);
             slot_settings.Stash = this;
             slot_settings.SlotID = i;
             slot_settings.Type = SlotType;
