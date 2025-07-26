@@ -5,6 +5,10 @@ public class ItemPool : MonoBehaviour
 {
     [SerializeField] private ItemPoolScriptableObject itemPoolScriptableObject;
     public static Dictionary<string, ItemScriptableObject> All;
+    public void test()
+    {
+        Debug.Log("loh");
+    }
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);

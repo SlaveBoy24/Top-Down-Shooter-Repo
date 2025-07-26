@@ -2,12 +2,18 @@ using UnityEngine;
 
 public class CharacterLook : MonoBehaviour
 {
+    [SerializeField] private GamePlayer _gamePlayer;
     [SerializeField] private bool _isLooking;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private FixedJoystick _joystick;
 
     private void Start()
     {
+        if (!_gamePlayer.IsLocal())
+        {
+            Destroy(this);
+        }    
+
         _joystick = GameObject.FindGameObjectWithTag("PlayerLookJoystick").GetComponent<FixedJoystick>();
     }
 

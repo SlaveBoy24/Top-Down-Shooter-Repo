@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
+    [SerializeField] private GamePlayer _gamePlayer;
     [SerializeField] private bool _pcControl;
 
     [Space]
@@ -20,6 +21,11 @@ public class Move : MonoBehaviour
 
     private void Start()
     {
+        if (!_gamePlayer.IsLocal())
+        {
+            Destroy(this);
+        }
+
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         _joystick = GameObject.FindGameObjectWithTag("PlayerMoveJoystick").GetComponent<FixedJoystick>();

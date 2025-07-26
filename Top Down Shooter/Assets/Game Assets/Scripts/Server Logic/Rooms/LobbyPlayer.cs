@@ -7,8 +7,6 @@ public class LobbyPlayer : MonoBehaviour
 {
     public Player Player;
     public LobbyPlayerUI PlayerUI;
-    public GameObject InventoryPanelTest;
-    public GameObject LoadingPanelTest;
     public GameObject PlayerObject;
     public Transform PlayerPosition;
     public bool IsReady;
@@ -41,18 +39,16 @@ public class LobbyPlayer : MonoBehaviour
         if (player == PhotonNetwork.LocalPlayer)
         {
             RoomManager.LocalPlayerObject = PlayerObject;
-            InventoryPanelTest.SetActive(true);
-            yield return new WaitForSeconds(.1f);
-            InventoryPanelTest.SetActive(false);
-            LoadingPanelTest.SetActive(false);
         }
         yield return null;
     }
 
     public void SetUI(bool hasButtons = true)
     {
+        Debug.Log("SET UI");
         if (PhotonNetwork.CurrentRoom != null && Player != null)
         {
+            Debug.Log(Player.NickName);
             string playerState = "not ready";
             if (IsReady)
                 playerState = "ready";

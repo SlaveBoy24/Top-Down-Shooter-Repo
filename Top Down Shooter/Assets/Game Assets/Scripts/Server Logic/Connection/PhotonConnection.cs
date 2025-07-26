@@ -10,7 +10,8 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     public static PhotonConnection Instance;
     [SerializeField] private bool _connectedToServer;
     [SerializeField] private bool _connectedToLobby;
-    public GameObject LoadingPanelTest;
+    [SerializeField] private GlobalInventory _inventory;
+    [SerializeField] private GameObject _loadingPanelTest;
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
         else
             Destroy(gameObject);
 
-        LoadingPanelTest.SetActive(true);
+        _loadingPanelTest.SetActive(true);
     }
 
     public void ConnectToServer()
@@ -40,6 +41,8 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
         _connectedToServer = true;
         Debug.Log("Connected to Server");
 
+        _inventory.Initialize();
+        _loadingPanelTest.SetActive(false);
         PhotonNetwork.JoinLobby();
     }
 

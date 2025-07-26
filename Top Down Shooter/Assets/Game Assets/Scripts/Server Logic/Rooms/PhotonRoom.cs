@@ -17,9 +17,11 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
 
     [SerializeField] private List<string> _playersNicknames;
     [SerializeField] private RoomManager _roomManager;
+    [SerializeField] private PhotonView _photonView;
 
     private void Start()
     {
+        _photonView = PhotonView.Get(this);
         StartCoroutine(LobbyInitialization());
     }
 
@@ -152,6 +154,16 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
     }
 
     public void StartGame()
+    {
+        Action rpcSceneLoad = () => _photonView.RPC("LoadGameScene", RpcTarget.All);
+        if (PhotonNetwork.CurrentRoom == null)
+            CreateRoom(rpcSceneLoad);
+        else
+            rpcSceneLoad?.Invoke();
+    }
+
+    [PunRPC]
+    private void LoadGameScene()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel("Game");

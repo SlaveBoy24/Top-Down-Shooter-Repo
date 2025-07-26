@@ -69,11 +69,18 @@ public class RoomManager : MonoBehaviour
             Player player = entry.Value;
             if (player == null)
                 continue;
+            
+            bool isReady = (bool)customRoomProperties[player.NickName];
+            bool isHost = player.IsMasterClient;
+            
             if (!PlayerInList(player))
             {
-                bool isReady = (bool)customRoomProperties[player.NickName];
-                bool isHost = player.IsMasterClient;
                 AddPlayerToList(player, isHost, isReady);
+            }
+            else
+            {
+                LobbyPlayer lobbyPlayer = GetPlayerFromList(player);
+                lobbyPlayer.IsReady = isReady;
             }
         }
 
@@ -90,6 +97,17 @@ public class RoomManager : MonoBehaviour
         _currentRoom.SetCustomProperties(customRoomProperties);
     }
 
+    private LobbyPlayer GetPlayerFromList(Player player)
+    {
+        for (int i = 0; i < _playerInstances.Count; i++)
+        {
+            if (_playerInstances[i].Player != null)
+                if (_playerInstances[i].Player.UserId == player.UserId)
+                    return _playerInstances[i];
+        }
+
+        return null;
+    }
 
     private bool PlayerInList(Player player)
     {
@@ -134,6 +152,14 @@ public class RoomManager : MonoBehaviour
 
     public void StartGame()
     {
-        _photonRoom.StartGame();
+        bool allReady = true;
+        foreach (LobbyPlayer player in _playerInstances)
+        { 
+            if (player.Player != null && !player.IsReady)
+                allReady = false;
+        }
+
+        if (allReady)
+            _photonRoom.StartGame();
     }
 }

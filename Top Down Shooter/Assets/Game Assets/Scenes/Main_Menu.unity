@@ -1685,6 +1685,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceec471454583d245b85632a23e7b3a2, type: 3}
+--- !u!114 &69340270 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 566843522756473509, guid: ceec471454583d245b85632a23e7b3a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 69340269}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbf1f49d19fce44db41918467e88d25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &74298244
 GameObject:
   m_ObjectHideFlags: 0
@@ -5894,7 +5906,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2443221330046707700, guid: 2cf5aaa727e323e48a8462bb3a7a0c30,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2139648899}
   m_SourcePrefab: {fileID: 100100000, guid: 2cf5aaa727e323e48a8462bb3a7a0c30, type: 3}
 --- !u!1 &381685683
 GameObject:
@@ -6017,8 +6033,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerUI: {fileID: 1074838754}
-  InventoryPanelTest: {fileID: 0}
-  LoadingPanelTest: {fileID: 0}
   PlayerObject: {fileID: 0}
   PlayerPosition: {fileID: 384645867}
   IsReady: 0
@@ -8752,8 +8766,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerUI: {fileID: 673160745}
-  InventoryPanelTest: {fileID: 0}
-  LoadingPanelTest: {fileID: 0}
   PlayerObject: {fileID: 0}
   PlayerPosition: {fileID: 632931017}
   IsReady: 0
@@ -9677,8 +9689,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerUI: {fileID: 1529252760}
-  InventoryPanelTest: {fileID: 1897597609}
-  LoadingPanelTest: {fileID: 799384754}
   PlayerObject: {fileID: 0}
   PlayerPosition: {fileID: 753535499}
   IsReady: 0
@@ -14964,8 +14974,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerUI: {fileID: 167823463}
-  InventoryPanelTest: {fileID: 0}
-  LoadingPanelTest: {fileID: 0}
   PlayerObject: {fileID: 0}
   PlayerPosition: {fileID: 1242651867}
   IsReady: 0
@@ -20088,7 +20096,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1598683530}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 69340270}
+        m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
+        m_MethodName: ChangeLocalReadyState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1598683530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24101,6 +24121,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1124803268535412835, guid: 10a666120f7ddb346ae8b7095b0da449,
         type: 3}
+      propertyPath: _inventory
+      value: 
+      objectReference: {fileID: 1897597611}
+    - target: {fileID: 1124803268535412835, guid: 10a666120f7ddb346ae8b7095b0da449,
+        type: 3}
       propertyPath: LoadingPanelTest
       value: 
       objectReference: {fileID: 799384754}
@@ -24114,6 +24139,11 @@ PrefabInstance:
       propertyPath: NicknamePanelTest
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1124803268535412835, guid: 10a666120f7ddb346ae8b7095b0da449,
+        type: 3}
+      propertyPath: _loadingPanelTest
+      value: 
+      objectReference: {fileID: 799384754}
     - target: {fileID: 1124803268535412835, guid: 10a666120f7ddb346ae8b7095b0da449,
         type: 3}
       propertyPath: InventoryPanelTest
@@ -25941,7 +25971,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1928176157}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 69340270}
+        m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1928176157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28552,6 +28594,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119948361}
   m_CullTransparentMesh: 1
+--- !u!1 &2139648896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2443221330046707700, guid: 2cf5aaa727e323e48a8462bb3a7a0c30,
+    type: 3}
+  m_PrefabInstance: {fileID: 354165160}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2139648899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139648896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2142215455
 GameObject:
   m_ObjectHideFlags: 0

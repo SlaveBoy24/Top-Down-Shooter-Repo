@@ -7,7 +7,7 @@ public class GlobalInventory : MonoBehaviour
 {
     [HideInInspector]public static GlobalInventory Instance;
     public GameObject ItemPrefab;
-    private void Awake()
+    public void Initialize()
     {
         Instance = this;
         var stashes = GetComponentsInChildren<Stash>();
