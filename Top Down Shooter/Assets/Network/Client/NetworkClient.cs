@@ -125,17 +125,8 @@ public class NetworkClient : SocketIOComponent
         {
             var newInvite = JsonUtility.FromJson<Invite>(E.data.ToString());
 
-            Debug.Log($"decline invite from {newInvite.to_username}");
-
-            NotificationPanel declineInvite = Instantiate(_testDeclineInvitePrefab, _notificationZone.transform).GetComponent<NotificationPanel>();
-            declineInvite.InitNotificationPanel($"{newInvite.to_username} declined your invite");
+            NotificationManager.Instance.SendNotification("notification_invite_decline", newInvite.to_username);
         });
-    }
-
-    public void CreateRedNotification(string text)
-    {
-        NotificationPanel declineInvite = Instantiate(_testDeclineInvitePrefab, _notificationZone.transform).GetComponent<NotificationPanel>();
-        declineInvite.InitNotificationPanel($"{text}");
     }
 
     private void SetupEvents()
@@ -171,8 +162,7 @@ public class NetworkClient : SocketIOComponent
 
         On("username_not_agree", (E) =>
         {
-            NotificationPanel usernameNotAgree = Instantiate(_testDeclineInvitePrefab, _notificationZone.transform).GetComponent<NotificationPanel>();
-            usernameNotAgree.InitNotificationPanel("Wrong username, try something else!");
+            NotificationManager.Instance.SendNotification("notification_wrong_username");
         });
 
         On("username_init", (E) =>

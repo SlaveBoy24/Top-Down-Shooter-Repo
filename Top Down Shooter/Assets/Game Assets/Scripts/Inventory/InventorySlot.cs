@@ -22,7 +22,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         {
             if (!GlobalStashes.Backpack.isFree())
             {
-                NetworkClient.Instance.CreateRedNotification("Empty ur backpack!");
+                NotificationManager.Instance.SendNotification("notification_clear_backpack");
+
                 Debug.LogError("Empty ur backpack!");
                 return;
             }
@@ -30,7 +31,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
         if ((PastParent.Stash.gameObject.name == "Backpack Slot") && (Stash.gameObject.name == "Backpack"))
         {
-            NetworkClient.Instance.CreateRedNotification("You can't put a backpack in a backpack!");
+            NotificationManager.Instance.SendNotification("notification_bp_in_bp");
+
             Debug.LogError("You can't put a backpack in a backpack!");
             return;
         }

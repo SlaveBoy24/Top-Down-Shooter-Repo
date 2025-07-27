@@ -17,6 +17,10 @@ inventory_gems,Gems,Гемы,Gemas
 inventory_info,INFO,ИНФОРМАЦИЯ,INFO
 inventory_split,SPLIT,РАЗДЕЛИТЬ,DIVISIÓN
 loading_title,LOADING,ЗАГРУЗКА,CARGANDO
-username_title,Enter your nickname<br>It must be unique,Введите своё имя<br>Оно должно быть уникальным,Ingrese su apodo< br>Debe ser único
+username_title,Enter your nickname<br>It must be unique,Введите своё имя<br>Оно должно быть уникальным,Ingrese su apodo<br>Debe ser único
 username_type,ENTER YOUR NICKNAME…,ВВЕДИТЕ ИМЯ…,INGRESE SU APODO…
 username_accept,ACCEPT,ПРИНЯТЬ,ACEPTAR
+notification_invite_decline,{0} declined your invite,{0} отклонил приглашение,{0} rechazó la invitación
+notification_wrong_username,"Wrong username, try something else!","Неверное имя пользователя, попробуйте что-нибудь другое!","Nombre de usuario incorrecto, ¡pruebe con otra cosa! "
+notification_clear_backpack,Empty your backpack!,Опустоши свой рюкзак!,Vacía tu mochila!
+notification_bp_in_bp,You can't put a backpack in a backpack!,Вы не можете положить рюкзак в рюкзак!,No puedes meter una mochila en una mochila!
