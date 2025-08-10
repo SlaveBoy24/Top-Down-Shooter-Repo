@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Photon.Pun;
+using System;
 
 
 public class PhotonConnection : MonoBehaviourPunCallbacks
@@ -12,6 +13,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     [SerializeField] private bool _connectedToLobby;
     [SerializeField] private GlobalInventory _inventory;
     [SerializeField] private GameObject _loadingPanelTest;
+    public Action ActionsToExecuteOnJoinedLobby;
 
     private void Start()
     {
@@ -51,6 +53,9 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
         base.OnJoinedLobby();
         _connectedToLobby = true;
         Debug.Log("Connected to Lobby");
+
+        ActionsToExecuteOnJoinedLobby?.Invoke();
+        ActionsToExecuteOnJoinedLobby = null;
     }
 
     public bool IsConnected()

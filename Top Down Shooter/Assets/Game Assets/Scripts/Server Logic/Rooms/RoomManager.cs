@@ -11,6 +11,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private PhotonRoom _photonRoom;
     [SerializeField] private Room _currentRoom;
 
+    [SerializeField] private bool _initialized;
     [SerializeField] private bool _isReady;
 
     [SerializeField] private List<LobbyPlayer> _playerInstances;
@@ -33,6 +34,8 @@ public class RoomManager : MonoBehaviour
         _photonRoom = photonRoom;
 
         ResetRoom();
+
+        _initialized = true;
     }
 
     public void SetRoom(Room room)

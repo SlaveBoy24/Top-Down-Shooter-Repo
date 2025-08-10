@@ -12,26 +12,24 @@ public class LobbyPlayer : MonoBehaviour
     public bool IsReady;
     public bool IsHost;
 
+    public bool IsMain;
+
     public void SetPlayer(Player player, GameObject prefab, bool isReady, bool isHost)
     {
         Player = player;
-        PlayerObject = Instantiate(prefab, PlayerPosition.position, PlayerPosition.rotation);
+
+        IsMain = player == PhotonNetwork.LocalPlayer;
+
+        if (IsMain && PlayerObject == null)
+            PlayerObject = Instantiate(prefab, PlayerPosition.position, PlayerPosition.rotation);
+        else if (!IsMain)
+            PlayerObject = Instantiate(prefab, PlayerPosition.position, PlayerPosition.rotation);
         IsHost = isHost;
         IsReady = isReady;
 
         StartCoroutine(SetupLocal(player));
 
         SetUI();
-    }
-
-    public void SetPlayer(Player player, GameObject prefab, bool inRoom)
-    {
-        Player = player;
-        PlayerObject = Instantiate(prefab, PlayerPosition.position, PlayerPosition.rotation, transform);
-
-        StartCoroutine(SetupLocal(player));
-
-        SetUI(false);
     }
 
     private IEnumerator SetupLocal(Player player)
@@ -65,10 +63,13 @@ public class LobbyPlayer : MonoBehaviour
     public void Clear()
     {
         PlayerUI.gameObject.SetActive(false);
-        Player = null;
         IsReady = false;
         IsHost = false;
 
-        Destroy(PlayerObject);
+        if (!IsMain)
+        {
+            Player = null;
+            Destroy(PlayerObject);
+        }
     }
 }

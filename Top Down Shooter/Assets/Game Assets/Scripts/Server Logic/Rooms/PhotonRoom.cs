@@ -71,15 +71,20 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(shortUniqueId, roomOptions, null);
     }
 
-
-    public void LeaveRoom()
+    public void LeaveRoom(Action action = null)
     {
+        if (action != null)
+            PhotonConnection.Instance.ActionsToExecuteOnJoinedLobby += action;
+
         PhotonNetwork.LeaveRoom();
     }
 
     public void JoinRoom(string name)
     {
-        PhotonNetwork.JoinRoom(name);
+        if (PhotonNetwork.CurrentRoom != null)
+            LeaveRoom(() => PhotonNetwork.JoinRoom(name));
+        else
+            PhotonNetwork.JoinRoom(name);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
@@ -108,6 +113,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
 
         ActionsToExecuteOnRoomJoin?.Invoke();
+        ActionsToExecuteOnRoomJoin = null;
 
         Room currentRoom = PhotonNetwork.CurrentRoom;
         Player localPlayer = PhotonNetwork.LocalPlayer;
@@ -139,6 +145,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
         currentRoom.SetCustomProperties(roomCustomProperties);
 
         _roomManager.RemovePlayer(otherPlayer);
+
+        CheckPlayerAmount();
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -167,5 +175,12 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel("Game");
+    }
+
+    private void CheckPlayerAmount()
+    {
+        if (PhotonNetwork.CurrentRoom != null)
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+                LeaveRoom();
     }
 }

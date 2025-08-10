@@ -18,8 +18,13 @@ public class GlobalInventory : MonoBehaviour
     public Stash SecondaryWeaponSlot;
     public Stash BackpackSlot;
 
+    private bool _initialized;
+
     public void Initialize()
     {
+        if (_initialized)
+            return;
+
         Instance = this;
 
         GlobalStashes.Backpack = Backpack;
@@ -37,6 +42,8 @@ public class GlobalInventory : MonoBehaviour
 
         //Backpack.Initialize();
         Stash.Initialize();
+
+        _initialized = true;
     }
 
     private void OnReadyStashEvent(GlobalStashes.EventArgs e)
