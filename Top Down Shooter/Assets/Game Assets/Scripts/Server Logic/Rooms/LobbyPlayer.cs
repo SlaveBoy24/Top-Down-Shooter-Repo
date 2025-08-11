@@ -8,6 +8,7 @@ public class LobbyPlayer : MonoBehaviour
     public Player Player;
     public LobbyPlayerUI PlayerUI;
     public GameObject PlayerObject;
+    public ClothSystem PlayerClothSystem;
     public Transform PlayerPosition;
     public bool IsReady;
     public bool IsHost;
@@ -27,18 +28,19 @@ public class LobbyPlayer : MonoBehaviour
         IsHost = isHost;
         IsReady = isReady;
 
-        StartCoroutine(SetupLocal(player));
+        PlayerClothSystem = PlayerObject.GetComponent<ClothSystem>();
+
+        if (player == PhotonNetwork.LocalPlayer)
+            RoomManager.LocalPlayerObject = PlayerObject;
+        else
+            UpdatePlayer();
 
         SetUI();
     }
 
-    private IEnumerator SetupLocal(Player player)
+    public void UpdatePlayer()
     {
-        if (player == PhotonNetwork.LocalPlayer)
-        {
-            RoomManager.LocalPlayerObject = PlayerObject;
-        }
-        yield return null;
+        PlayerClothSystem.OnUpdatePlayerProperties(Player);
     }
 
     public void SetUI(bool hasButtons = true)

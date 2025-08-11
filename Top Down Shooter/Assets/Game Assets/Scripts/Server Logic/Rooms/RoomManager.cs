@@ -160,6 +160,16 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    public void UpdatePlayerProperties(Player targetPlayer)
+    {
+        Debug.Log("Player Updating - " + targetPlayer.NickName);
+        foreach (LobbyPlayer player in _playerInstances)
+        {
+            if (player.Player == targetPlayer)
+                player.UpdatePlayer();
+        }
+    }
+
     public void StartGame()
     {
         bool allReady = true;

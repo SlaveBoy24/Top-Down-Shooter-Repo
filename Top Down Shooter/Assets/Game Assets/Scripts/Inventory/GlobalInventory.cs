@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class GlobalInventory : MonoBehaviour
 {
-    [HideInInspector]public static GlobalInventory Instance;
+    [HideInInspector] public static GlobalInventory Instance;
     public GameObject ItemPrefab;
 
-    [SerializeField]protected Stash Backpack;
-    [SerializeField]protected Stash Stash;
+    [SerializeField] protected Stash Backpack;
+    [SerializeField] protected Stash Stash;
     public Stash ArmourHeadSlot;
     public Stash ArmourChestSlot;
     public Stash ArmourLegsSlot;
@@ -40,7 +40,7 @@ public class GlobalInventory : MonoBehaviour
         MainWeaponSlot.Initialize();
         SecondaryWeaponSlot.Initialize();
 
-        //Backpack.Initialize();
+        Backpack.Initialize();
         Stash.Initialize();
 
         _initialized = true;

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class ClothSystem : MonoBehaviour
 {
@@ -29,7 +31,18 @@ public class ClothSystem : MonoBehaviour
             }
         }
     }
-    private void Spawn(ClothBase clothBase)
+
+    private void DeEquipAll()
+    {
+        foreach (ClothBase clothBase in EquipedClothes)
+        {
+            Destroy(clothBase.clothMesh);
+            EquipedClothes.Remove(clothBase);
+            return;
+        }
+    }
+
+    private void Spawn(ClothBase clothBase, bool updateProps = true) // update props needs to sync players
     {
         GameObject clothMesh = new GameObject(clothBase.clothTable.objectName);
         clothMesh.transform.SetParent(this.transform);
@@ -61,17 +74,60 @@ public class ClothSystem : MonoBehaviour
         clothMesh.layer = LayerMask.NameToLayer("Character");
 
         EquipedClothes.Add(clothBase);
+
+        if (updateProps)
+            UpdatePlayerProperties();
+    }
+    public void UpdatePlayerProperties()
+    {
+        string clothKeys = "";
+        foreach (ClothBase cloth in EquipedClothes)
+            if (cloth.mainItemScriptable != null)
+                clothKeys += $"{cloth.mainItemScriptable.name.CamelToSnake()} ";
+
+        clothKeys = clothKeys.Substring(0, clothKeys.Length - 1);
+
+        ExitGames.Client.Photon.Hashtable playerCustomProperties = PhotonNetwork.LocalPlayer.CustomProperties;
+        if (!playerCustomProperties.ContainsKey("equipment"))
+            playerCustomProperties.Add("equipment", clothKeys);
+
+        Debug.Log("clothKeys(" + clothKeys + ")");
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
+    }
+
+    public void OnUpdatePlayerProperties(Player player)
+    {
+        DeEquipAll();
+
+        ExitGames.Client.Photon.Hashtable playerCustomProperties = player.CustomProperties;
+        if (!playerCustomProperties.ContainsKey("equipment"))
+            return;
+
+        string clothKeys = (string)playerCustomProperties["equipment"];
+
+        foreach (string key in clothKeys.Split(" "))
+        {
+            ItemScriptableObject item = null;
+            ItemPool.All.TryGetValue(key, out item);
+
+            if (item != null)
+                Spawn(new ClothBase(item.ClothScriptableObject), false);
+        }
     }
 }
+
 
 [System.Serializable]
 public class ClothBase
 {
     public string stashName;
+    public ItemScriptableObject mainItemScriptable;
     public ClothModel clothTable;
     [HideInInspector]public GameObject clothMesh;
     public ClothBase(Stash stash)
     {
+        this.mainItemScriptable = stash.Items[0].item;
         this.clothTable = stash.Items[0].item.ClothScriptableObject;
         this.stashName = stash.transform.gameObject.name;
     }

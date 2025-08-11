@@ -152,6 +152,12 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+        Debug.Log($"player prop update - {targetPlayer.NickName}");
+
+        if (targetPlayer == PhotonNetwork.LocalPlayer)
+            return;
+
+        _roomManager.UpdatePlayerProperties(targetPlayer);
     }
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
