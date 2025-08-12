@@ -59,7 +59,6 @@ public class GlobalInventory : MonoBehaviour
 
         foreach (JSONStash.ItemWrapper item in Items.i)
         {
-            Debug.Log($"item {item.sid}");
             e.Stash.SpawnItemByKeyWithID(ItemPrefab, item.son, item.sid, item.c);
         }
 
@@ -117,13 +116,11 @@ public class GlobalInventory : MonoBehaviour
                 {
                     clothSystem.DeEquipCloth(e.transform.gameObject.name);
 
-                    Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - ITEM NULL");
                     break;
                 }
 
                 clothSystem.EquipCloth(new ClothBase(e));
 
-                Debug.Log($"OnChangeEquipmentEvent({e.transform.gameObject.name}) - {e.Items[0].item.name.CamelToSnake()}");
                 break;
         }
     }

@@ -32,7 +32,6 @@ public class NetworkClient : SocketIOComponent
             Destroy(this);
         
         SetAddress(_ip, _port);
-        Debug.Log($"Setup Address - {_ip}:{_port}");
 
         base.Awake();
     }
@@ -115,8 +114,6 @@ public class NetworkClient : SocketIOComponent
         {
             var newInvite = JsonUtility.FromJson<Invite>(E.data.ToString());
 
-            Debug.Log($"invite from {newInvite.where_username}");
-
             InvitePanel invite = Instantiate(_testInvitePrefab).GetComponent<InvitePanel>();
             invite.InitInvitePanel(newInvite);
         });
@@ -133,17 +130,13 @@ public class NetworkClient : SocketIOComponent
     {
         On("open", (E) =>
         {
-            Debug.Log("Connected made to the Server");
+            Debug.Log("Connected made to the Node Server");
         });
 
         On("init", (E) =>
         {
             PlayerData data = new PlayerData();
             data = JsonUtility.FromJson<PlayerData>(E.data.ToString());
-
-            Debug.Log(E.data.ToString());
-
-            Debug.Log("Player ID: " + data.id);
 
             NetworkIdentity.Player.id = data.id;
 
@@ -188,7 +181,6 @@ public class NetworkClient : SocketIOComponent
             if (data.username == "")
             {
                 NetworkIdentity.ShowUsernamePanel(true);
-                Debug.Log("SetUsername()");
             }
             else
             {
@@ -211,7 +203,7 @@ public class NetworkClient : SocketIOComponent
 
         On("close", (E) =>
         {
-            Debug.Log("Disconnected Client");
+            Debug.Log("Disconnected Client Node");
             //base.Close(); //Заглушить реконект
 
         });

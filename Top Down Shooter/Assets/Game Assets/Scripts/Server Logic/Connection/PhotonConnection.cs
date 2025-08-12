@@ -30,7 +30,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
 
     public void ConnectToServer()
     {
-        Debug.Log("Connecting");
+        Debug.Log("Connecting Photon");
 
         PhotonNetwork.NickName = NetworkClient.Instance.NetworkIdentity.Player.username;
         PhotonNetwork.ConnectUsingSettings();
@@ -38,10 +38,9 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log(PhotonNetwork.LocalPlayer.UserId);
         base.OnConnectedToMaster();
         _connectedToServer = true;
-        Debug.Log("Connected to Server");
+        Debug.Log("Connected to Photon Server");
 
         _inventory.Initialize();
         _loadingPanelTest.SetActive(false);
@@ -52,7 +51,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         _connectedToLobby = true;
-        Debug.Log("Connected to Lobby");
+        Debug.Log("Connected to Photon Lobby");
 
         ActionsToExecuteOnJoinedLobby?.Invoke();
         ActionsToExecuteOnJoinedLobby = null;

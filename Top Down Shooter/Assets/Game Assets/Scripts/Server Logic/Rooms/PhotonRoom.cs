@@ -90,8 +90,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         base.OnJoinRoomFailed(returnCode, message);
-
-        Debug.Log("бля не получилось");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -152,7 +150,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
-        Debug.Log($"player prop update - {targetPlayer.NickName}");
+        Debug.Log($"player prop changed - {targetPlayer.NickName}");
 
         if (targetPlayer == PhotonNetwork.LocalPlayer)
             return;

@@ -3,20 +3,17 @@ using UnityEngine;
 
 public class ItemPool : MonoBehaviour
 {
-    [SerializeField] private ItemPoolScriptableObject itemPoolScriptableObject;
+    [SerializeField] private ItemPoolScriptableObject _itemPoolScriptableObject;
     public static Dictionary<string, ItemScriptableObject> All;
-    public void test()
-    {
-        Debug.Log("loh");
-    }
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        itemPoolScriptableObject = ItemPoolScriptableObject.instance;
+        _itemPoolScriptableObject = ItemPoolScriptableObject.instance;
 
         All = new();
 
-        foreach (LikeDict item in itemPoolScriptableObject.ItemsPoolList)
+        foreach (LikeDict item in _itemPoolScriptableObject.ItemsPoolList)
         {
             All[item.key] = item.value;
         }
