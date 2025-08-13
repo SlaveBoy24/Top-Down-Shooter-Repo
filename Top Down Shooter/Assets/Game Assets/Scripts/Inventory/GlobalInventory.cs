@@ -40,7 +40,7 @@ public class GlobalInventory : MonoBehaviour
         MainWeaponSlot.Initialize();
         SecondaryWeaponSlot.Initialize();
 
-        Backpack.Initialize();
+        //Backpack.Initialize();
         Stash.Initialize();
 
         _initialized = true;
@@ -51,7 +51,12 @@ public class GlobalInventory : MonoBehaviour
         Debug.Log($"Stash: {e.Stash.transform.gameObject.name} invoke");
 
         if (!PlayerPrefs.HasKey(e.Stash.transform.gameObject.name))
+        {
+            if (e.Stash.transform.gameObject.name == "Backpack Slot")
+                GlobalStashes.Backpack.UpdateSlotCount();
+
             return;
+        }
 
         string json = PlayerPrefs.GetString(e.Stash.transform.gameObject.name, "Unknown");
 
