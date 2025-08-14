@@ -2,15 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class PhotonGameplay : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private List<GameObject> _players;
-    [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private TeammatesPanelManager _teammatePanelManager;
 
-    private void Start()
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        _players.Add(PhotonNetwork.Instantiate(_playerPrefab.name, _spawnPoint.position, Quaternion.identity));
+        base.OnPlayerEnteredRoom(newPlayer);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+        Debug.Log($"player prop changed - {targetPlayer.NickName}");
+
+        if (targetPlayer == PhotonNetwork.LocalPlayer)
+            return;
+
+        Debug.Log($"call panelmanager");
+        StartCoroutine(_teammatePanelManager.UpdateTeammatePanel(targetPlayer));
+    }
+
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
+    {
+        base.OnRoomPropertiesUpdate(propertiesThatChanged);
     }
 }

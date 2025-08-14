@@ -13,6 +13,11 @@ public class PlayerStats : MonoBehaviour
     public void Initialize()
     {
         // to do save load
+
+        ExitGames.Client.Photon.Hashtable playerProperties = PhotonNetwork.LocalPlayer.CustomProperties;
+
+        if (!playerProperties.ContainsKey("Healths") || !playerProperties.ContainsKey("MaxHealths"))
+            UpdatePhotonPlayerProperties();
     }
 
     public void AddHealths(float value)
@@ -23,6 +28,7 @@ public class PlayerStats : MonoBehaviour
             _healths = _maxHealths;
 
         OnChangeHealthsAction?.Invoke();
+        UpdatePhotonPlayerProperties();
     }
 
     public void ConsumeHealths(float value)
@@ -37,10 +43,28 @@ public class PlayerStats : MonoBehaviour
         }
 
         OnChangeHealthsAction?.Invoke();
+        UpdatePhotonPlayerProperties();
     }
 
     public (float, float) GetHealthsData()
     {
         return (_maxHealths, _healths);
+    }
+
+    public void UpdatePhotonPlayerProperties()
+    {
+        ExitGames.Client.Photon.Hashtable playerCustomProperties = PhotonNetwork.LocalPlayer.CustomProperties;
+
+        if (playerCustomProperties.ContainsKey("MaxHealths"))
+            playerCustomProperties["MaxHealths"] = _maxHealths;
+        else
+            playerCustomProperties.Add("MaxHealths", _maxHealths);
+
+        if (playerCustomProperties.ContainsKey("Healths"))
+            playerCustomProperties["Healths"] = _healths;
+        else
+            playerCustomProperties.Add("Healths", _healths);
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
     }
 }

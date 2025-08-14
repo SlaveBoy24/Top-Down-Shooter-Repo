@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class Loader : MonoBehaviour
 {
-    [SerializeField] private MainPlayer _player;
-    [SerializeField] private GameObject _loadingPanel;
-    [SerializeField] private GameObject _mainUiPanel;
-    [SerializeField] private bool _loaded;
+    [SerializeField] protected MainPlayer _player;
+    [SerializeField] protected GameObject _loadingPanel;
+    [SerializeField] protected GameObject _mainUiPanel;
+    [SerializeField] protected bool _loaded;
 
-    [SerializeField] private bool _loadAutoTEST;
+    [SerializeField] protected bool _loadAutoTEST;
 
     private void Start()
     {
@@ -15,7 +15,7 @@ public class Loader : MonoBehaviour
             SetupGameData();
     }
 
-    public void SetupGameData()
+    public virtual void SetupGameData()
     {
         if (!_loaded)
         {
