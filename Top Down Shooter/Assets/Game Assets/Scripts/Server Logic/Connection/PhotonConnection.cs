@@ -11,7 +11,6 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     public static PhotonConnection Instance;
     [SerializeField] private bool _connectedToServer;
     [SerializeField] private bool _connectedToLobby;
-    [SerializeField] private GlobalInventory _inventory;
     [SerializeField] private Loader _loader;
     public Action ActionsToExecuteOnJoinedLobby;
 
@@ -40,9 +39,8 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
         _connectedToServer = true;
         Debug.Log("Connected to Photon Server");
 
-        _inventory.Initialize();
-
-        _loader.SetupGameData();
+        if (_loader != null)
+            _loader.SetupGameData();
 
         PhotonNetwork.JoinLobby();
     }

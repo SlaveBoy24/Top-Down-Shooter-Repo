@@ -30,6 +30,7 @@ public class GlobalInventory : MonoBehaviour
         GlobalStashes.Backpack = Backpack;
         GlobalStashes.Stash = Stash;
 
+        GlobalStashes.ClearEvents();
         GlobalStashes.OnChangeInventoryEvent += OnChangeInventoryEvent;
         GlobalStashes.OnReadyStashEvent += OnReadyStashEvent;
 
@@ -40,7 +41,6 @@ public class GlobalInventory : MonoBehaviour
         MainWeaponSlot.Initialize();
         SecondaryWeaponSlot.Initialize();
 
-        //Backpack.Initialize();
         Stash.Initialize();
 
         _initialized = true;
@@ -113,9 +113,9 @@ public class GlobalInventory : MonoBehaviour
 
                 break;
             default:
-                yield return new WaitUntil(() => RoomManager.Test());
+                yield return new WaitUntil(() => MainPlayer.Instance.LocalPlayerObject != null);
 
-                var clothSystem = RoomManager.LocalPlayerObject.GetComponent<ClothSystem>();
+                var clothSystem = MainPlayer.Instance.LocalPlayerObject.GetComponent<ClothSystem>();
 
                 if (e.Items[0] == null)
                 {
@@ -159,4 +159,10 @@ public static class GlobalStashes
     }
     [SerializeField] public static Stash Backpack;
     [SerializeField] public static Stash Stash;
+
+    public static void ClearEvents()
+    { 
+        OnChangeInventoryEvent = null;
+        OnReadyStashEvent = null;
+    }
 }

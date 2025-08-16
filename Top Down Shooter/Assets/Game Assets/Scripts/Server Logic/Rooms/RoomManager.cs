@@ -17,15 +17,6 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private List<LobbyPlayer> _playerInstances;
     [SerializeField] private GameObject _playerPrefab;
 
-    public static GameObject LocalPlayerObject;
-
-    public static bool Test()
-    {
-        if (LocalPlayerObject == null)
-            return false;
-        return true;
-    }
-
     [SerializeField] private GameObject _testStartGameBtn;
     [SerializeField] private GameObject _testChangeReadyStateBtn;
 

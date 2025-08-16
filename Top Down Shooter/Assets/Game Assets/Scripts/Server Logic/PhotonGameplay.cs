@@ -7,6 +7,7 @@ using Photon.Realtime;
 public class PhotonGameplay : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TeammatesPanelManager _teammatePanelManager;
+    [SerializeField] private PlayerSpawner _playerSpawner;
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -28,6 +29,7 @@ public class PhotonGameplay : MonoBehaviourPunCallbacks
 
         Debug.Log($"call panelmanager");
         StartCoroutine(_teammatePanelManager.UpdateTeammatePanel(targetPlayer));
+        _playerSpawner.UpdatePlayer(targetPlayer);
     }
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)

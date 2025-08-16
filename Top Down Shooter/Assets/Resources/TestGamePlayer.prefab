@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 3723854381352799873}
   - component: {fileID: 9070378647192807316}
   - component: {fileID: 4778169473834601638}
+  - component: {fileID: 727797428048464682}
   m_Layer: 0
   m_Name: TestGamePlayer
   m_TagString: Untagged
@@ -214,7 +215,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isLocalPlayer: 0
   _playerObject: {fileID: 2286505633848153068}
-  _playerPhotonView: {fileID: 5964250238741569108}
+  _playerPhotonView: {fileID: 4778169473834601638}
+  _clothSystem: {fileID: 727797428048464682}
 --- !u!114 &4778169473834601638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +239,20 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &727797428048464682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4259307166063941144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012c22868edcc054fb0aa461ef864292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  original: {fileID: 4810958236660589129}
+  EquipedClothes: []
 --- !u!1001 &1403474999938903741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -411,7 +427,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: adfa7644cebb11446bab7302fcdb8120, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3492327699092277692, guid: 5ac974d1bf6d25645928e58a9ecf9a15, type: 3}
+    - {fileID: -7088583544792330465, guid: 5ac974d1bf6d25645928e58a9ecf9a15, type: 3}
+    - {fileID: 7509499573710566779, guid: 5ac974d1bf6d25645928e58a9ecf9a15, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5ac974d1bf6d25645928e58a9ecf9a15,
         type: 3}
@@ -596,6 +615,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 0
     Name: unequip
+  - Type: 9
+    SynchronizeType: 0
+    Name: shoot
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -1175,6 +1197,12 @@ Transform:
 --- !u!4 &4486549289766819942 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5964655015830554917, guid: 5ac974d1bf6d25645928e58a9ecf9a15,
+    type: 3}
+  m_PrefabInstance: {fileID: 1403474999938903741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &4810958236660589129 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3334405259352404748, guid: 5ac974d1bf6d25645928e58a9ecf9a15,
     type: 3}
   m_PrefabInstance: {fileID: 1403474999938903741}
   m_PrefabAsset: {fileID: 0}

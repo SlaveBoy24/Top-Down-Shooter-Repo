@@ -10,6 +10,7 @@ using UnityEditor;
 #endif
 public class CustomHierarchy
 {
+#if UNITY_EDITOR
     private static Vector2 offset = new Vector2(20, 0);
     const string IgnoreIcons = "GameObject Icon, Prefab Icon, d_GameObject Icon, d_Prefab Icon";
 
@@ -38,4 +39,5 @@ public class CustomHierarchy
                 }
         }
     }
+#endif
 }

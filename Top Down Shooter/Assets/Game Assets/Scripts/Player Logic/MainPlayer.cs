@@ -4,6 +4,8 @@ public class MainPlayer : MonoBehaviour
 {
     public static MainPlayer Instance;
 
+    public GameObject LocalPlayerObject;
+
     public PlayerStats Stats;
     public PlayerPerks Perks;
     public GlobalInventory Inventory;
@@ -15,7 +17,7 @@ public class MainPlayer : MonoBehaviour
 
         Stats.Initialize();
         Perks.Initialize();
-        //Inventory.Initialize(); | temporary commented
+        Inventory.Initialize();
 
         return true;
     }

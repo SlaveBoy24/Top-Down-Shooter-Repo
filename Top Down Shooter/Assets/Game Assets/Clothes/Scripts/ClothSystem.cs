@@ -27,6 +27,7 @@ public class ClothSystem : MonoBehaviour
             {
                 Destroy(clothBase.clothMesh);
                 EquipedClothes.Remove(clothBase);
+                UpdatePlayerProperties();
                 return;
             }
         }
@@ -37,9 +38,9 @@ public class ClothSystem : MonoBehaviour
         foreach (ClothBase clothBase in EquipedClothes)
         {
             Destroy(clothBase.clothMesh);
-            EquipedClothes.Remove(clothBase);
-            return;
         }
+
+        EquipedClothes = new List<ClothBase>();
     }
 
     private void Spawn(ClothBase clothBase, bool updateProps = true) // update props needs to sync players
@@ -85,11 +86,14 @@ public class ClothSystem : MonoBehaviour
             if (cloth.mainItemScriptable != null)
                 clothKeys += $"{cloth.mainItemScriptable.name.CamelToSnake()} ";
 
-        clothKeys = clothKeys.Substring(0, clothKeys.Length - 1);
+        if (clothKeys != "")
+            clothKeys = clothKeys.Substring(0, clothKeys.Length - 1);
 
         ExitGames.Client.Photon.Hashtable playerCustomProperties = PhotonNetwork.LocalPlayer.CustomProperties;
         if (!playerCustomProperties.ContainsKey("equipment"))
             playerCustomProperties.Add("equipment", clothKeys);
+        else
+            playerCustomProperties["equipment"] = clothKeys;
 
         Debug.Log("clothKeys(" + clothKeys + ")");
 
@@ -105,6 +109,8 @@ public class ClothSystem : MonoBehaviour
             return;
 
         string clothKeys = (string)playerCustomProperties["equipment"];
+
+        Debug.Log(clothKeys);
 
         foreach (string key in clothKeys.Split(" "))
         {
@@ -124,7 +130,7 @@ public class ClothBase
     public string stashName;
     public ItemScriptableObject mainItemScriptable;
     public ClothModel clothTable;
-    [HideInInspector]public GameObject clothMesh;
+    public GameObject clothMesh;
     public ClothBase(Stash stash)
     {
         this.mainItemScriptable = stash.Items[0].item;

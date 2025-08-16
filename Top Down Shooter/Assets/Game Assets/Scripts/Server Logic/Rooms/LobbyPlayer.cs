@@ -31,7 +31,7 @@ public class LobbyPlayer : MonoBehaviour
         PlayerClothSystem = PlayerObject.GetComponent<ClothSystem>();
 
         if (player == PhotonNetwork.LocalPlayer)
-            RoomManager.LocalPlayerObject = PlayerObject;
+            MainPlayer.Instance.LocalPlayerObject = PlayerObject;
         else
             UpdatePlayer();
 
@@ -40,6 +40,7 @@ public class LobbyPlayer : MonoBehaviour
 
     public void UpdatePlayer()
     {
+        Debug.Log("I am here!");
         PlayerClothSystem.OnUpdatePlayerProperties(Player);
     }
 

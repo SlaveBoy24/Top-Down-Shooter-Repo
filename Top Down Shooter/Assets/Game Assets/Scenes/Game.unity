@@ -772,9 +772,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6c09068d7487848aea059b4e6c8d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LocalPlayerObject: {fileID: 0}
   Stats: {fileID: 1680880043}
   Perks: {fileID: 384098740}
-  Inventory: {fileID: 0}
+  Inventory: {fileID: 1550757298}
 --- !u!4 &125942870
 Transform:
   m_ObjectHideFlags: 0
@@ -4555,6 +4556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _players: []
+  _playersObjects: []
   _playerPrefab: {fileID: 4259307166063941144, guid: 38ff734d5b772f3478382ae07630b2f7,
     type: 3}
   _photonView: {fileID: 0}
@@ -5080,6 +5082,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 969382498}
   m_CullTransparentMesh: 1
+--- !u!1 &974859089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 974859091}
+  - component: {fileID: 974859090}
+  m_Layer: 0
+  m_Name: '[ Game Loader ]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &974859090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974859089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f1924e90a8a704bb7bcaed64934def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 125942869}
+  _loadingPanel: {fileID: 9067480507900121592}
+  _mainUiPanel: {fileID: 8290698871788367297}
+  _loaded: 0
+  _loadAutoTEST: 1
+  _teammatePanelManager: {fileID: 1349184402}
+  _playerSpawner: {fileID: 892478887}
+--- !u!4 &974859091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974859089}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.2941623, y: -6.0824237, z: 6.0878415}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &978274489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6156,6 +6209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _teammatePanelManager: {fileID: 1349184402}
+  _playerSpawner: {fileID: 892478887}
 --- !u!1 &1227238523
 GameObject:
   m_ObjectHideFlags: 0
@@ -7659,6 +7713,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f18ffa95bbbb17c408548b8a77f460ee, type: 3}
+--- !u!114 &1550757298 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8764489650716235666, guid: f18ffa95bbbb17c408548b8a77f460ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 1550757297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd2da609ea4fcdb4bbef3d5e48a51e67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1557152981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18240,7 +18306,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2353162843366137757}
-  - component: {fileID: 9067480507900121593}
   m_Layer: 5
   m_Name: Loading Panel
   m_TagString: Untagged
@@ -18248,24 +18313,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &9067480507900121593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9067480507900121592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1f1924e90a8a704bb7bcaed64934def, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 125942869}
-  _loadingPanel: {fileID: 9067480507900121592}
-  _mainUiPanel: {fileID: 8290698871788367297}
-  _loaded: 0
-  _loadAutoTEST: 1
-  _teammatePanelManager: {fileID: 1349184402}
 --- !u!222 &9153049615718572710
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18310,7 +18357,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 518189959}
   - {fileID: 91776319}
-  - {fileID: 1550757297}
   - {fileID: 1409061107}
   - {fileID: 527422618}
   - {fileID: 1284498252}
@@ -18324,9 +18370,11 @@ SceneRoots:
   - {fileID: 4370376952920244}
   - {fileID: 4316713347274191}
   - {fileID: 4181955136692339}
-  - {fileID: 1223434736}
-  - {fileID: 892478888}
+  - {fileID: 974859091}
   - {fileID: 125942870}
   - {fileID: 1680880042}
   - {fileID: 384098741}
   - {fileID: 1349184403}
+  - {fileID: 1223434736}
+  - {fileID: 892478888}
+  - {fileID: 1550757297}

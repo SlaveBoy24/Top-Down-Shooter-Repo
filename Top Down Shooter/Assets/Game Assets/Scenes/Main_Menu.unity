@@ -11993,9 +11993,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6c09068d7487848aea059b4e6c8d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LocalPlayerObject: {fileID: 0}
   Stats: {fileID: 1824792495}
   Perks: {fileID: 1746325129}
-  Inventory: {fileID: 0}
+  Inventory: {fileID: 54455483}
 --- !u!4 &1383247234
 Transform:
   m_ObjectHideFlags: 0
