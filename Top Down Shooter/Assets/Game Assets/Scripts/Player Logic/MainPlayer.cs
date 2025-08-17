@@ -30,7 +30,5 @@ public class MainPlayer : MonoBehaviour
         yield return new WaitUntil(() => MainPlayer.Instance.LocalPlayerObject != null);
 
         LocalPlayerObject.GetComponentInChildren<PlayerCameraRenderer>().Initialize();
-
-        yield return null;
     }
 }
