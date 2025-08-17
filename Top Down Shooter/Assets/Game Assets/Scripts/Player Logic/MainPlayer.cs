@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MainPlayer : MonoBehaviour
@@ -19,6 +20,17 @@ public class MainPlayer : MonoBehaviour
         Perks.Initialize();
         Inventory.Initialize();
 
+        StartCoroutine(WaitLocalPlayerForInit());
+
         return true;
+    }
+
+    private IEnumerator WaitLocalPlayerForInit()
+    {
+        yield return new WaitUntil(() => MainPlayer.Instance.LocalPlayerObject != null);
+
+        LocalPlayerObject.GetComponentInChildren<PlayerCameraRenderer>().Initialize();
+
+        yield return null;
     }
 }

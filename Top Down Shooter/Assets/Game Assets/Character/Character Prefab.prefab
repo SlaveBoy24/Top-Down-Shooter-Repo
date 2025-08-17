@@ -1972,6 +1972,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6471415614028883451}
+  - component: {fileID: 8141174625361855293}
   - component: {fileID: 6520617990621449496}
   - component: {fileID: 1094157977908576129}
   - component: {fileID: 3994752917204416208}
@@ -2009,6 +2010,22 @@ Transform:
   - {fileID: 7914741474322890421}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8141174625361855293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5946095774351490881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b597ae5975662f946bc5fb4c21542256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraPrefab: {fileID: 7069829996586455728, guid: cceddc34cfdc96f4da6e145e0b813c69,
+    type: 3}
+  PositionOffset: {x: 0, y: 0, z: 0}
+  RotationOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &6520617990621449496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2022,6 +2039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   original: {fileID: 1151935650593623780}
+  EquipedClothes: []
 --- !u!95 &1094157977908576129
 Animator:
   serializedVersion: 7

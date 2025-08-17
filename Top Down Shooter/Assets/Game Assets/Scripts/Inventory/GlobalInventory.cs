@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GlobalInventory : MonoBehaviour
 {
@@ -41,7 +42,13 @@ public class GlobalInventory : MonoBehaviour
         MainWeaponSlot.Initialize();
         SecondaryWeaponSlot.Initialize();
 
-        Stash.Initialize();
+        if (SceneManager.GetActiveScene().name != "Main_Menu")
+        {
+            Stash.enabled = false;
+            Stash.gameObject.SetActive(false);
+        }
+        else
+            Stash.Initialize();
 
         _initialized = true;
     }
