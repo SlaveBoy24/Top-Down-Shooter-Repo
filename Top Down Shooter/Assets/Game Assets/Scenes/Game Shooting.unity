@@ -6911,10 +6911,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1eb06b772a10040ac510bc53a2d020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 8374384321095112720, guid: 828af0d4c6cc0f74dabcc1ec952fae5c,
-    type: 3}
-  _players: []
-  _spawnPoint: {fileID: 1576472238}
+  _teammatePanelManager: {fileID: 0}
+  _playerSpawner: {fileID: 0}
 --- !u!1 &1227238523
 GameObject:
   m_ObjectHideFlags: 0
@@ -22338,6 +22336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88657d66c506792418dd7290e72dbeab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gamePlayer: {fileID: 9003523800191121804}
   _pcControl: 1
   _isMoving: 0
   _characterLook: {fileID: 9149529692583830960}
@@ -25713,6 +25712,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemPrefab: {fileID: 297646086980712506, guid: 884bbcf9231f6c64a8760d21d500cae6,
     type: 3}
+  Backpack: {fileID: 0}
+  Stash: {fileID: 0}
+  ArmourHeadSlot: {fileID: 0}
+  ArmourChestSlot: {fileID: 0}
+  ArmourLegsSlot: {fileID: 0}
+  MainWeaponSlot: {fileID: 0}
+  SecondaryWeaponSlot: {fileID: 0}
+  BackpackSlot: {fileID: 0}
 --- !u!114 &7528854703501921025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29133,6 +29140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 432416021411986735}
+  - component: {fileID: 9003523800191121804}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -29140,6 +29148,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &9003523800191121804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003523800191121803}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fec077611dee1c48b61f13449c7ae0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isLocalPlayer: 1
+  _playerObject: {fileID: 0}
+  _playerPhotonView: {fileID: 0}
+  _clothSystem: {fileID: 0}
 --- !u!114 &9093570365477589455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29317,6 +29341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f646da57f32108d4ca4f4c59a03d07da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gamePlayer: {fileID: 9003523800191121804}
   _isLooking: 0
   _rotationSpeed: 0.1
   _joystick: {fileID: 0}
