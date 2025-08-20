@@ -7375,7 +7375,6 @@ MonoBehaviour:
   _player: {fileID: 1383247233}
   _loadingPanel: {fileID: 7486752852811542306}
   _mainUiPanel: {fileID: 1164391380}
-  _playerCamForRender: {fileID: 0}
   _loaded: 0
   _loadAutoTEST: 0
 --- !u!4 &850421523
@@ -21172,6 +21171,11 @@ PrefabInstance:
       propertyPath: Backpack
       value: 
       objectReference: {fileID: 286134790}
+    - target: {fileID: 8764489650716235666, guid: f18ffa95bbbb17c408548b8a77f460ee,
+        type: 3}
+      propertyPath: _inLobby
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8764489650716235666, guid: f18ffa95bbbb17c408548b8a77f460ee,
         type: 3}
       propertyPath: BackpackSlot

@@ -20,6 +20,7 @@ public class GlobalInventory : MonoBehaviour
     public Stash BackpackSlot;
 
     private bool _initialized;
+    [SerializeField] private bool _inLobby;
 
     public void Initialize()
     {
@@ -42,7 +43,7 @@ public class GlobalInventory : MonoBehaviour
         MainWeaponSlot.Initialize();
         SecondaryWeaponSlot.Initialize();
 
-        if (SceneManager.GetActiveScene().name != "Main_Menu")
+        if (!_inLobby)
         {
             Stash.enabled = false;
             Stash.gameObject.SetActive(false);
