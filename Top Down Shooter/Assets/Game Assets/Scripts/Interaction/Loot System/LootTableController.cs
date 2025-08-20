@@ -44,6 +44,11 @@ public class LootTableController : MonoBehaviour
                 _stashes.Add(stash.GetComponent<InteractionStash>());
         }
 
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
         if (_stashes.Count > 0)
         {
             ResetList();

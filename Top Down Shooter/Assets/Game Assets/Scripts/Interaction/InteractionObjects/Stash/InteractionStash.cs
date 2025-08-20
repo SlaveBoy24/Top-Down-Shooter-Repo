@@ -22,11 +22,13 @@ public class InteractionStash : InteractionObject
         return false;
     }
 
-    private void UpdateList()
+    public void UpdateList()
     {
-        foreach (StashItem item in _items)
+        foreach (StashItem item in _items.ToArray())
         {
             if (item == null)
+                _items.Remove(item);
+            else if (item.Item == null)
                 _items.Remove(item);
         }
     }
@@ -39,10 +41,5 @@ public class InteractionStash : InteractionObject
     public List<StashItem> GetList()
     { 
         return _items;
-    }
-
-    public void RemoveItem(StashItem item)
-    { 
-        _items.Remove(item);
     }
 }

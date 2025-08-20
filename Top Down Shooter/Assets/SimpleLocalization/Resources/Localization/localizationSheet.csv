@@ -24,3 +24,4 @@ notification_invite_decline,{0} declined your invite,{0} отклонил при
 notification_wrong_username,"Wrong username, try something else!","Неверное имя пользователя, попробуйте что-нибудь другое!","Nombre de usuario incorrecto, ¡pruebe con otra cosa! "
 notification_clear_backpack,Empty your backpack!,Опустоши свой рюкзак!,Vacía tu mochila!
 notification_bp_in_bp,You can't put a backpack in a backpack!,Вы не можете положить рюкзак в рюкзак!,No puedes meter una mochila en una mochila!
+mainMenu_craft,WORKBENCH,ВЕРСТАК,BANCO

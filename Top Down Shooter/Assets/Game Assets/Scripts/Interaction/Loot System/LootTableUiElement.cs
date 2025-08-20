@@ -8,11 +8,25 @@ public class LootTableUiElement : MonoBehaviour
     [SerializeField] private LootTableController _controller;
     [SerializeField] private InteractionStash _parentStash;
     [SerializeField] private StashItem _stashItem;
+    [SerializeField] private GameObject _itemPrefab;
 
     [Header("UI")]
     [SerializeField] private Image _icon;
     [SerializeField] private TextMeshProUGUI _name;
     [SerializeField] private TextMeshProUGUI _amount;
+
+    public void TakeItem()
+    {
+        if (GlobalStashes.Backpack.FindFreeSlot() != -1)
+        {
+            GlobalStashes.Backpack.SpawnItemByKey(_itemPrefab, _stashItem.Item.name.CamelToSnake());
+
+            _stashItem.Item = null;
+            _parentStash.UpdateList();
+
+            _controller.UpdateUI();
+        }
+    }
 
     public void SetElement(StashItem stashItem, InteractionStash stash, LootTableController controller)
     {
