@@ -125,11 +125,17 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
 
         currentRoom.SetCustomProperties(roomCustomProperties);
         _roomManager.SetRoom(currentRoom);
+
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+            SetPlayerNumbers();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
+
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+            SetPlayerNumbers();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -145,6 +151,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
         _roomManager.RemovePlayer(otherPlayer);
 
         CheckPlayerAmount();
+
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+            SetPlayerNumbers(otherPlayer.NickName);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -163,6 +172,25 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
         base.OnRoomPropertiesUpdate(propertiesThatChanged);
 
         _roomManager.UpdatePlayerList();
+    }
+
+    private void SetPlayerNumbers(string removeNickname = "")
+    {
+        Room room = PhotonNetwork.CurrentRoom;
+        ExitGames.Client.Photon.Hashtable roomCustomProperties = room.CustomProperties;
+
+        if (removeNickname != "")
+            roomCustomProperties.Remove($"{removeNickname}_number");
+
+        foreach (KeyValuePair<int, Player> entry in room.Players)
+        {
+            if (!roomCustomProperties.ContainsKey($"{entry.Value.NickName}_number"))
+                roomCustomProperties.Add($"{entry.Value.NickName}_number", entry.Key);
+            else
+                roomCustomProperties[$"{entry.Value.NickName}_number"] = entry.Key;
+        }
+
+        room.SetCustomProperties(roomCustomProperties);
     }
 
     public void StartGame()

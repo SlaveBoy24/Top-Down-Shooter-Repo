@@ -20,17 +20,20 @@ public class PlayerSpawner : MonoBehaviour
 
     public void Initialize()
     {
+        Room room = PhotonNetwork.CurrentRoom;
+        ExitGames.Client.Photon.Hashtable roomCustomProperties = room.CustomProperties;
+
         _photonView = PhotonView.Get(this);
 
         if (!_players.Contains(PhotonNetwork.LocalPlayer))
         {
-            int positionIndex = GetAvailableSpawnPoint();
+            int positionIndex = (int)roomCustomProperties[$"{PhotonNetwork.LocalPlayer.NickName}_number"];
 
-            _photonView.RPC("SpawnPlayer", RpcTarget.All, PhotonNetwork.LocalPlayer, positionIndex);
+            _photonView.RPC("SpawnPlayer", RpcTarget.All, PhotonNetwork.LocalPlayer);
 
             GameObject instantiatedPlayer = PhotonNetwork.Instantiate(
                 _playerPrefab.name,
-                _playerPositions[positionIndex].SpawnPoint.position,
+                _playerPositions[positionIndex-1].SpawnPoint.position,
                 Quaternion.identity
             );
 
@@ -39,10 +42,9 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     [PunRPC]
-    private void SpawnPlayer(Player player, int positionIndex)
+    private void SpawnPlayer(Player player)
     {
         _players.Add(player);
-        _playerPositions[positionIndex].IsAwailable = false;
     }
 
     [PunRPC]
