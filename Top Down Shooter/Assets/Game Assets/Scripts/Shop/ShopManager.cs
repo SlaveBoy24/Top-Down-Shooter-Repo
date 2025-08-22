@@ -28,6 +28,7 @@ public class ShopManager : MonoBehaviour
     public void OnDisable()
     {
         GlobalInventory.Instance.UpdateStash();
+        GlobalStashes.OnChangeInventoryEvent -= OnChangeStashEvent;
     }
 
     private void InitializeInventoryStash()
