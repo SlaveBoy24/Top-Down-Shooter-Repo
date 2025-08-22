@@ -33,7 +33,8 @@ public class ItemPoolScriptableObjectEditor : Editor
 
                 targetComponent.ItemsPoolList.Add(new LikeDict(item.name.CamelToSnake(), item));
             }
-
+            
+            EditorUtility.SetDirty(targetComponent);
             serializedObject.ApplyModifiedProperties();
         }
 
