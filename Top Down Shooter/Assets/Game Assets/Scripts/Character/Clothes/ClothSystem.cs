@@ -43,7 +43,7 @@ public class ClothSystem : MonoBehaviour
         EquipedClothes = new List<ClothBase>();
     }
 
-    private void Spawn(ClothBase clothBase, bool updateProps = true) // update props needs to sync players
+    private void Spawn(ClothBase clothBase, bool updateProps = true, bool setLayer = true) // update props needs to sync players
     {
         GameObject clothMesh = new GameObject(clothBase.clothTable.objectName);
         clothMesh.transform.SetParent(this.transform);
@@ -71,8 +71,9 @@ public class ClothSystem : MonoBehaviour
         skin.materials = clothBase.clothTable.materials;
 
         clothBase.clothMesh = clothMesh;
-
-        clothMesh.layer = LayerMask.NameToLayer("Character");
+        
+        if (setLayer)
+            clothMesh.layer = LayerMask.NameToLayer("Character");
 
         EquipedClothes.Add(clothBase);
 
@@ -118,7 +119,7 @@ public class ClothSystem : MonoBehaviour
             ItemPool.All.TryGetValue(key, out item);
 
             if (item != null)
-                Spawn(new ClothBase(item.ClothScriptableObject), false);
+                Spawn(new ClothBase(item.ClothScriptableObject), false, false);
         }
     }
 }
