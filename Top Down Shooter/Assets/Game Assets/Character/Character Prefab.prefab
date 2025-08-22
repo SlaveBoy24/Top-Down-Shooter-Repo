@@ -2114,7 +2114,7 @@ MonoBehaviour:
     IKPosition: {x: 0, y: 0, z: 0}
     IKPositionWeight: 1
     root: {fileID: 6471415614028883451}
-    iterations: 4
+    iterations: 0
     chain:
     - pin: 0
       pull: 1

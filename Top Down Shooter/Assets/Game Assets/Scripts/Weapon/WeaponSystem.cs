@@ -45,12 +45,13 @@ public class WeaponSystem : MonoBehaviour
                     break;
                 }
 
-                StartCoroutine(ChangeValueSmoothly(1, 0, 0.4f));
+                StartCoroutine(ChangeValueSmoothly(1, 0, 0.3f));
 
                 break;
             }
         }
 
+        // when u despawn main gun he got a second
         if ((GlobalStashes.MainWeaponSlot.Items[0] == null) && (name == "Weapon Main"))
         {
             if (GlobalStashes.SecondaryWeaponSlot.Items[0] != null)
