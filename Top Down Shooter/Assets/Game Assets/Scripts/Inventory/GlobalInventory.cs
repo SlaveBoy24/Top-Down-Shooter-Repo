@@ -40,8 +40,11 @@ public class GlobalInventory : MonoBehaviour
         ArmourHeadSlot.Initialize();
         ArmourChestSlot.Initialize();
         ArmourLegsSlot.Initialize();
+
         MainWeaponSlot.Initialize();
+        GlobalStashes.MainWeaponSlot = MainWeaponSlot;
         SecondaryWeaponSlot.Initialize();
+        GlobalStashes.SecondaryWeaponSlot = SecondaryWeaponSlot;
 
         if (!_inLobby)
         {
@@ -145,7 +148,6 @@ public class GlobalInventory : MonoBehaviour
                 if (e.Items[0] == null)
                 {
                     weaponSystem.DeEquipWeapon(e.transform.gameObject.name);
-
                     break;
                 }
 
@@ -185,8 +187,11 @@ public static class GlobalStashes
     [SerializeField] public static Stash Backpack;
     [SerializeField] public static Stash Stash;
 
+    [SerializeField] public static Stash MainWeaponSlot;
+    [SerializeField] public static Stash SecondaryWeaponSlot;
+
     public static void ClearEvents()
-    { 
+    {
         OnChangeInventoryEvent = null;
         OnReadyStashEvent = null;
     }

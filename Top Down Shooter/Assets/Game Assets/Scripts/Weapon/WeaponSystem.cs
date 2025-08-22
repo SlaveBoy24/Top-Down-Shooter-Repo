@@ -41,15 +41,23 @@ public class WeaponSystem : MonoBehaviour
                     }
                     FBBIK.solver.leftHandEffector.target = EquipedWeapons[0].weaponObjects.LeftArmPoint.transform;
                     FBBIK.solver.leftArmChain.bendConstraint.bendGoal = EquipedWeapons[0].weaponObjects.BendGoalPoint.transform;
-                    
-                    return;
+
+                    break;
                 }
 
-                StartCoroutine(ChangeValueSmoothly(1, 0, 0.3f));
+                StartCoroutine(ChangeValueSmoothly(1, 0, 0.4f));
 
-                return;
+                break;
             }
         }
+
+        if ((GlobalStashes.MainWeaponSlot.Items[0] == null) && (name == "Weapon Main"))
+        {
+            if (GlobalStashes.SecondaryWeaponSlot.Items[0] != null)
+            {
+                Spawn(new WeaponBase(GlobalStashes.SecondaryWeaponSlot));
+            }
+        } 
     }
 
     private void Spawn(WeaponBase weapon)
@@ -58,7 +66,18 @@ public class WeaponSystem : MonoBehaviour
         {
             if (weapon.mainItemScriptable.Type == weaponBase.mainItemScriptable.Type)
             {
-                return;    
+                return;
+            }
+
+            if ((weapon.mainItemScriptable.Type == ItemType.WeaponSecondary) && (weaponBase.mainItemScriptable.Type == ItemType.WeaponMain))
+            {
+                return;
+            }
+
+            if ((weapon.mainItemScriptable.Type == ItemType.WeaponMain) && (weaponBase.mainItemScriptable.Type == ItemType.WeaponSecondary))
+            {
+                DeEquipWeapon("Weapon Second");
+                break;
             }
         }
 
@@ -84,14 +103,16 @@ public class WeaponSystem : MonoBehaviour
         if (weapon.mainItemScriptable.Type == ItemType.WeaponMain)
             Animator.SetTrigger("rifle");
         else
+        {
             Animator.SetTrigger("pistol");
+        }
 
         weapon.weaponObjects = weaponObject.GetComponent<WeaponObjects>();
 
         FBBIK.solver.leftHandEffector.target = weapon.weaponObjects.LeftArmPoint.transform;
         FBBIK.solver.leftArmChain.bendConstraint.bendGoal = weapon.weaponObjects.BendGoalPoint.transform;
 
-        StartCoroutine(ChangeValueSmoothly(0, 1, 0.3f));
+        StartCoroutine(ChangeValueSmoothly(0, 1, 0.4f));
     }
 
     public IEnumerator ChangeValueSmoothly(float startValue, float targetValue, float duration)
