@@ -3,6 +3,7 @@ using UnityEngine;
 public class Loader : MonoBehaviour
 {
     [SerializeField] protected MainPlayer _player;
+    [SerializeField] protected ShopManager _shopManager;
     [SerializeField] protected GameObject _loadingPanel;
     [SerializeField] protected GameObject _mainUiPanel;
     [SerializeField] protected bool _loaded;
@@ -21,6 +22,7 @@ public class Loader : MonoBehaviour
         {
             if (_player.Initialize())
             {
+                _shopManager.Initialize();
                 _loadingPanel.SetActive(false);
                 _mainUiPanel.SetActive(true);
             }

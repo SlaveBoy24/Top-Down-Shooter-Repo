@@ -57,6 +57,11 @@ public class GlobalInventory : MonoBehaviour
         _initialized = true;
     }
 
+    public void UpdateStash()
+    {
+        Stash.Initialize();
+    }
+
     private void OnReadyStashEvent(GlobalStashes.EventArgs e)
     {
         Debug.Log($"Stash: {e.Stash.transform.gameObject.name} invoke");
