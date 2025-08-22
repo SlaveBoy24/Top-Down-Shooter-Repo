@@ -40,8 +40,11 @@ public class GlobalInventory : MonoBehaviour
         ArmourHeadSlot.Initialize();
         ArmourChestSlot.Initialize();
         ArmourLegsSlot.Initialize();
+
         MainWeaponSlot.Initialize();
+        GlobalStashes.MainWeaponSlot = MainWeaponSlot;
         SecondaryWeaponSlot.Initialize();
+        GlobalStashes.SecondaryWeaponSlot = SecondaryWeaponSlot;
 
         if (!_inLobby)
         {
@@ -120,7 +123,9 @@ public class GlobalInventory : MonoBehaviour
                     GlobalStashes.Backpack.UpdateSlotCount();
 
                 break;
-            default:
+            case "Head Armour":
+            case "Chest Armour":
+            case "Legs Armour":
                 yield return new WaitUntil(() => MainPlayer.Instance.LocalPlayerObject != null);
 
                 var clothSystem = MainPlayer.Instance.LocalPlayerObject.GetComponent<ClothSystem>();
@@ -133,6 +138,20 @@ public class GlobalInventory : MonoBehaviour
                 }
 
                 clothSystem.EquipCloth(new ClothBase(e));
+
+                break;
+            default:
+                yield return new WaitUntil(() => MainPlayer.Instance.LocalPlayerObject != null);
+
+                var weaponSystem = MainPlayer.Instance.LocalPlayerObject.GetComponent<WeaponSystem>();
+
+                if (e.Items[0] == null)
+                {
+                    weaponSystem.DeEquipWeapon(e.transform.gameObject.name);
+                    break;
+                }
+
+                weaponSystem.EquipWeapon(new WeaponBase(e));
 
                 break;
         }
@@ -168,8 +187,11 @@ public static class GlobalStashes
     [SerializeField] public static Stash Backpack;
     [SerializeField] public static Stash Stash;
 
+    [SerializeField] public static Stash MainWeaponSlot;
+    [SerializeField] public static Stash SecondaryWeaponSlot;
+
     public static void ClearEvents()
-    { 
+    {
         OnChangeInventoryEvent = null;
         OnReadyStashEvent = null;
     }

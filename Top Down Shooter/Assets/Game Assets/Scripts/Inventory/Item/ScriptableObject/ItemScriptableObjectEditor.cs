@@ -13,6 +13,7 @@ public class ItemSctiptableObjectEditor : Editor
     private SerializedProperty _iconProp;
     private SerializedProperty _boolStackProp;
     private SerializedProperty _clothScriptableObjectProp;
+    private SerializedProperty _gunPrefabProp;
     private void OnEnable()
     {
         _itemSctiptableObject = target as ItemScriptableObject;
@@ -22,6 +23,7 @@ public class ItemSctiptableObjectEditor : Editor
         _iconProp = _serializedItemSctiptableObject.FindProperty("Icon");
         _boolStackProp = _serializedItemSctiptableObject.FindProperty("CanStack");
         _clothScriptableObjectProp = _serializedItemSctiptableObject.FindProperty("ClothScriptableObject");
+        _gunPrefabProp = _serializedItemSctiptableObject.FindProperty("GunSettings");
     }
 
     public override void OnInspectorGUI()
@@ -137,6 +139,7 @@ public class ItemSctiptableObjectEditor : Editor
                     new GUIContent("Кол-во патрон в магазине"),
                     _itemSctiptableObject.MaxBulletCount
                 );
+                EditorGUILayout.PropertyField(_gunPrefabProp, new GUIContent("Скриптабля"));
                 break;
         }
     }
