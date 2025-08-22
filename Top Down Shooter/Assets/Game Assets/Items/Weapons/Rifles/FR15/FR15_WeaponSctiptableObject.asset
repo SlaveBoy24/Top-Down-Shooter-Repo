@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301981723a5c93643b0938a2765b9bfd, type: 3}
+  m_Name: FR15_WeaponSctiptableObject
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 1952938124507012, guid: a1fac689f907dba4a8c25236c00cee8b, type: 3}
+  RightHandPosition: {x: -0.00041, y: 0.00086, z: -0.00017}
+  RightHandRotation: {x: 270, y: 5, z: 0}
+  RightHandScale: {x: 0.008, y: 0.008, z: 0.008}

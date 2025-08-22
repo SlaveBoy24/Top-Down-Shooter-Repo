@@ -1973,6 +1973,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6471415614028883451}
   - component: {fileID: 8141174625361855293}
+  - component: {fileID: 6469333218236331263}
   - component: {fileID: 6520617990621449496}
   - component: {fileID: 1094157977908576129}
   - component: {fileID: 3994752917204416208}
@@ -2024,8 +2025,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraPrefab: {fileID: 7069829996586455728, guid: cceddc34cfdc96f4da6e145e0b813c69,
     type: 3}
-  PositionOffset: {x: 0, y: 0, z: 0}
-  RotationOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &6469333218236331263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5946095774351490881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9806baa334e25014b834da62ed7435ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 1094157977908576129}
+  FBBIK: {fileID: 3994752917204416208}
+  EquipedWeapons: []
 --- !u!114 &6520617990621449496
 MonoBehaviour:
   m_ObjectHideFlags: 0

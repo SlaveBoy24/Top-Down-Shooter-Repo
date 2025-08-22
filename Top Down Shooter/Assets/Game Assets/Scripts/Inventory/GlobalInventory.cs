@@ -120,7 +120,9 @@ public class GlobalInventory : MonoBehaviour
                     GlobalStashes.Backpack.UpdateSlotCount();
 
                 break;
-            default:
+            case "Head Armour":
+            case "Chest Armour":
+            case "Legs Armour":
                 yield return new WaitUntil(() => MainPlayer.Instance.LocalPlayerObject != null);
 
                 var clothSystem = MainPlayer.Instance.LocalPlayerObject.GetComponent<ClothSystem>();
@@ -133,6 +135,21 @@ public class GlobalInventory : MonoBehaviour
                 }
 
                 clothSystem.EquipCloth(new ClothBase(e));
+
+                break;
+            default:
+                yield return new WaitUntil(() => MainPlayer.Instance.LocalPlayerObject != null);
+
+                var weaponSystem = MainPlayer.Instance.LocalPlayerObject.GetComponent<WeaponSystem>();
+
+                if (e.Items[0] == null)
+                {
+                    weaponSystem.DeEquipWeapon(e.transform.gameObject.name);
+
+                    break;
+                }
+
+                weaponSystem.EquipWeapon(new WeaponBase(e));
 
                 break;
         }

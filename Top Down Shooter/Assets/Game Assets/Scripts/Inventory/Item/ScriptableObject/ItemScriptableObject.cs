@@ -25,6 +25,7 @@ public class ItemScriptableObject : ScriptableObject
     public int DamageDeal;
     public float ArmourPenetration;
     public int MaxBulletCount;
+    public WeaponScriptableObject GunSettings;
 }
 
 
