@@ -25,3 +25,7 @@ notification_wrong_username,"Wrong username, try something else!","Неверн�
 notification_clear_backpack,Empty your backpack!,Опустоши свой рюкзак!,Vacía tu mochila!
 notification_bp_in_bp,You can't put a backpack in a backpack!,Вы не можете положить рюкзак в рюкзак!,No puedes meter una mochila en una mochila!
 mainMenu_craft,WORKBENCH,ВЕРСТАК,BANCO
+sell_button_text,SELL FOR {0},ПРОДАТЬ ЗА {0},VENDER POR {0}
+sell_null_button_text,SELL,ПРОДАТЬ,VENDER
+shop_title,SHOP,МАГАЗИН,TIENDA
+selling_stash_stash,SELL PANEL,ПАНЕЛЬ ПРОДАЖИ,PANEL DE VENTA

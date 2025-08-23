@@ -1,19 +1,34 @@
 using UnityEngine;
+using TMPro;
+using Assets.SimpleLocalization.Scripts;
 
 public class ShopManager : MonoBehaviour
 {
     [SerializeField] private Stash _stash;
     [SerializeField] private Stash _sellingStash;
 
+    [SerializeField] private TextMeshProUGUI _sellingButtonText;
+    [SerializeField] private string _sellButtonTextKey;
+    [SerializeField] private string _sellButtonNullTextKey;
+    [SerializeField] private float _totalSellingSum;
+
     public void Initialize()
     {
         _sellingStash.Initialize();
         InitializeInventoryStash();
+        UpdateSellingTotalSum();
     }
 
     public void OnEnable()
     {
         InitializeInventoryStash();
+        GlobalStashes.OnChangeInventoryEvent += OnChangeStashEvent;
+    }
+
+    public void OnDisable()
+    {
+        GlobalInventory.Instance.UpdateStash();
+        GlobalStashes.OnChangeInventoryEvent -= OnChangeStashEvent;
     }
 
     private void InitializeInventoryStash()
@@ -21,8 +36,47 @@ public class ShopManager : MonoBehaviour
         _stash.Initialize();
     }
 
-    public void OnDisable()
+    private void OnChangeStashEvent(GlobalStashes.EventArgs e)
     {
-        GlobalInventory.Instance.UpdateStash();
+        if (e.Stash.transform.gameObject.name == "Selling Stash" || e.PastStash.transform.gameObject.name == "Selling Stash")
+            UpdateSellingTotalSum();
+    }
+
+    private void UpdateSellingTotalSum()
+    {
+        float totalSum = 0f;
+        Item[] items = _sellingStash.Items;
+
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] != null)
+            {
+                int amount = 1;
+                if (items[i].item.CanStack && items[i].Count > 0)
+                    amount = items[i].Count;
+
+                totalSum += items[i].item.Cost * amount;
+            }
+        }
+
+        _totalSellingSum = totalSum;
+
+        SetSellingUI();
+    }
+
+    private void SetSellingUI()
+    {
+        if (_totalSellingSum > 0)
+        {
+            string text = LocalizationManager.Localize(_sellButtonTextKey);
+
+            text = string.Format(text, (int)_totalSellingSum);
+
+            _sellingButtonText.text = text;
+        }
+        else
+        {
+            _sellingButtonText.text = LocalizationManager.Localize(_sellButtonNullTextKey);
+        }
     }
 }
