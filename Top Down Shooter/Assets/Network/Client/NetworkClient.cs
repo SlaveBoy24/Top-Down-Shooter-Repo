@@ -186,6 +186,8 @@ public class NetworkClient : SocketIOComponent
             {
                 NetworkIdentity.Player.username = data.username;
 
+                NetworkIdentity.Player.privilege_id = data.privilege_id;
+
                 NetworkIdentity.Player.money = data.money;
                 NetworkIdentity.Player.gems = data.gems;
 

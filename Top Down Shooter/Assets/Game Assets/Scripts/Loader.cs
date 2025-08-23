@@ -22,7 +22,7 @@ public class Loader : MonoBehaviour
         {
             if (_player.Initialize())
             {
-                _shopManager.Initialize();
+                //_shopManager.Initialize();
                 _loadingPanel.SetActive(false);
                 _mainUiPanel.SetActive(true);
             }

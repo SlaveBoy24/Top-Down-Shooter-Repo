@@ -130,7 +130,7 @@ public class PlayerData
     public string mail;
     [HideInInspector] public string status;
     public string username;
-    public int isAdmin;
+    public int privilege_id;
     public int money;
     public int gems;
 }

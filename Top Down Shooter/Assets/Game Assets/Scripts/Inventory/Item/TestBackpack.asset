@@ -21,7 +21,9 @@ MonoBehaviour:
   Heal: 0
   SlowDownMovementPercent: 0
   DamageBlockPercent: 0
-  SlotCount: 27
+  ClothScriptableObject: {fileID: 0}
+  SlotCount: 24
   DamageDeal: 0
   ArmourPenetration: 0
   MaxBulletCount: 0
+  GunSettings: {fileID: 0}
