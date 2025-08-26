@@ -64,17 +64,17 @@ public class GlobalInventory : MonoBehaviour
 
     private void OnReadyStashEvent(GlobalStashes.EventArgs e)
     {
-        Debug.Log($"Stash: {e.Stash.transform.gameObject.name} invoke");
+        Debug.Log($"Stash: {e.Stash.gameObject.name} invoke");
 
-        if (!PlayerPrefs.HasKey(e.Stash.transform.gameObject.name))
+        if (!PlayerPrefs.HasKey(e.Stash.gameObject.name))
         {
-            if (e.Stash.transform.gameObject.name == "Backpack Slot")
+            if (e.Stash.gameObject.name == "Backpack Slot")
                 GlobalStashes.Backpack.UpdateSlotCount();
 
             return;
         }
 
-        string json = PlayerPrefs.GetString(e.Stash.transform.gameObject.name, "Unknown");
+        string json = PlayerPrefs.GetString(e.Stash.gameObject.name, "Unknown");
 
         JSONStash.ItemsWrapper Items = json.JSONToItems();
 
@@ -89,8 +89,8 @@ public class GlobalInventory : MonoBehaviour
     private void OnChangeInventoryEvent(GlobalStashes.EventArgs e)
     {
         if (e.PastStash != null)
-            PlayerPrefs.SetString(e.PastStash.transform.gameObject.name, e.PastStash.ItemsToJSON());
-        PlayerPrefs.SetString(e.Stash.transform.gameObject.name, e.Stash.ItemsToJSON());
+            PlayerPrefs.SetString(e.PastStash.gameObject.name, e.PastStash.ItemsToJSON());
+        PlayerPrefs.SetString(e.Stash.gameObject.name, e.Stash.ItemsToJSON());
 
         CheckChangeEquipmentSlot(e);
     }
@@ -104,7 +104,7 @@ public class GlobalInventory : MonoBehaviour
 
         foreach (Stash stash in list)
         {
-            switch (stash.transform.gameObject.name)
+            switch (stash.gameObject.name)
             {
                 case "Backpack":
                     continue;
@@ -119,7 +119,7 @@ public class GlobalInventory : MonoBehaviour
 
     private IEnumerator OnChangeEquipmentEvent(Stash e)
     {
-        switch (e.transform.gameObject.name)
+        switch (e.gameObject.name)
         {
             case "Backpack Slot":
                 if (e.Items[0] != null)
@@ -137,7 +137,7 @@ public class GlobalInventory : MonoBehaviour
 
                 if (e.Items[0] == null)
                 {
-                    clothSystem.DeEquipCloth(e.transform.gameObject.name);
+                    clothSystem.DeEquipCloth(e.gameObject.name);
 
                     break;
                 }
@@ -152,7 +152,7 @@ public class GlobalInventory : MonoBehaviour
 
                 if (e.Items[0] == null)
                 {
-                    weaponSystem.DeEquipWeapon(e.transform.gameObject.name);
+                    weaponSystem.DeEquipWeapon(e.gameObject.name);
                     break;
                 }
 

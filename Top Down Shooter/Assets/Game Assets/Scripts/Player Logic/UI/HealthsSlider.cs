@@ -14,7 +14,7 @@ public class HealthsSlider : MonoBehaviour
     public void UpdateHealths()
     {
         (float maxHealths, float healths) = MainPlayer.Instance.Stats.GetHealthsData();
-        _slider.maxValue = maxHealths;
-        _slider.value = healths;
+        _slider.maxValue = (int)maxHealths;
+        _slider.value = (int)healths;
     }
 }

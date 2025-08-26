@@ -15,6 +15,6 @@ public class HealthsText : MonoBehaviour
     public void UpdateHealths()
     {
         (float maxHealths, float healths) = MainPlayer.Instance.Stats.GetHealthsData();
-        _text.text = $"HP {healths}/{maxHealths}";
+        _text.text = $"HP {(int)healths}/{(int)maxHealths}";
     }
 }

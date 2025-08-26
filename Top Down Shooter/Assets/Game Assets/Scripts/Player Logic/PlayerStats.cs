@@ -7,8 +7,13 @@ public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private float _maxHealths;
     [SerializeField] private float _healths;
+    [SerializeField] private int _money;
+    [SerializeField] private int _donateMoney;
+
 
     public Action OnChangeHealthsAction;
+    public Action OnChangeMoneyAction;
+    public Action OnChangeDonateMoneyAction;
 
     public void Initialize()
     {
@@ -20,6 +25,7 @@ public class PlayerStats : MonoBehaviour
             UpdatePhotonPlayerProperties();
     }
 
+    #region Healths
     public void AddHealths(float value)
     {
         _healths += value;
@@ -67,4 +73,63 @@ public class PlayerStats : MonoBehaviour
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
     }
+    #endregion
+
+    #region Money
+    public void AddMoney(int value)
+    {
+        _money += value;
+
+        OnChangeMoneyAction?.Invoke();
+    }
+
+    public void ConsumeMoney(int value)
+    {
+        _money -= value;
+
+        OnChangeMoneyAction?.Invoke();
+    }
+
+    public int GetMoneyData()
+    {
+        return _money;
+    }
+
+    public bool IsEnoughMoney(int value)
+    {
+        if (_money >= value)
+            return true;
+
+        return false;
+    }
+    #endregion
+
+    #region DonateMoney
+    public void AddDonateMoney(int value)
+    {
+        _donateMoney += value;
+
+        OnChangeDonateMoneyAction?.Invoke();
+    }
+
+    public void ConsumeDonateMoney(int value)
+    {
+        _donateMoney -= value;
+
+        OnChangeDonateMoneyAction?.Invoke();
+    }
+
+    public int GetDonateMoneyData()
+    {
+        return _donateMoney;
+    }
+
+    public bool IsEnoughDonateMoney(int value)
+    {
+        if (_donateMoney >= value)
+            return true;
+
+        return false;
+    }
+    #endregion
 }

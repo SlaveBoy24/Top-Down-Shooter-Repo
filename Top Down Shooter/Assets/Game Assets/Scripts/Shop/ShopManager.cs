@@ -10,7 +10,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _sellingButtonText;
     [SerializeField] private string _sellButtonTextKey;
     [SerializeField] private string _sellButtonNullTextKey;
-    [SerializeField] private float _totalSellingSum;
+    [SerializeField] private int _totalSellingSum;
 
     public void Initialize()
     {
@@ -36,6 +36,24 @@ public class ShopManager : MonoBehaviour
         _stash.Initialize();
     }
 
+    public void SellItems()
+    {
+        if (_totalSellingSum > 0)
+        {
+            Debug.LogWarning($"Total selling sum - {_totalSellingSum}");
+            MainPlayer.Instance.Stats.AddMoney(_totalSellingSum);
+
+            if (PlayerPrefs.HasKey(_sellingStash.gameObject.name))
+                PlayerPrefs.DeleteKey(_sellingStash.gameObject.name);
+
+            _sellingStash.Initialize();
+        }
+        else
+        {
+            Debug.LogWarning("No items in selling panel!");
+        }
+    }
+
     private void OnChangeStashEvent(GlobalStashes.EventArgs e)
     {
         if (e.Stash.transform.gameObject.name == "Selling Stash" || e.PastStash.transform.gameObject.name == "Selling Stash")
@@ -44,7 +62,7 @@ public class ShopManager : MonoBehaviour
 
     private void UpdateSellingTotalSum()
     {
-        float totalSum = 0f;
+        int totalSum = 0;
         Item[] items = _sellingStash.Items;
 
         for (int i = 0; i < items.Length; i++)
