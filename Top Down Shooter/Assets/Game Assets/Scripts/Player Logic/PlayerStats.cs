@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEditor.ShaderGraph.Serialization;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -18,11 +19,18 @@ public class PlayerStats : MonoBehaviour
     public void Initialize()
     {
         // to do save load
+        //InitDatabaseInfo();
 
         ExitGames.Client.Photon.Hashtable playerProperties = PhotonNetwork.LocalPlayer.CustomProperties;
 
         if (!playerProperties.ContainsKey("Healths") || !playerProperties.ContainsKey("MaxHealths"))
             UpdatePhotonPlayerProperties();
+    }
+
+    private void InitDatabaseInfo()
+    {
+        _money = NetworkIdentity.Instance.Player.money;
+        _donateMoney = NetworkIdentity.Instance.Player.gems;
     }
 
     #region Healths
