@@ -51,6 +51,7 @@ public class NetworkClient : SocketIOComponent
     {
         SetupEvents();
         SetupEventsForFriendSystem();
+        SetupEventsForTransferMoney();
 
         base.Connect();
     }
@@ -126,6 +127,21 @@ public class NetworkClient : SocketIOComponent
         });
     }
 
+    private void SetupEventsForTransferMoney()
+    {
+        On("money_update_info", (E) =>
+        {
+            PlayerData data = new PlayerData();
+            data = JsonUtility.FromJson<PlayerData>(E.data.ToString());
+
+            NetworkIdentity.Player.money = data.money;
+
+            Debug.Log("Money Update");
+
+            NetworkIdentity.InitInformation();
+        });
+    }
+
     private void SetupEvents()
     {
         On("open", (E) =>
@@ -142,8 +158,8 @@ public class NetworkClient : SocketIOComponent
 
             if (PlayerPrefs.HasKey("PlayerID"))
             {
-                int player_id = PlayerPrefs.GetInt("PlayerID");
-                if (player_id != 0)
+                string player_id = PlayerPrefs.GetString("PlayerID");
+                if (player_id != "")
                 {
                     NetworkIdentity.Player.player_id = player_id;
                     data.player_id = player_id;
@@ -167,9 +183,9 @@ public class NetworkClient : SocketIOComponent
 
             Debug.Log($"Player ID: {data.player_id}, Player Username: {data.username}");
 
-            if ((!PlayerPrefs.HasKey("PlayerID")) || (PlayerPrefs.GetInt("PlayerID") == 0))
+            if ((!PlayerPrefs.HasKey("PlayerID")) || (PlayerPrefs.GetString("PlayerID") == ""))
             {
-                PlayerPrefs.SetInt("PlayerID", data.player_id);
+                PlayerPrefs.SetString("PlayerID", data.player_id);
                 NetworkIdentity.Player.player_id = data.player_id;
             }
 
