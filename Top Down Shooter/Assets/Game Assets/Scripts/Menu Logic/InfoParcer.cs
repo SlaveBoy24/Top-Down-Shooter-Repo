@@ -21,7 +21,7 @@ public class InfoParcer : MonoBehaviour
 
     private void Parce(PlayerData data)
     {
-        _tmp.text = UseFormat ? 
+        _tmp.text = UseFormat ?
         Convert.ToInt32(data.GetFieldValue(Value)).Format() :
         $"{data.GetFieldValue(Value)}";
     }

@@ -126,11 +126,11 @@ public class V4 // Quaternion
 public class PlayerData
 {
     public string id;
-    public int player_id;
+    public string player_id;
     public string mail;
     [HideInInspector] public string status;
     public string username;
-    public int isAdmin;
+    public int privilege_id;
     public int money;
     public int gems;
 }
@@ -192,4 +192,17 @@ public class PingFromFriend
 public class SearchFriend
 {
     public string username;
+}
+
+[Serializable]
+public class MoneyTransaction
+{
+    public string player_id;
+    public int money;
+
+    public MoneyTransaction(string player_id, int money)
+    {
+        this.player_id = player_id;
+        this.money = money;
+    }
 }

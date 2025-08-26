@@ -14,7 +14,7 @@ GameObject:
   m_Layer: 0
   m_Name: Network
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 267a89f787a621e4290fbff7a5442750, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -45,14 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d549f3e843baf3d42a832f33da90de3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInited: 0
   Player:
     id: 
-    player_id: 0
+    player_id: 
     mail: 
     status: 
     username: 
+    privilege_id: 0
+    money: 0
+    gems: 0
   _usernamePanel: {fileID: 0}
-  ProfileUsername: {fileID: 0}
 --- !u!114 &4981495936232984740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,10 +70,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reconnectDelay: 60
   ackExpirationTime: 1800
-  pingInterval: 80
-  pingTimeout: 120
+  pingInterval: 10
+  pingTimeout: 15
   _isInitialized: 0
-  _ip: 77.239.98.157
+  _ip: 83.147.254.78
   _port: 7777
   NetworkIdentity: {fileID: 0}
   _friendController: {fileID: 0}
