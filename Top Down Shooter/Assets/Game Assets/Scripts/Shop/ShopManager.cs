@@ -47,6 +47,7 @@ public class ShopManager : MonoBehaviour
                 PlayerPrefs.DeleteKey(_sellingStash.gameObject.name);
 
             _sellingStash.Initialize();
+            UpdateSellingTotalSum();
         }
         else
         {
