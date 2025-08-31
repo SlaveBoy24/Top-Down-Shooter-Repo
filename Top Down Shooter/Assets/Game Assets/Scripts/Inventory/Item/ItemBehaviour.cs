@@ -100,5 +100,6 @@ public enum ItemType
     ArmourLegs = 23,
     Backpack = 3,
     WeaponMain = 41,
-    WeaponSecondary = 42
+    WeaponSecondary = 42,
+    Other = 5,
 }

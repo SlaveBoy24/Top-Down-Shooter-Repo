@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
   m_Name: TestStack
   m_EditorClassIdentifier: 
-  Type: 0
+  NameKeyString: stackl
+  FullDescriptionKeyString: stack_full_desc
+  SmallDescriptionKeyString: stack_small_desc
+  Type: 5
   ValueType: 0
   Icon: {fileID: 21300000, guid: b00f8c621789ac740a5020d31905eaa2, type: 3}
   Cost: 200
@@ -21,7 +24,9 @@ MonoBehaviour:
   Heal: 0
   SlowDownMovementPercent: 0
   DamageBlockPercent: 0
+  ClothScriptableObject: {fileID: 0}
   SlotCount: 0
   DamageDeal: 0
   ArmourPenetration: 0
   MaxBulletCount: 0
+  GunSettings: {fileID: 0}

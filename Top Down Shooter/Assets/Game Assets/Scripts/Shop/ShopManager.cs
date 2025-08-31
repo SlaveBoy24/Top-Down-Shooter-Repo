@@ -1,9 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Assets.SimpleLocalization.Scripts;
 
 public class ShopManager : MonoBehaviour
 {
+    [Header("Switch Panel")]
+    [SerializeField] private GameObject _sellPanel;
+    [SerializeField] private Transform _sellButton;
+    [SerializeField] private GameObject _buyPanel;
+    [SerializeField] private Transform _buyButton;
+
+    [Header("Selling Panel")]
     [SerializeField] private Stash _stash;
     [SerializeField] private Stash _sellingStash;
 
@@ -12,11 +20,39 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private string _sellButtonNullTextKey;
     [SerializeField] private int _totalSellingSum;
 
+    [Header("Buy Panel")]
+    [SerializeField] private ShopItemList _shopItemList;
+    [SerializeField] private ShopItem _shopItemPrefab;
+    [SerializeField] private List<ShopItem> _shopItems;
+    [SerializeField] private Transform _shopItemContainer;
+
+
     public void Initialize()
     {
+        SwitchPanel("sell");
         _sellingStash.Initialize();
         InitializeInventoryStash();
         UpdateSellingTotalSum();
+    }
+
+    public void SwitchPanel(string panelName)
+    {
+        if (panelName == "sell")
+        {
+            _buyPanel.SetActive(false);
+            _sellPanel.SetActive(true);
+
+            _buyButton.localScale = Vector3.one;
+            _sellButton.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+        }
+        else
+        {
+            _sellPanel.SetActive(false);
+            _buyPanel.SetActive(true);
+
+            _buyButton.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+            _sellButton.localScale = Vector3.one;
+        }
     }
 
     public void OnEnable()
@@ -30,7 +66,7 @@ public class ShopManager : MonoBehaviour
         GlobalInventory.Instance.UpdateStash();
         GlobalStashes.OnChangeInventoryEvent -= OnChangeStashEvent;
     }
-
+    #region Shop Panel
     private void InitializeInventoryStash()
     { 
         _stash.Initialize();
@@ -97,5 +133,31 @@ public class ShopManager : MonoBehaviour
         {
             _sellingButtonText.text = LocalizationManager.Localize(_sellButtonNullTextKey);
         }
+    }
+    #endregion
+
+    public void BuildShopItemList(List<ItemType> types)
+    {
+        ClearShopItemList();
+
+        foreach (ItemScriptableObject item in _shopItemList.ItemList)
+        {
+            if (types.Contains(item.Type))
+            {
+                ShopItem shopItem = Instantiate(_shopItemPrefab, _shopItemContainer);
+                shopItem.SetItem(item);
+                _shopItems.Add(shopItem);
+            }
+        }
+    }
+
+    private void ClearShopItemList()
+    {
+        foreach (ShopItem item in _shopItems)
+        {
+            Destroy(item.gameObject);
+        }
+
+        _shopItems = new List<ShopItem>();
     }
 }

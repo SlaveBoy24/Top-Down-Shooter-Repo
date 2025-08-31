@@ -12,14 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
   m_Name: ItemSctiptableObject
   m_EditorClassIdentifier: 
+  NameKeyString: test_scriptable
+  FullDescriptionKeyString: test_scriptable_full_desc
+  SmallDescriptionKeyString: test_scriptable_small_desc
   Type: 42
   ValueType: 2
   Icon: {fileID: 21300000, guid: a72d6c2c08d1936408a9b544ebf214ab, type: 3}
   Cost: 0
+  CanStack: 0
+  MaxStackValue: 0
   Heal: 0
   SlowDownMovementPercent: 0
   DamageBlockPercent: 0
+  ClothScriptableObject: {fileID: 0}
   SlotCount: 0
   DamageDeal: 0
   ArmourPenetration: 0
   MaxBulletCount: 0
+  GunSettings: {fileID: 0}

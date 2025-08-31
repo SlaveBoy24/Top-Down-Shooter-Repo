@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
   m_Name: TestBackpack
   m_EditorClassIdentifier: 
+  NameKeyString: backpack
+  FullDescriptionKeyString: backpack_full_desc
+  SmallDescriptionKeyString: backpack_small_desc
   Type: 3
   ValueType: 1
   Icon: {fileID: 21300000, guid: aaa06f50832e74c4187f247a95dd39a3, type: 3}

@@ -42,6 +42,20 @@ public class ItemSctiptableObjectEditor : Editor
 
     private void DrawCustomInspector()
     {
+        _itemSctiptableObject.NameKeyString = EditorGUILayout.TextField(
+            "Ключ локализации имени", _itemSctiptableObject.NameKeyString
+        );
+
+        _itemSctiptableObject.FullDescriptionKeyString = EditorGUILayout.TextField(
+            "Ключ локализации полного описания", _itemSctiptableObject.FullDescriptionKeyString
+        );
+
+        _itemSctiptableObject.SmallDescriptionKeyString = EditorGUILayout.TextField(
+            "Ключ локализации сокращенного описания", _itemSctiptableObject.SmallDescriptionKeyString
+        );
+
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
         EditorGUILayout.PropertyField(_typeProp, new GUIContent("Тип предмета"));
 
         if(_itemSctiptableObject.Type == ItemType.None)

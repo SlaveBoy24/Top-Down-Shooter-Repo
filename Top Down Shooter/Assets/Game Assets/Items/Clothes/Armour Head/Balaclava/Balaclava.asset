@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
   m_Name: Balaclava
   m_EditorClassIdentifier: 
+  NameKeyString: balaclava
+  FullDescriptionKeyString: balaclava_full_desc
+  SmallDescriptionKeyString: balaclava_small_desc
   Type: 21
   ValueType: 0
   Icon: {fileID: 887123105, guid: 3ea8d0a2d4ddbff44973fe9e402ebbce, type: 3}
@@ -27,3 +30,4 @@ MonoBehaviour:
   DamageDeal: 0
   ArmourPenetration: 0
   MaxBulletCount: 0
+  GunSettings: {fileID: 0}

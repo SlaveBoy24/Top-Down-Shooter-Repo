@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
   m_Name: LwasChestArmour
   m_EditorClassIdentifier: 
+  NameKeyString: lwas_chest_armor
+  FullDescriptionKeyString: lwas_chest_armor_full_desc
+  SmallDescriptionKeyString: lwas_chest_armor_small_desc
   Type: 22
   ValueType: 1
   Icon: {fileID: -614835198, guid: 442c73c65a082e6488fbca04466b17c4, type: 3}
@@ -27,3 +30,4 @@ MonoBehaviour:
   DamageDeal: 0
   ArmourPenetration: 0
   MaxBulletCount: 0
+  GunSettings: {fileID: 0}
