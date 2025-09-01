@@ -35,7 +35,7 @@ public static class ItemMethods
 
         return true;
     }
-    public static void SpawnItem(this Stash stash, GameObject itemPrefab, ItemScriptableObject item)
+    public static void SpawnItem(this Stash stash, GameObject itemPrefab, ItemScriptableObject item, int amount = 1)
     {
         int slotID = stash.FindFreeSlot();
 
@@ -48,6 +48,11 @@ public static class ItemMethods
         var itemGameObject = GameObject.Instantiate(itemPrefab);
         var itemScript = itemGameObject.GetComponent<Item>();
 
+        if (!item.CanStack && amount > 1)
+            amount = 1;
+
+        itemScript.Count = amount;
+        Debug.LogWarning(amount);
         SetupItem(itemScript, item, stash, slotID, itemGameObject, true);
     }
 
@@ -95,7 +100,8 @@ public static class ItemMethods
         SetupItem(itemScript, item, stash, slotID, itemGameObject, false);
     }
 
-    public static void SetupItem(Item itemScript, ItemScriptableObject item, Stash stash, int slotID, GameObject itemGameObject, bool isUpdate)
+    public static void SetupItem(Item itemScript, ItemScriptableObject item, Stash stash,
+                                 int slotID, GameObject itemGameObject, bool isUpdate)
     {
         itemScript.item = item;
 

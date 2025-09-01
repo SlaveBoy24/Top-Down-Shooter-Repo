@@ -12,6 +12,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Transform _buyButton;
 
     [Header("Selling Panel")]
+    [SerializeField] private Stash _globalInvetoryStash;
     [SerializeField] private Stash _stash;
     [SerializeField] private Stash _sellingStash;
 
@@ -68,7 +69,8 @@ public class ShopManager : MonoBehaviour
     }
     #region Shop Panel
     private void InitializeInventoryStash()
-    { 
+    {
+        _globalInvetoryStash.Initialize();
         _stash.Initialize();
     }
 
@@ -83,6 +85,7 @@ public class ShopManager : MonoBehaviour
                 PlayerPrefs.DeleteKey(_sellingStash.gameObject.name);
 
             _sellingStash.Initialize();
+            InitializeInventoryStash();
             UpdateSellingTotalSum();
         }
         else
@@ -93,8 +96,20 @@ public class ShopManager : MonoBehaviour
 
     private void OnChangeStashEvent(GlobalStashes.EventArgs e)
     {
-        if (e.Stash.transform.gameObject.name == "Selling Stash" || e.PastStash.transform.gameObject.name == "Selling Stash")
+        if (e.Stash.transform.gameObject.name == "Stash")
+        {
+            InitializeInventoryStash();
+        }
+        
+        if (e.Stash.transform.gameObject.name == "Selling Stash")
+        {
             UpdateSellingTotalSum();
+        }
+        else if (e.PastStash)
+        {
+            if (e.PastStash.transform.gameObject.name == "Selling Stash")
+                UpdateSellingTotalSum();
+        }
     }
 
     private void UpdateSellingTotalSum()

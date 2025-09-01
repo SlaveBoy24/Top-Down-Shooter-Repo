@@ -25,13 +25,6 @@ public class ItemInfo : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void SetItem(ItemScriptableObject item)
-    { 
-        _item = item;
-
-        SetUI();
-    }
-
     public void SetItem(Item item)
     { 
         _itemSlot = item;

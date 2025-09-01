@@ -13,6 +13,7 @@ public class ItemInfoController : MonoBehaviour
     public static ItemInfoController Instance;
     [SerializeField] private Transform _infoPanelContainer;
     [SerializeField] private List<TypedInfoPanel> _typedPanels;
+    [SerializeField] private ShopItemInfo ShopInfoPanel;
 
     private void Start()
     {
@@ -33,8 +34,12 @@ public class ItemInfoController : MonoBehaviour
         }
     }
 
-    public void ShowBuyItemInfoPanel(ShopItem item)
-    { 
-        // to do shop info panels
+    public void ShowShopItemInfoPanel(ShopItem shopItem)
+    {
+        if (shopItem.GetItem() != null)
+        {
+            ShopItemInfo itemInfoPanel = Instantiate(ShopInfoPanel, _infoPanelContainer);
+            itemInfoPanel.SetItem(shopItem);
+        }
     }
 }

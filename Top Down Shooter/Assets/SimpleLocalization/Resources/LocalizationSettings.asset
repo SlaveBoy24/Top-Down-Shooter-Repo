@@ -17,4 +17,7 @@ MonoBehaviour:
   - Name: localizationSheet
     Id: 0
     TextAsset: {fileID: 4900000, guid: ec93dc9c69647f043976bd7405f0ed73, type: 3}
+  - Name: localizationItems
+    Id: 881105063
+    TextAsset: {fileID: 4900000, guid: 3cc2988d0f711c743aa75dd24b702a92, type: 3}
   SaveFolder: {fileID: 102900000, guid: c392831e85f928548b8494fefd912562, type: 3}

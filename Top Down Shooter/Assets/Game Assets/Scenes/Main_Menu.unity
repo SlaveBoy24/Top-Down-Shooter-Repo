@@ -11531,6 +11531,8 @@ MonoBehaviour:
     Panel: {fileID: 7993545292011862645, guid: 359ddac043e940546b2600ea1a03facb, type: 3}
   - Types: 290000002a000000
     Panel: {fileID: 4985936487935328418, guid: 3f433138d9777144ba84823034b0a273, type: 3}
+  ShopInfoPanel: {fileID: 7998821840076335098, guid: e9a520570c20f21448520a0832cc14b7,
+    type: 3}
 --- !u!1 &967846325
 GameObject:
   m_ObjectHideFlags: 0
@@ -28809,6 +28811,7 @@ MonoBehaviour:
   _sellButton: {fileID: 1459833284631333590}
   _buyPanel: {fileID: 374227880}
   _buyButton: {fileID: 509690108981748152}
+  _globalInvetoryStash: {fileID: 16602675}
   _stash: {fileID: 265227841}
   _sellingStash: {fileID: 1135776891}
   _sellingButtonText: {fileID: 870070530}

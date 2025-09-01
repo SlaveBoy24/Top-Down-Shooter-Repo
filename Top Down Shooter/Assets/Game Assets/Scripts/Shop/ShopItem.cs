@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Assets.SimpleLocalization.Scripts;
+using UnityEngine.EventSystems;
 
-public class ShopItem : MonoBehaviour
+public class ShopItem : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private ItemScriptableObject _item;
 
@@ -14,10 +15,15 @@ public class ShopItem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _cost;
 
     public void SetItem(ItemScriptableObject item)
-    { 
+    {
         _item = item;
 
         SetUI();
+    }
+
+    public ItemScriptableObject GetItem()
+    { 
+        return _item;
     }
 
     public void SetUI()
@@ -52,5 +58,10 @@ public class ShopItem : MonoBehaviour
             _rarityIcon.color = newCol;
         }
 
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        ItemInfoController.Instance.ShowShopItemInfoPanel(this);
     }
 }

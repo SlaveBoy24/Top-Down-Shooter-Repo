@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
   m_Name: TestStack
   m_EditorClassIdentifier: 
-  NameKeyString: stackl
+  NameKeyString: stack
   FullDescriptionKeyString: stack_full_desc
   SmallDescriptionKeyString: stack_small_desc
   Type: 5
