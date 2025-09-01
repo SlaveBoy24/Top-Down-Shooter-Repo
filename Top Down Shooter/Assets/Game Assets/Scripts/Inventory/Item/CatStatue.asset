@@ -12,14 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
   m_Name: CatStatue
   m_EditorClassIdentifier: 
-  Type: 0
+  NameKeyString: cat_statue
+  FullDescriptionKeyString: cat_statue_full_desc
+  SmallDescriptionKeyString: cat_statue_small_desc
+  Type: 5
   ValueType: 3
   Icon: {fileID: 21300000, guid: 4dc381e2399ca074896bc554c8b8cda8, type: 3}
   Cost: 2000000
+  CanStack: 0
+  MaxStackValue: 0
   Heal: 0
   SlowDownMovementPercent: 0
   DamageBlockPercent: 0
+  ClothScriptableObject: {fileID: 0}
   SlotCount: 0
   DamageDeal: 0
   ArmourPenetration: 0
   MaxBulletCount: 0
+  GunSettings: {fileID: 0}

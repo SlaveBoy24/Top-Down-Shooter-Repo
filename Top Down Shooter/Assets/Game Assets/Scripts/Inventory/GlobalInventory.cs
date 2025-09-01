@@ -57,6 +57,16 @@ public class GlobalInventory : MonoBehaviour
         _initialized = true;
     }
 
+    public Stash GetFreeSlotStash()
+    {
+        if (Stash.FindFreeSlot() != -1)
+            return Stash;
+        else if (Backpack.FindFreeSlot() != -1)
+            return Backpack;
+
+        return null;
+    }
+
     public void UpdateStash()
     {
         Stash.Initialize();

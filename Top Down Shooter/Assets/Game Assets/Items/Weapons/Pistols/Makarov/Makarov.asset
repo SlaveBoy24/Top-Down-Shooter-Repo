@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
   m_Name: Makarov
   m_EditorClassIdentifier: 
+  NameKeyString: makarov
+  FullDescriptionKeyString: makarov_full_desc
+  SmallDescriptionKeyString: makarov_small_desc
   Type: 42
   ValueType: 0
   Icon: {fileID: 21300000, guid: 2a777da58d96f3e429305c6717159eec, type: 3}

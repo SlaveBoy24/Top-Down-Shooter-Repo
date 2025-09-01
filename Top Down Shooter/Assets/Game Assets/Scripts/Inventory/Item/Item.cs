@@ -27,6 +27,6 @@ public class Item : ItemBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        DropdownController.Instance.Init(this.gameObject.transform.position, this);
+        ItemInfoController.Instance.ShowInventoryItemInfoPanel(this);
     }
 }

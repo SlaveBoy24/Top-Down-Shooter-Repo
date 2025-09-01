@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
   m_Name: Fr15
   m_EditorClassIdentifier: 
+  NameKeyString: fr15
+  FullDescriptionKeyString: fr15_full_desc
+  SmallDescriptionKeyString: fr15_small_desc
   Type: 41
-  ValueType: 1
+  ValueType: 2
   Icon: {fileID: 1321246147, guid: e32333ad529b0a2449dd807abc3cf765, type: 3}
   Cost: 350000
   CanStack: 0

@@ -5,6 +5,10 @@ using UnityEngine;
 [Serializable]
 public class ItemScriptableObject : ScriptableObject
 {
+    public string NameKeyString;
+    public string FullDescriptionKeyString;
+    public string SmallDescriptionKeyString;
+
     public ItemType Type;
     public ItemValueType ValueType;
     public Sprite Icon;

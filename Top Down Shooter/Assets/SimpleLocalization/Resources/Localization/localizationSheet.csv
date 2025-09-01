@@ -29,3 +29,5 @@ sell_button_text,SELL FOR {0},ПРОДАТЬ ЗА {0},VENDER POR {0}
 sell_null_button_text,SELL,ПРОДАТЬ,VENDER
 shop_title,SHOP,МАГАЗИН,TIENDA
 selling_stash_stash,SELL PANEL,ПАНЕЛЬ ПРОДАЖИ,PANEL DE VENTA
+buy_panel_trader_msg,"I have the best things in this ruined world. I don't know if you'll find something you need, but that's all I have.","Самые лучшие вещи в этом разрушенном мире - у меня. Не знаю, найдешь ли ты что-то нужное, но вот всё, что у меня есть.","Las mejores cosas de este mundo destrozado son las mías. No sé si encontrarás algo, pero esto es todo lo que tengo."
+buy_panel_trader_title,TRADER,ПРОДАВЕЦ,TRADER
