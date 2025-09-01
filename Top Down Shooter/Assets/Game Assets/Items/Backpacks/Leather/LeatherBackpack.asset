@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
   m_Name: LeatherBackpack
   m_EditorClassIdentifier: 
-  NameKeyString: backpack
-  FullDescriptionKeyString: backpack_full_desc
-  SmallDescriptionKeyString: backpack_small_desc
+  NameKeyString: leather_backpack
+  FullDescriptionKeyString: leather_backpack_full_desc
+  SmallDescriptionKeyString: leather_backpack_small_desc
   Type: 3
   ValueType: 0
   Icon: {fileID: 21300000, guid: 33ee32d6a336247429b3fb11ced83fdd, type: 3}
