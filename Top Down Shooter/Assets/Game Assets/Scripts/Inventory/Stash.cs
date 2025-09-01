@@ -18,9 +18,28 @@ public class Stash : MonoBehaviour
     public int SlotCount;
     public int BlockedSlotCount;
 
+    [SerializeField] private bool _isEquipSlot = false;
+
     [SerializeField] private Item[] _items;
 
     public Item[] Items { get => _items; }
+
+    public void EquipItemUpdate()
+    {
+        if (_isEquipSlot)
+        {
+            Image image = this.GetComponentInChildren<Image>();
+
+            if (Items[0] != null)
+            {
+                image.enabled = false;
+            }
+            else
+            {
+                image.enabled = true;
+            }
+        }
+    }
 
     private void Awake()
     {

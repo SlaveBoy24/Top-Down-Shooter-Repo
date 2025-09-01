@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: ItemPoolScriptableObject
   m_EditorClassIdentifier: 
   ItemsPoolList:
+  - key: leather_backpack
+    value: {fileID: 11400000, guid: b0300025e58e53f429cb8fa3af60dc68, type: 2}
   - key: lwas_chest_armour
     value: {fileID: 11400000, guid: ddc4bcd34f3727744ac8f0ea3a2b65c1, type: 2}
   - key: balaclava
