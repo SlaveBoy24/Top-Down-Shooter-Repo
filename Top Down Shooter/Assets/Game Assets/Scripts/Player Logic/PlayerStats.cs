@@ -65,22 +65,6 @@ public class PlayerStats : MonoBehaviour
         return (_maxHealths, _healths);
     }
 
-    public void UpdatePhotonPlayerProperties()
-    {
-        ExitGames.Client.Photon.Hashtable playerCustomProperties = PhotonNetwork.LocalPlayer.CustomProperties;
-
-        if (playerCustomProperties.ContainsKey("MaxHealths"))
-            playerCustomProperties["MaxHealths"] = _maxHealths;
-        else
-            playerCustomProperties.Add("MaxHealths", _maxHealths);
-
-        if (playerCustomProperties.ContainsKey("Healths"))
-            playerCustomProperties["Healths"] = _healths;
-        else
-            playerCustomProperties.Add("Healths", _healths);
-
-        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
-    }
     #endregion
 
     #region Money
@@ -140,4 +124,21 @@ public class PlayerStats : MonoBehaviour
         return false;
     }
     #endregion
+
+    public void UpdatePhotonPlayerProperties()
+    {
+        ExitGames.Client.Photon.Hashtable playerCustomProperties = PhotonNetwork.LocalPlayer.CustomProperties;
+
+        if (playerCustomProperties.ContainsKey("MaxHealths"))
+            playerCustomProperties["MaxHealths"] = _maxHealths;
+        else
+            playerCustomProperties.Add("MaxHealths", _maxHealths);
+
+        if (playerCustomProperties.ContainsKey("Healths"))
+            playerCustomProperties["Healths"] = _healths;
+        else
+            playerCustomProperties.Add("Healths", _healths);
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
+    }
 }
