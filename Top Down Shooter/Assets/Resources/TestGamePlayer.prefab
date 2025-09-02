@@ -1323,7 +1323,6 @@ GameObject:
   - component: {fileID: 175292250271525061}
   - component: {fileID: 5507323940675720176}
   - component: {fileID: 2232450382206420177}
-  - component: {fileID: 5120201259716851913}
   m_Layer: 3
   m_Name: New Character
   m_TagString: MainCharacter
@@ -2048,19 +2047,6 @@ MonoBehaviour:
     spineStiffness: 0.5
     pullBodyVertical: 0.5
     pullBodyHorizontal: 0
---- !u!114 &5120201259716851913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2286505633848153068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21b16a18c3cc4b41a29ef05d925334f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 4760499120882275116}
 --- !u!1 &2290855756713666146
 GameObject:
   m_ObjectHideFlags: 0
@@ -2989,7 +2975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9806baa334e25014b834da62ed7435ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 5120201259716851913}
+  Animator: {fileID: 4760499120882275116}
   FBBIK: {fileID: 2232450382206420177}
   EquipedWeapons: []
 --- !u!1 &4532752334638246614
