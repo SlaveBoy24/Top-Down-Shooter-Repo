@@ -105,9 +105,9 @@ public class ItemSctiptableObjectEditor : Editor
                 );
                 break;
 
-            case ItemType.ArmourHead:
-            case ItemType.ArmourChest:
-            case ItemType.ArmourLegs:
+            case ItemType.EquipmentHead:
+            case ItemType.EquipmentChest:
+            case ItemType.EquipmentLegs:
                 _itemSctiptableObject.SlowDownMovementPercent = EditorGUILayout.FloatField(
                     new GUIContent("Замедление", "Процент замедления передвижения персонажа при использовании данной экипировки"),
                     _itemSctiptableObject.SlowDownMovementPercent
