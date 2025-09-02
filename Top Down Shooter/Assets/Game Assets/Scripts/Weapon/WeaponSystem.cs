@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class WeaponSystem : MonoBehaviour
 {
-    public Animator Animator;
+    public AnimatorRPC Animator;
     public FullBodyBipedIK FBBIK;
     public List<WeaponBase> EquipedWeapons = new List<WeaponBase>();
     public void EquipWeapon(WeaponBase weapon)
@@ -86,7 +86,7 @@ public class WeaponSystem : MonoBehaviour
 
         weaponObject.name = weapon.mainItemScriptable.name;
 
-        Transform rightHandTransform = Animator.GetBoneTransform(HumanBodyBones.RightHand);
+        Transform rightHandTransform = Animator.GetAnimator().GetBoneTransform(HumanBodyBones.RightHand);
 
         weaponObject.transform.SetParent(rightHandTransform);
 

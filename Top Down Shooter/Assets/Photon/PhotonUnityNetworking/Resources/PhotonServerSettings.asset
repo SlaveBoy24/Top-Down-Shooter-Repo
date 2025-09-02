@@ -42,6 +42,7 @@ MonoBehaviour:
   - SpawnPlayer
   - LoadGameScene
   - AddPlayerObject
+  - SetTriggerRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
