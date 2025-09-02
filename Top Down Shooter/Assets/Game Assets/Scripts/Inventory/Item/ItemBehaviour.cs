@@ -36,10 +36,10 @@ public class ItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             case ItemValueType.Rare:
                 color = "#7C40D1";
                 break;
-            case ItemValueType.ExtraRare:
+            case ItemValueType.Epic:
                 color = "#E7DA1D";
                 break;
-            case ItemValueType.Insane:
+            case ItemValueType.Mystical:
                 color = "#EC0808";
                 break;
         }
@@ -85,10 +85,12 @@ public class ItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 public enum ItemValueType
 {
-    Basic = 0,
-    Rare = 1,
-    ExtraRare = 2,
-    Insane = 3
+    Common = 0,
+    Uncommon = 1,
+    Rare = 2,
+    Epic = 3,
+    Mystical = 4,
+    Legendary = 5,
 }
 
 public enum ItemType

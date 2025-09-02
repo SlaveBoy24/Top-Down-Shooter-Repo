@@ -25,6 +25,11 @@ public class ShopItemInfo : ItemInfo
         SetButtons();
     }
 
+    public void SetStatsText(string text)
+    {
+        _stats.text = text;
+    }
+
     private void SetButtons()
     {
         _buyOneCostTest.text = $"{_item.Cost}";

@@ -25,6 +25,12 @@ public class ItemInfo : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // only for getting stats for shop panel
+    public void SetItem(ItemScriptableObject item)
+    {
+        _item = item;
+    }
+
     public void SetItem(Item item)
     { 
         _itemSlot = item;
@@ -49,9 +55,22 @@ public class ItemInfo : MonoBehaviour
         _gradientColor.color = GetRarityColor(0.03f);
     }
 
-    protected virtual void SetStats()
-    { 
-    
+    protected void SetStats()
+    {
+        string stats_text = GetStatsString();
+
+        _stats.text = stats_text;
+    }
+
+    public virtual string GetStatsString()
+    {
+        return "";
+    }
+
+    protected string GetStatsLocalizedText()
+    {
+        string localize_key = $"{(int)_item.Type}"[0] + "_stats_text";
+        return LocalizationManager.Localize(localize_key);
     }
 
     public Color GetRarityColor(float alphaValue)
@@ -62,10 +81,10 @@ public class ItemInfo : MonoBehaviour
             case ItemValueType.Rare:
                 color = "#7C40D1";
                 break;
-            case ItemValueType.ExtraRare:
+            case ItemValueType.Epic:
                 color = "#E7DA1D";
                 break;
-            case ItemValueType.Insane:
+            case ItemValueType.Mystical:
                 color = "#EC0808";
                 break;
         }
