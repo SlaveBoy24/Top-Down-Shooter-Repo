@@ -44,10 +44,10 @@ public class ShopItem : MonoBehaviour, IPointerClickHandler
             case ItemValueType.Rare:
                 color = "#7C40D1";
                 break;
-            case ItemValueType.ExtraRare:
+            case ItemValueType.Epic:
                 color = "#E7DA1D";
                 break;
-            case ItemValueType.Insane:
+            case ItemValueType.Mystical:
                 color = "#EC0808";
                 break;
         }

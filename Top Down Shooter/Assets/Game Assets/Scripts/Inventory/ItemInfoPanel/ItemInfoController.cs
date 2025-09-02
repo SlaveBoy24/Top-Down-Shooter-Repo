@@ -23,23 +23,42 @@ public class ItemInfoController : MonoBehaviour
 
     public void ShowInventoryItemInfoPanel(Item itemSlot)
     {
+        ItemInfo panelPrefab = GetInfoPanel(itemSlot.item);
+
+        if (panelPrefab == null)
+            return;
+
+        ItemInfo itemInfoPanel = Instantiate(panelPrefab, _infoPanelContainer);
+        itemInfoPanel.SetItem(itemSlot);
+    }
+
+    private ItemInfo GetInfoPanel(ItemScriptableObject item)
+    {
         foreach (TypedInfoPanel panel in _typedPanels)
         {
-            if (panel.Types.Contains(itemSlot.item.Type))
+            if (panel.Types.Contains(item.Type))
             {
-                ItemInfo itemInfoPanel = Instantiate(panel.Panel, _infoPanelContainer);
-                itemInfoPanel.SetItem(itemSlot);
-                break;
+                return panel.Panel;
             }
         }
+
+        return null;
     }
 
     public void ShowShopItemInfoPanel(ShopItem shopItem)
     {
         if (shopItem.GetItem() != null)
         {
+            ItemInfo panelPrefab = GetInfoPanel(shopItem.GetItem());
+            panelPrefab.SetItem(shopItem.GetItem());
+            string stats_text = panelPrefab.GetStatsString();
+
+            if (panelPrefab == null)
+                return;
+
             ShopItemInfo itemInfoPanel = Instantiate(ShopInfoPanel, _infoPanelContainer);
             itemInfoPanel.SetItem(shopItem);
+            itemInfoPanel.SetStatsText(stats_text);
         }
     }
 }

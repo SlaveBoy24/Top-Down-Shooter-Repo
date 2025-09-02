@@ -71,10 +71,10 @@ public class ItemSctiptableObjectEditor : Editor
             case ItemValueType.Rare:
                 color = Color.magenta;
                 break;
-            case ItemValueType.ExtraRare:
+            case ItemValueType.Epic:
                 color = Color.yellow;
                 break;
-            case ItemValueType.Insane:
+            case ItemValueType.Mystical:
                 color = Color.red;
                 break;
         }
