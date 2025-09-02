@@ -137,6 +137,7 @@ public class ItemSctiptableObjectEditor : Editor
                     new GUIContent("Кол-во слотов", "Количество слотов получаемое при ношении рюкзака"),
                     _itemSctiptableObject.SlotCount
                 );
+                EditorGUILayout.PropertyField(_clothScriptableObjectProp, new GUIContent("Скриптабля", ""));
                 break;
 
             case ItemType.WeaponMain:

@@ -62,6 +62,11 @@ public class Move : MonoBehaviour
                 transform.rotation = targetRot;
                 _animator.SetFloat("Moving X", 0);
                 _animator.SetFloat("Moving Y", strengthOfMove);
+
+                _animator.SetBool("ready", false);
+
+                _animator.SetFloat("Moving Ready X", 0);
+                _animator.SetFloat("Moving Ready Y", 0);
             }
             else
             {
@@ -69,6 +74,12 @@ public class Move : MonoBehaviour
 
                 _animator.SetFloat("Moving X", animationDirection.x);
                 _animator.SetFloat("Moving Y", animationDirection.z);
+
+                _animator.SetFloat("Moving Ready X", animationDirection.x);
+                _animator.SetFloat("Moving Ready Y", animationDirection.z);
+
+                // нужна проверка на оружие
+                _animator.SetBool("ready", true);
             }
             Vector3 moveVelocity = CalculateMovement(lookRot, strengthOfMove);
             return;

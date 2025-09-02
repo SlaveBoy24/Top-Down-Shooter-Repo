@@ -110,7 +110,11 @@ public class GlobalInventory : MonoBehaviour
         List<Stash> list = new List<Stash> { e.Stash };
 
         if (e.PastStash != null)
+        {
             list.Add(e.PastStash);
+
+            e.PastStash.EquipItemUpdate();
+        }
 
         foreach (Stash stash in list)
         {
@@ -136,6 +140,26 @@ public class GlobalInventory : MonoBehaviour
                     GlobalStashes.Backpack.UpdateSlotCount(e.Items[0].item.SlotCount);
                 else
                     GlobalStashes.Backpack.UpdateSlotCount();
+
+                yield return new WaitUntil(() => MainPlayer.Instance.LocalPlayerObject != null);
+
+                var clothSystem1 = MainPlayer.Instance.LocalPlayerObject.GetComponent<ClothSystem>();
+
+                if (e.Items[0] == null)
+                {
+                    try
+                    {
+                        clothSystem1.DeEquipCloth(e.gameObject.name);
+                    }
+                    catch {}
+
+                    break;
+                }
+
+                if (e.Items[0].item.ClothScriptableObject != null)
+                {
+                    clothSystem1.EquipCloth(new ClothBase(e));
+                }
 
                 break;
             case "Head Armour":

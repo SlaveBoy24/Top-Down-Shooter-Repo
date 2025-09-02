@@ -6,6 +6,8 @@ public static class ItemMethods
     public static void SetItem(this Item item, Stash stash, int id)
     {
         stash.Items[id] = item;
+
+        stash.EquipItemUpdate();
     }
     public static int FindFreeSlot(this Stash stash)
     {
