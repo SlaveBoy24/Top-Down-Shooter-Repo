@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Assets.SimpleLocalization.Scripts;
+using Unity.VisualScripting;
 
 public class ItemInfo : MonoBehaviour
 {
@@ -50,9 +51,9 @@ public class ItemInfo : MonoBehaviour
 
     protected void SetRarityColors()
     {
-        _itemRatity.color = GetRarityColor(0.2f);
-        _titleBgColor.color = GetRarityColor(0.3f);
-        _gradientColor.color = GetRarityColor(0.03f);
+        _itemRatity.color = _item.GetRarityColor(0.2f);
+        _titleBgColor.color = _item.GetRarityColor(0.3f);
+        _gradientColor.color = _item.GetRarityColor(0.03f);
     }
 
     protected void SetStats()
@@ -71,30 +72,5 @@ public class ItemInfo : MonoBehaviour
     {
         string localize_key = $"{(int)_item.Type}"[0] + "_stats_text";
         return LocalizationManager.Localize(localize_key);
-    }
-
-    public Color GetRarityColor(float alphaValue)
-    {
-        string color = "#ADA6A6";
-        switch (_item.ValueType)
-        {
-            case ItemValueType.Rare:
-                color = "#7C40D1";
-                break;
-            case ItemValueType.Epic:
-                color = "#E7DA1D";
-                break;
-            case ItemValueType.Mystical:
-                color = "#EC0808";
-                break;
-        }
-        Color newCol;
-        if (ColorUtility.TryParseHtmlString(color, out newCol))
-        {
-            newCol.a = alphaValue;
-            return newCol;
-        }
-
-        return new Color(1, 1, 1, 0.2f);
     }
 }

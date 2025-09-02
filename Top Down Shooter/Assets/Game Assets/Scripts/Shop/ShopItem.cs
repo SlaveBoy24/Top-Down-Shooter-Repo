@@ -38,26 +38,7 @@ public class ShopItem : MonoBehaviour, IPointerClickHandler
 
     public void SetItemColor()
     {
-        string color = "#ADA6A6";
-        switch (_item.ValueType)
-        {
-            case ItemValueType.Rare:
-                color = "#7C40D1";
-                break;
-            case ItemValueType.Epic:
-                color = "#E7DA1D";
-                break;
-            case ItemValueType.Mystical:
-                color = "#EC0808";
-                break;
-        }
-        Color newCol;
-        if (ColorUtility.TryParseHtmlString(color, out newCol))
-        {
-            newCol.a = 0.2f;
-            _rarityIcon.color = newCol;
-        }
-
+        _rarityIcon.color = _item.GetRarityColor(0.5f);
     }
 
     public void OnPointerClick(PointerEventData eventData)

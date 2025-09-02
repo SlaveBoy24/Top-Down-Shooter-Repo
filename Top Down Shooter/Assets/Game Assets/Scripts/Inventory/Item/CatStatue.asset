@@ -16,7 +16,7 @@ MonoBehaviour:
   FullDescriptionKeyString: cat_statue_full_desc
   SmallDescriptionKeyString: cat_statue_small_desc
   Type: 5
-  ValueType: 3
+  ValueType: 4
   Icon: {fileID: 21300000, guid: 4dc381e2399ca074896bc554c8b8cda8, type: 3}
   Cost: 2000000
   CanStack: 0

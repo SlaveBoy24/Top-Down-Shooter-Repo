@@ -10,7 +10,7 @@ public class Item : ItemBehaviour, IPointerClickHandler
     {
         base.Start();
 
-        SetItemColor(item.ValueType);
+        SetItemColor(item);
         SetIcon(item.Icon);
         SetText(item.CanStack, Count);
 

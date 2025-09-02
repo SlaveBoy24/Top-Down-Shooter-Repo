@@ -28,28 +28,9 @@ public class ItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.SetParent(ParentAfterDrag);
         ImageItem.raycastTarget = true;
     }
-    public void SetItemColor(ItemValueType itemValueType)
+    public void SetItemColor(ItemScriptableObject _item)
     {
-        string color = "#ADA6A6";
-        switch (itemValueType)
-        {
-            case ItemValueType.Rare:
-                color = "#7C40D1";
-                break;
-            case ItemValueType.Epic:
-                color = "#E7DA1D";
-                break;
-            case ItemValueType.Mystical:
-                color = "#EC0808";
-                break;
-        }
-        Color newCol;
-        newCol.a = 0.2f;
-        if (ColorUtility.TryParseHtmlString(color, out newCol))
-        {
-            ImageItem.color = newCol;
-        }
-
+        ImageItem.color = _item.GetRarityColor(0.5f);
     }
     public void SetIcon(Sprite sprite)
     {

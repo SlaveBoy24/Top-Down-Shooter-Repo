@@ -16,7 +16,7 @@ MonoBehaviour:
   FullDescriptionKeyString: test_scriptable_full_desc
   SmallDescriptionKeyString: test_scriptable_small_desc
   Type: 42
-  ValueType: 2
+  ValueType: 0
   Icon: {fileID: 21300000, guid: a72d6c2c08d1936408a9b544ebf214ab, type: 3}
   Cost: 0
   CanStack: 0

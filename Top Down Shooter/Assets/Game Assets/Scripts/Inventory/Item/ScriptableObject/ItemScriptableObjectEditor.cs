@@ -64,20 +64,7 @@ public class ItemSctiptableObjectEditor : Editor
         var old = EditorStyles.label.normal.textColor;
         var oldActive = EditorStyles.label.focused.textColor;
 
-        var color = Color.white;
-
-        switch (_itemSctiptableObject.ValueType)
-        {
-            case ItemValueType.Rare:
-                color = Color.magenta;
-                break;
-            case ItemValueType.Epic:
-                color = Color.yellow;
-                break;
-            case ItemValueType.Mystical:
-                color = Color.red;
-                break;
-        }
+        Color color = _itemSctiptableObject.GetRarityColor(1);
 
         EditorStyles.label.normal.textColor = color;
         EditorStyles.label.focused.textColor = color;
