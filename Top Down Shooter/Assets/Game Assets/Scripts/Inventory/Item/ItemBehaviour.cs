@@ -81,7 +81,7 @@ public enum ItemType
     EquipmentHead = 21,
     EquipmentChest = 22,
     EquipmentLegs = 23,
-    Backpack = 24,
+    Backpack = 3,
     WeaponMain = 41,
     WeaponSecondary = 42,
     Other = 5,

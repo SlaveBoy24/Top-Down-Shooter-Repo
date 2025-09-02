@@ -20,4 +20,10 @@ MonoBehaviour:
   - Name: localizationItems
     Id: 881105063
     TextAsset: {fileID: 4900000, guid: 3cc2988d0f711c743aa75dd24b702a92, type: 3}
+  - Name: localizationItemTypeStats
+    Id: 228633169
+    TextAsset: {fileID: 4900000, guid: e82c5b9c9ba86ca4a802b5adddb39d28, type: 3}
+  - Name: localizationItemTypes
+    Id: 1472202361
+    TextAsset: {fileID: 4900000, guid: 4513027334e8eac4a949b4713a1ee7a3, type: 3}
   SaveFolder: {fileID: 102900000, guid: c392831e85f928548b8494fefd912562, type: 3}

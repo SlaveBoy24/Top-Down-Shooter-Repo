@@ -11531,7 +11531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _infoPanelContainer: {fileID: 634893036}
   _typedPanels:
-  - Types: 15000000160000001700000018000000
+  - Types: 150000001600000017000000
     Panel: {fileID: 7372505054182553181, guid: e4a0462513dfe4843b20a812c8cbc5d2, type: 3}
   - Types: 01000000
     Panel: {fileID: 3977858807069177391, guid: 421222e54d2dc014e8b35d57b4f9bf7d, type: 3}
