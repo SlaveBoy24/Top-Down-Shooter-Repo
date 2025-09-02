@@ -1472,30 +1472,39 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: walk
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Moving X
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Moving Y
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: rifle
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: pistol
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: unequip
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: shoot
+  - Type: 1
+    SynchronizeType: 2
+    Name: Moving Ready X
+  - Type: 1
+    SynchronizeType: 2
+    Name: Moving Ready Y
+  - Type: 4
+    SynchronizeType: 2
+    Name: ready
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 2
     LayerIndex: 0
-  - SynchronizeType: 0
+  - SynchronizeType: 2
     LayerIndex: 1
 --- !u!114 &1043477837968444021
 MonoBehaviour:
