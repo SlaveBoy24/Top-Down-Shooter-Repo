@@ -16,7 +16,7 @@ MonoBehaviour:
   FullDescriptionKeyString: fr15_full_desc
   SmallDescriptionKeyString: fr15_small_desc
   Type: 41
-  ValueType: 2
+  ValueType: 3
   Icon: {fileID: 1321246147, guid: e32333ad529b0a2449dd807abc3cf765, type: 3}
   Cost: 350000
   CanStack: 0

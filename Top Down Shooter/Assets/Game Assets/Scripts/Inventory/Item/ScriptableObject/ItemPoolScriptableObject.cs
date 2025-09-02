@@ -6,6 +6,37 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 
+
+public class CustomMenuItems
+{
+    static void OpenScriptInInspector()
+    {
+        string[] guids = AssetDatabase.FindAssets("ItemPoolScriptableObject.asset");
+        try
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guids[0]);
+            MonoScript script = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
+            if (script != null)
+            {
+                Selection.activeObject = script;
+                EditorGUIUtility.PingObject(script);
+            }
+            else
+            {
+                Debug.LogError("Script found but failed to load!");
+            }
+        }
+        catch{ Debug.LogError("Fuck!"); }
+    }
+
+    [MenuItem("Tools/Item Pool #i")]
+    static void GetItemPool()
+    {
+        OpenScriptInInspector();
+    }
+}
+
+
 [CustomEditor(typeof(ItemPoolScriptableObject))]
 public class ItemPoolScriptableObjectEditor : Editor
 {
@@ -33,7 +64,7 @@ public class ItemPoolScriptableObjectEditor : Editor
 
                 targetComponent.ItemsPoolList.Add(new LikeDict(item.name.CamelToSnake(), item));
             }
-            
+
             EditorUtility.SetDirty(targetComponent);
             serializedObject.ApplyModifiedProperties();
         }

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 649b26e5ed323f1429ae09a711350abc, type: 3}
-  m_Name: Makarov
+  m_Name: Nk415
   m_EditorClassIdentifier: 
-  NameKeyString: makarov
-  FullDescriptionKeyString: makarov_full_desc
-  SmallDescriptionKeyString: makarov_small_desc
-  Type: 42
-  ValueType: 1
-  Icon: {fileID: 21300000, guid: 2a777da58d96f3e429305c6717159eec, type: 3}
-  Cost: 8000
+  NameKeyString: nk415
+  FullDescriptionKeyString: nk415_full_desc
+  SmallDescriptionKeyString: nk415_small_desc
+  Type: 41
+  ValueType: 4
+  Icon: {fileID: 1321246147, guid: e32333ad529b0a2449dd807abc3cf765, type: 3}
+  Cost: 350000
   CanStack: 0
   MaxStackValue: 0
   Heal: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
   DamageBlockPercent: 0
   ClothScriptableObject: {fileID: 0}
   SlotCount: 0
-  DamageDeal: 20
-  ArmourPenetration: 2
-  MaxBulletCount: 8
-  GunSettings: {fileID: 11400000, guid: 8bfb3f6972492df49b79a01b4ba2783d, type: 2}
+  DamageDeal: 35
+  ArmourPenetration: 15
+  MaxBulletCount: 30
+  GunSettings: {fileID: 11400000, guid: a5a225ed9bdb74446a0df693f7f45c02, type: 2}

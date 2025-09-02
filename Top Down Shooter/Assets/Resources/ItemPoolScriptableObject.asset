@@ -15,16 +15,14 @@ MonoBehaviour:
   ItemsPoolList:
   - key: leather_backpack
     value: {fileID: 11400000, guid: b0300025e58e53f429cb8fa3af60dc68, type: 2}
+  - key: leather_shirt
+    value: {fileID: 11400000, guid: 8bed5c34e901ab34d836137e53775431, type: 2}
   - key: lwas_chest_armour
     value: {fileID: 11400000, guid: ddc4bcd34f3727744ac8f0ea3a2b65c1, type: 2}
   - key: balaclava
     value: {fileID: 11400000, guid: f1a6af67b4773964087f840cc1335db7, type: 2}
   - key: lwas_chest_armour_jeans
     value: {fileID: 11400000, guid: 9773369a98e050f458c00e2e94c79b53, type: 2}
-  - key: makarov
-    value: {fileID: 11400000, guid: 32fbc9562d0e5a74296a3a2725146415, type: 2}
-  - key: fr15
-    value: {fileID: 11400000, guid: b3d72c650d4afb4468f6006f54e73557, type: 2}
   - key: cat_statue
     value: {fileID: 11400000, guid: 36c6fccbc71a13b4288d15d051930cfb, type: 2}
   - key: item_sctiptable_object
@@ -33,3 +31,9 @@ MonoBehaviour:
     value: {fileID: 11400000, guid: 017607e0429923049b8a7cbbc8367516, type: 2}
   - key: test_stack
     value: {fileID: 11400000, guid: b55c487211ef9024e97fdd35f7302aef, type: 2}
+  - key: makarov
+    value: {fileID: 11400000, guid: 32fbc9562d0e5a74296a3a2725146415, type: 2}
+  - key: fr15
+    value: {fileID: 11400000, guid: b3d72c650d4afb4468f6006f54e73557, type: 2}
+  - key: nk415
+    value: {fileID: 11400000, guid: 4b493593962c85f4497181967726f869, type: 2}
