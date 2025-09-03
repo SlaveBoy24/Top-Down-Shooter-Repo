@@ -17,13 +17,17 @@ public class LootTableController : MonoBehaviour
     private void Start()
     {
         _isOpened = true;
-        _lootTablePanel.SetActive(_isOpened);
-        _buttonFillImage.SetActive(_isOpened);
+        UpdateLootTableActiveState();
     }
 
     public void SetLootTableActiveState()
     {
         _isOpened = !_isOpened;
+        UpdateLootTableActiveState();
+    }
+
+    private void UpdateLootTableActiveState()
+    {
         _lootTablePanel.SetActive(_isOpened);
         _buttonFillImage.SetActive(_isOpened);
     }
@@ -33,6 +37,7 @@ public class LootTableController : MonoBehaviour
         if (stashes.Count == 0)
         { 
             gameObject.SetActive(false);
+            _lootTablePanel.SetActive(false);
             return;
         }
 

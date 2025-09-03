@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class Interactor : MonoBehaviour
 {
+    public static Interactor Instance;
+
     [Header("Lists")]
     [SerializeField] private List<InteractionObject> _items;
     [SerializeField] private List<InteractionObject> _doors;
@@ -16,6 +18,14 @@ public class Interactor : MonoBehaviour
     [Header("Controllers")]
     [SerializeField] private LootTableController _lootTableController;
     [SerializeField] private LockBreaking _lockBreakingMiniGame;
+
+    private void Start()
+    {
+        if (Instance != null)
+            Destroy(this);
+        else
+            Instance = this;
+    }
 
     public void Interact()
     {

@@ -22,7 +22,6 @@ public class LockerStick
 public class LockBreaking : MiniGame
 {
     [Header("Required Objects")]
-    [SerializeField] private Interactor _interactor;
     [SerializeField] private GameObject _picklock;
     [SerializeField] private GameObject _lockerSticksSpawnPoint;
     [SerializeField] private GameObject _lockerStickPrefab;
@@ -175,7 +174,7 @@ public class LockBreaking : MiniGame
     {
         ClearMiniGame();
         _interactionObject.Unlock();
-        _interactor.UpdateUI();
+        Interactor.Instance.UpdateUI();
     }
 
     public override void Failed()

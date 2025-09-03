@@ -2927,6 +2927,7 @@ MonoBehaviour:
   _playerObject: {fileID: 2286505633848153068}
   _playerPhotonView: {fileID: 4778169473834601638}
   _clothSystem: {fileID: 727797428048464682}
+  _interactor: {fileID: 9200467054046819530}
 --- !u!114 &4778169473834601638
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,22 +3,15 @@ using UnityEngine;
 
 public class InteractorCollider : MonoBehaviour
 {
-    [SerializeField] private Interactor _interactor;
-
     [SerializeField] private string _allowedTag;
     [SerializeField] private List<GameObject> _interactionObjects;
-
-    private void Start()
-    {
-        _interactor = GameObject.FindGameObjectWithTag("Interactor").GetComponent<Interactor>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == _allowedTag)
         {
             _interactionObjects.Add(other.gameObject);
-            _interactor.AddInterationObject(other.gameObject);
+            Interactor.Instance.AddInterationObject(other.gameObject);
         }
 
     }
@@ -28,7 +21,7 @@ public class InteractorCollider : MonoBehaviour
         if (_interactionObjects.Contains(other.gameObject))
         { 
             _interactionObjects.Remove(other.gameObject);
-            _interactor.RemoveInteractionObject(other.gameObject);
+            Interactor.Instance.RemoveInteractionObject(other.gameObject);
         }
 
     }
