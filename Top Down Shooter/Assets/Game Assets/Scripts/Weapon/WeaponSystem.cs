@@ -16,6 +16,28 @@ public class WeaponSystem : MonoBehaviour
         Spawn(weapon);
     }
 
+    public void BoolTrigger(string s)
+    {
+        switch (s)
+        {
+            case "unequip":
+                Animator.SetBool("unequip", true);
+                Animator.SetBool("rifle", false);
+                Animator.SetBool("pistol", false);
+                break;
+            case "rifle":
+                Animator.SetBool("unequip", false);
+                Animator.SetBool("rifle", true);
+                Animator.SetBool("pistol", false);
+                break;
+            case "pistol":
+                Animator.SetBool("unequip", false);
+                Animator.SetBool("rifle", false);
+                Animator.SetBool("pistol", true);
+                break;
+        }
+    }
+
     public void DeEquipAllWeapon()
     {
         foreach (WeaponBase weapon in EquipedWeapons)
@@ -63,17 +85,17 @@ public class WeaponSystem : MonoBehaviour
     {
         if (EquipedWeapons.Count == 0)
         {
-            Animator.SetTrigger("unequip");
+            BoolTrigger("unequip");
         }
         else
         {
             switch (EquipedWeapons[0].mainItemScriptable.Type)
             {
                 case ItemType.WeaponMain:
-                    Animator.SetTrigger("rifle");
+                    BoolTrigger("rifle");
                     break;
                 case ItemType.WeaponSecondary:
-                    Animator.SetTrigger("pistol");
+                    BoolTrigger("pistol");
                     break;
             }
             FBBIK.solver.leftHandEffector.target = EquipedWeapons[0].weaponObjects.LeftArmPoint.transform;
@@ -144,12 +166,12 @@ public class WeaponSystem : MonoBehaviour
         if (weapon.mainItemScriptable.Type == ItemType.WeaponMain)
         {
             Debug.Log("SET TRIGGER rifle");
-            Animator.SetTrigger("rifle");
+            BoolTrigger("rifle");
         }
         else
         {
             Debug.Log("SET TRIGGER pistol");
-            Animator.SetTrigger("pistol");
+            BoolTrigger("pistol");
         }
     }
 
