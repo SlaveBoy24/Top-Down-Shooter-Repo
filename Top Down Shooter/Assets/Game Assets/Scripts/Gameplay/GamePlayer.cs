@@ -8,6 +8,7 @@ public class GamePlayer : MonoBehaviour
     [SerializeField] private GameObject _playerObject;
     [SerializeField] private PhotonView _playerPhotonView;
     [SerializeField] private ClothSystem _clothSystem;
+    [SerializeField] private WeaponSystem _weaponSystem;
     [SerializeField] private InteractorCollider _interactor;
 
     public void Start()
@@ -53,6 +54,7 @@ public class GamePlayer : MonoBehaviour
             return;
 
         _clothSystem.OnUpdatePlayerProperties(player);
+        _weaponSystem.OnUpdatePlayerProperties(player);
     }
 
     public bool IsLocal()

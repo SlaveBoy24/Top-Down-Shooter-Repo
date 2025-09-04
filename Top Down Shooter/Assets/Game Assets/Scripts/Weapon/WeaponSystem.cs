@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using RootMotion.FinalIK;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class WeaponSystem : MonoBehaviour
 {
@@ -14,6 +16,21 @@ public class WeaponSystem : MonoBehaviour
         Spawn(weapon);
     }
 
+    public void DeEquipAllWeapon()
+    {
+        foreach (WeaponBase weapon in EquipedWeapons)
+        {
+            Destroy(weapon.weaponMesh);
+            EquipedWeapons.Remove(weapon);
+
+            DeEquipCheck();
+
+            StartCoroutine(ChangeValueSmoothly(1, 0, 0.3f));
+
+            break;
+        }
+    }
+
     public void DeEquipWeapon(string name)
     {
         foreach (WeaponBase weapon in EquipedWeapons)
@@ -22,28 +39,9 @@ public class WeaponSystem : MonoBehaviour
             {
                 Destroy(weapon.weaponMesh);
                 EquipedWeapons.Remove(weapon);
-                //UpdatePlayerProperties();
+                UpdatePlayerProperties();
 
-                if (EquipedWeapons.Count == 0)
-                {
-                    Animator.SetTrigger("unequip");
-                }
-                else
-                {
-                    switch (EquipedWeapons[0].mainItemScriptable.Type)
-                    {
-                        case ItemType.WeaponMain:
-                            Animator.SetTrigger("rifle");
-                            break;
-                        case ItemType.WeaponSecondary:
-                            Animator.SetTrigger("pistol");
-                            break;
-                    }
-                    FBBIK.solver.leftHandEffector.target = EquipedWeapons[0].weaponObjects.LeftArmPoint.transform;
-                    FBBIK.solver.leftArmChain.bendConstraint.bendGoal = EquipedWeapons[0].weaponObjects.BendGoalPoint.transform;
-
-                    break;
-                }
+                DeEquipCheck();
 
                 StartCoroutine(ChangeValueSmoothly(1, 0, 0.3f));
 
@@ -61,7 +59,30 @@ public class WeaponSystem : MonoBehaviour
         } 
     }
 
-    private void Spawn(WeaponBase weapon)
+    private void DeEquipCheck()
+    {
+        if (EquipedWeapons.Count == 0)
+        {
+            Animator.SetTrigger("unequip");
+        }
+        else
+        {
+            switch (EquipedWeapons[0].mainItemScriptable.Type)
+            {
+                case ItemType.WeaponMain:
+                    Animator.SetTrigger("rifle");
+                    break;
+                case ItemType.WeaponSecondary:
+                    Animator.SetTrigger("pistol");
+                    break;
+            }
+            FBBIK.solver.leftHandEffector.target = EquipedWeapons[0].weaponObjects.LeftArmPoint.transform;
+            FBBIK.solver.leftArmChain.bendConstraint.bendGoal = EquipedWeapons[0].weaponObjects.BendGoalPoint.transform;
+        }
+    }
+
+    #region Spawn Weapon
+    private void Spawn(WeaponBase weapon, bool updateProps = true)
     {
         foreach (WeaponBase weaponBase in EquipedWeapons)
         {
@@ -82,6 +103,22 @@ public class WeaponSystem : MonoBehaviour
             }
         }
 
+        InstantiateAndSetWeapon(weapon);
+
+        //weaponObject.layer = LayerMask.NameToLayer("Character");
+        //не забывать ставить лаер чарактер
+
+        SetAnimator(weapon);
+        SetIK(weapon);
+
+        StartCoroutine(ChangeValueSmoothly(0, 1, 0.4f));
+
+        if (updateProps)
+            UpdatePlayerProperties();
+    }
+
+    private void InstantiateAndSetWeapon(WeaponBase weapon)
+    {
         GameObject weaponObject = Instantiate(weapon.mainItemScriptable.GunSettings.Prefab);
 
         weaponObject.name = weapon.mainItemScriptable.name;
@@ -98,22 +135,28 @@ public class WeaponSystem : MonoBehaviour
         weaponObject.transform.localEulerAngles = weapon.mainItemScriptable.GunSettings.RightHandRotation;
         weaponObject.transform.localScale = weapon.mainItemScriptable.GunSettings.RightHandScale;
 
-        //weaponObject.layer = LayerMask.NameToLayer("Character");
-        //не забывать ставить лаер чарактер
+        weapon.weaponObjects = weaponObject.GetComponent<WeaponObjects>();
+    }
 
+    private void SetAnimator(WeaponBase weapon)
+    {
+        Debug.Log("SET TRIGGER METHOD");
         if (weapon.mainItemScriptable.Type == ItemType.WeaponMain)
+        {
+            Debug.Log("SET TRIGGER rifle");
             Animator.SetTrigger("rifle");
+        }
         else
         {
+            Debug.Log("SET TRIGGER pistol");
             Animator.SetTrigger("pistol");
         }
+    }
 
-        weapon.weaponObjects = weaponObject.GetComponent<WeaponObjects>();
-
+    private void SetIK(WeaponBase weapon)
+    {
         FBBIK.solver.leftHandEffector.target = weapon.weaponObjects.LeftArmPoint.transform;
         FBBIK.solver.leftArmChain.bendConstraint.bendGoal = weapon.weaponObjects.BendGoalPoint.transform;
-
-        StartCoroutine(ChangeValueSmoothly(0, 1, 0.4f));
     }
 
     public IEnumerator ChangeValueSmoothly(float startValue, float targetValue, float duration)
@@ -140,6 +183,50 @@ public class WeaponSystem : MonoBehaviour
         FBBIK.solver.leftHandEffector.rotationWeight = targetValue;
         FBBIK.solver.leftArmChain.bendConstraint.weight = targetValue;
     }
+    #endregion
+
+    public void UpdatePlayerProperties()
+    {
+        string weaponKeys = "";
+        foreach (WeaponBase weapon in EquipedWeapons)
+            if (weapon.mainItemScriptable != null)
+                weaponKeys += $"{weapon.mainItemScriptable.name.CamelToSnake()} ";
+
+        if (weaponKeys != "")
+            weaponKeys = weaponKeys.Substring(0, weaponKeys.Length - 1);
+
+        ExitGames.Client.Photon.Hashtable playerCustomProperties = PhotonNetwork.LocalPlayer.CustomProperties;
+        if (!playerCustomProperties.ContainsKey("equipedWeapon"))
+            playerCustomProperties.Add("equipedWeapon", weaponKeys);
+        else
+            playerCustomProperties["equipedWeapon"] = weaponKeys;
+
+        Debug.Log("weaponKeys(" + weaponKeys + ")");
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
+    }
+
+    public void OnUpdatePlayerProperties(Player player)
+    {
+        DeEquipAllWeapon();
+
+        ExitGames.Client.Photon.Hashtable playerCustomProperties = player.CustomProperties;
+        if (!playerCustomProperties.ContainsKey("equipedWeapon"))
+            return;
+
+        string weaponKeys = (string)playerCustomProperties["equipedWeapon"];
+
+        Debug.Log(weaponKeys);
+
+        foreach (string key in weaponKeys.Split(" "))
+        {
+            ItemScriptableObject item = null;
+            ItemPool.All.TryGetValue(key, out item);
+
+            if (item != null)
+                Spawn(new WeaponBase(item), false);
+        }
+    }
 }
 
 [System.Serializable]
@@ -153,5 +240,10 @@ public class WeaponBase
     {
         this.mainItemScriptable = stash.Items[0].item;
         this.stashName = stash.transform.gameObject.name;
+    }
+
+    public WeaponBase(ItemScriptableObject item)
+    {
+        this.mainItemScriptable = item;
     }
 }

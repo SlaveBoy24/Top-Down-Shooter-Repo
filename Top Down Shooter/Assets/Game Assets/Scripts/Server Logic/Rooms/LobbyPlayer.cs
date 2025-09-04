@@ -9,6 +9,7 @@ public class LobbyPlayer : MonoBehaviour
     public LobbyPlayerUI PlayerUI;
     public GameObject PlayerObject;
     public ClothSystem PlayerClothSystem;
+    public WeaponSystem PlayerWeaponSystem;
     public Transform PlayerPosition;
     public bool IsReady;
     public bool IsHost;
@@ -29,6 +30,7 @@ public class LobbyPlayer : MonoBehaviour
         IsReady = isReady;
 
         PlayerClothSystem = PlayerObject.GetComponent<ClothSystem>();
+        PlayerWeaponSystem = PlayerObject.GetComponent<WeaponSystem>();
 
         if (player == PhotonNetwork.LocalPlayer)
             MainPlayer.Instance.LocalPlayerObject = PlayerObject;
@@ -42,6 +44,7 @@ public class LobbyPlayer : MonoBehaviour
     {
         Debug.Log("I am here!");
         PlayerClothSystem.OnUpdatePlayerProperties(Player);
+        PlayerWeaponSystem.OnUpdatePlayerProperties(Player);
     }
 
     public void SetUI(bool hasButtons = true)

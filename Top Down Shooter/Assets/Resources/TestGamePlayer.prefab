@@ -305,7 +305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f67e84cf13e6ed4c9e1c104e81cd745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactor: {fileID: 0}
   _allowedTag: Interactable
   _interactionObjects: []
 --- !u!1 &698576750538552115
@@ -1481,16 +1480,16 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: Moving Y
   - Type: 9
-    SynchronizeType: 2
+    SynchronizeType: 0
     Name: rifle
   - Type: 9
-    SynchronizeType: 2
+    SynchronizeType: 0
     Name: pistol
   - Type: 9
-    SynchronizeType: 2
+    SynchronizeType: 0
     Name: unequip
   - Type: 9
-    SynchronizeType: 2
+    SynchronizeType: 0
     Name: shoot
   - Type: 1
     SynchronizeType: 2
@@ -2886,7 +2885,7 @@ GameObject:
   - component: {fileID: 9070378647192807316}
   - component: {fileID: 4778169473834601638}
   - component: {fileID: 727797428048464682}
-  - component: {fileID: 3055042773736307734}
+  - component: {fileID: 3944127891337670339}
   m_Layer: 3
   m_Name: TestGamePlayer
   m_TagString: Untagged
@@ -2927,6 +2926,7 @@ MonoBehaviour:
   _playerObject: {fileID: 2286505633848153068}
   _playerPhotonView: {fileID: 4778169473834601638}
   _clothSystem: {fileID: 727797428048464682}
+  _weaponSystem: {fileID: 0}
   _interactor: {fileID: 9200467054046819530}
 --- !u!114 &4778169473834601638
 MonoBehaviour:
@@ -2964,7 +2964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   original: {fileID: 4810958236660589129}
   EquipedClothes: []
---- !u!114 &3055042773736307734
+--- !u!114 &3944127891337670339
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
