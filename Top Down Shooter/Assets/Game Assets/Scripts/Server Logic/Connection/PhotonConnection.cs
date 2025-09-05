@@ -51,6 +51,8 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
         _connectedToLobby = true;
         Debug.Log("Connected to Photon Lobby");
 
+        PhotonNetwork.EnableCloseConnection = true;
+
         ActionsToExecuteOnJoinedLobby?.Invoke();
         ActionsToExecuteOnJoinedLobby = null;
     }

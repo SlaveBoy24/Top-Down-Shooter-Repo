@@ -9,8 +9,6 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private Vector3 _offset;
 
-    [SerializeField] private bool _initialized;
-
     private void Start()
     {
         StartCoroutine(FindPlayer());
@@ -36,7 +34,6 @@ public class CameraFollow : MonoBehaviour
         if (target != null)
         {
             _target = target.transform;
-            _initialized = true;
         }
         else
             StartCoroutine(FindPlayer());

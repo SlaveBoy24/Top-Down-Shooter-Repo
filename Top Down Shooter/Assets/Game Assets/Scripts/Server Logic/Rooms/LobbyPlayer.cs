@@ -64,6 +64,19 @@ public class LobbyPlayer : MonoBehaviour
         }
     }
 
+    public void KickPlayer()
+    {
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.CloseConnection(Player);
+    }
+
+    public void Leave()
+    {
+        if (Player == PhotonNetwork.LocalPlayer && PhotonNetwork.CurrentRoom != null)
+            PhotonNetwork.LeaveRoom();
+
+    }
+
     public void Clear()
     {
         PlayerUI.gameObject.SetActive(false);

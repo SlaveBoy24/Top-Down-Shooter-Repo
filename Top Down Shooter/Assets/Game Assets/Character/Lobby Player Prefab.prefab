@@ -1978,7 +1978,7 @@ GameObject:
   - component: {fileID: 1094157977908576129}
   - component: {fileID: 3994752917204416208}
   m_Layer: 3
-  m_Name: Character Prefab
+  m_Name: Lobby Player Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

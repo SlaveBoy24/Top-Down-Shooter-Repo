@@ -144,7 +144,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
 
         Room currentRoom = PhotonNetwork.CurrentRoom;
         ExitGames.Client.Photon.Hashtable roomCustomProperties = currentRoom.CustomProperties;
-        if (roomCustomProperties.ContainsKey(otherPlayer.NickName));
+        if (roomCustomProperties.ContainsKey(otherPlayer.NickName))
             roomCustomProperties.Remove(otherPlayer.NickName);
         currentRoom.SetCustomProperties(roomCustomProperties);
 

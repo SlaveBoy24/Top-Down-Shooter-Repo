@@ -902,7 +902,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 24166283}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 753535500}
+        m_TargetAssemblyTypeName: LobbyPlayer, Assembly-CSharp
+        m_MethodName: Leave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &24166283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1565,7 +1577,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 64546928}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 632931018}
+        m_TargetAssemblyTypeName: LobbyPlayer, Assembly-CSharp
+        m_MethodName: KickPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &64546928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6170,6 +6194,7 @@ MonoBehaviour:
   PlayerUI: {fileID: 1074838754}
   PlayerObject: {fileID: 0}
   PlayerClothSystem: {fileID: 0}
+  PlayerWeaponSystem: {fileID: 0}
   PlayerPosition: {fileID: 384645867}
   IsReady: 0
   IsHost: 0
@@ -6256,7 +6281,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 384926737}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 384645868}
+        m_TargetAssemblyTypeName: LobbyPlayer, Assembly-CSharp
+        m_MethodName: KickPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &384926737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8085,7 +8122,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 599672730}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1242651868}
+        m_TargetAssemblyTypeName: LobbyPlayer, Assembly-CSharp
+        m_MethodName: Leave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &599672730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8623,6 +8672,7 @@ MonoBehaviour:
   PlayerUI: {fileID: 673160745}
   PlayerObject: {fileID: 0}
   PlayerClothSystem: {fileID: 0}
+  PlayerWeaponSystem: {fileID: 0}
   PlayerPosition: {fileID: 632931017}
   IsReady: 0
   IsHost: 0
@@ -9784,6 +9834,7 @@ MonoBehaviour:
   PlayerUI: {fileID: 1529252760}
   PlayerObject: {fileID: 0}
   PlayerClothSystem: {fileID: 0}
+  PlayerWeaponSystem: {fileID: 0}
   PlayerPosition: {fileID: 753535499}
   IsReady: 0
   IsHost: 0
@@ -13242,7 +13293,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1081999445}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 632931018}
+        m_TargetAssemblyTypeName: LobbyPlayer, Assembly-CSharp
+        m_MethodName: Leave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1081999445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15016,6 +15079,7 @@ MonoBehaviour:
   PlayerUI: {fileID: 167823463}
   PlayerObject: {fileID: 0}
   PlayerClothSystem: {fileID: 0}
+  PlayerWeaponSystem: {fileID: 0}
   PlayerPosition: {fileID: 1242651867}
   IsReady: 0
   IsHost: 0
@@ -19955,7 +20019,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1623412700}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1242651868}
+        m_TargetAssemblyTypeName: LobbyPlayer, Assembly-CSharp
+        m_MethodName: KickPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1623412700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20683,7 +20759,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1655834199}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 384645868}
+        m_TargetAssemblyTypeName: LobbyPlayer, Assembly-CSharp
+        m_MethodName: Leave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1655834199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22300,7 +22388,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1771217088}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 753535500}
+        m_TargetAssemblyTypeName: LobbyPlayer, Assembly-CSharp
+        m_MethodName: KickPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1771217088
 MonoBehaviour:
   m_ObjectHideFlags: 0

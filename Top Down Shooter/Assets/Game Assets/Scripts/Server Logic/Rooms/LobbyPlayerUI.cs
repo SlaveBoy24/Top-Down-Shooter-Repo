@@ -30,8 +30,12 @@ public class LobbyPlayerUI : MonoBehaviour
         }
         else
         {
+            _leaveButton.SetActive(false);
+
             if (PhotonNetwork.LocalPlayer.IsMasterClient)
                 _kickButton.SetActive(true);
+            else
+                _kickButton.SetActive(false);
         }
     }
 }
