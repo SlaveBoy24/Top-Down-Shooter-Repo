@@ -3,35 +3,44 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    public GameObject WeaponHandler;
-    private Animator _animator;
-    public Item InHandWeapon;
+    private WeaponSystem _weaponSystem;
     public GameObject ShootPrefab;
-    public Vector3 testOffset;
+    public float BulletSpeed = 55f;
     private void Start()
     {
-        _animator = GetComponent<Animator>();
+        _weaponSystem = GetComponent<WeaponSystem>();
     }
 
-    public void Shoot()
+    private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnSpacePressed();
+        }
+    }
+
+    void OnSpacePressed()
+    {
+        if (_weaponSystem.EquipedWeapons.Count == 0)
+            return;
+
+        if (_weaponSystem.Animator.GetBool("ready") == false)
+            return;
+
         StartCoroutine(OneShoot());
     }
+
     private IEnumerator OneShoot()
     {
-        float bulletSpeed = 40f;
+        _weaponSystem.Animator.SetTrigger("shoot");
 
-        _animator.SetTrigger("shoot");
+        GameObject bullet = Instantiate(ShootPrefab, _weaponSystem.EquipedWeapons[0].weaponObjects.FireTagPoint.transform.position, _weaponSystem.EquipedWeapons[0].weaponObjects.FireTagPoint.transform.rotation);
 
-        var bullet = Instantiate(ShootPrefab);
-
-        bullet.transform.position = this.transform.position + testOffset; // for offset
-
-        bullet.transform.LookAt(this.gameObject.transform.position + testOffset + transform.forward);
+        yield return new WaitUntil(() => bullet != null);
 
         Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
 
-        bulletRigidbody.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.VelocityChange);
+        bulletRigidbody.AddForce(bullet.transform.forward * BulletSpeed, ForceMode.VelocityChange);
 
         yield return new WaitForSeconds(1.5f);
 
@@ -39,18 +48,19 @@ public class WeaponController : MonoBehaviour
 
         yield break;
     }
+
     public void ChangeState(string state)
     {
         switch (state)
         {
             case "rifle":
-                _animator.SetTrigger("rifle");
+                _weaponSystem.Animator.SetTrigger("rifle");
                 break;
             case "pistol":
-                _animator.SetTrigger("pistol");
+                _weaponSystem.Animator.SetTrigger("pistol");
                 break;
             default:
-                _animator.SetTrigger("unequip");
+                _weaponSystem.Animator.SetTrigger("unequip");
                 break;
         }
     }

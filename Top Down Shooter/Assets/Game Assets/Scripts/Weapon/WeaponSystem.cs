@@ -10,12 +10,13 @@ public class WeaponSystem : MonoBehaviour
 {
     public Animator Animator;
     public FullBodyBipedIK FBBIK;
+    public AimIK AimIK;
     public List<WeaponBase> EquipedWeapons = new List<WeaponBase>();
+
     public void EquipWeapon(WeaponBase weapon)
     {
         Spawn(weapon);
     }
-
     public void BoolTrigger(string s)
     {
         switch (s)
@@ -37,7 +38,6 @@ public class WeaponSystem : MonoBehaviour
                 break;
         }
     }
-
     public void DeEquipAllWeapon()
     {
         foreach (WeaponBase weapon in EquipedWeapons)
@@ -52,7 +52,6 @@ public class WeaponSystem : MonoBehaviour
             break;
         }
     }
-
     public void DeEquipWeapon(string name)
     {
         foreach (WeaponBase weapon in EquipedWeapons)
@@ -80,7 +79,6 @@ public class WeaponSystem : MonoBehaviour
             }
         } 
     }
-
     private void DeEquipCheck()
     {
         if (EquipedWeapons.Count == 0)
@@ -101,6 +99,16 @@ public class WeaponSystem : MonoBehaviour
             FBBIK.solver.leftHandEffector.target = EquipedWeapons[0].weaponObjects.LeftArmPoint.transform;
             FBBIK.solver.leftArmChain.bendConstraint.bendGoal = EquipedWeapons[0].weaponObjects.BendGoalPoint.transform;
         }
+    }
+    public void SetAimIKWeight(float w)
+    {
+        if (EquipedWeapons.Count == 0)
+        {
+            AimIK.solver.IKPositionWeight = 0;
+            return;
+        }
+
+        AimIK.solver.IKPositionWeight = w;
     }
 
     #region Spawn Weapon
@@ -179,6 +187,13 @@ public class WeaponSystem : MonoBehaviour
     {
         FBBIK.solver.leftHandEffector.target = weapon.weaponObjects.LeftArmPoint.transform;
         FBBIK.solver.leftArmChain.bendConstraint.bendGoal = weapon.weaponObjects.BendGoalPoint.transform;
+
+        //NOT GAME SCENE
+        try
+        {
+            AimIK.solver.transform = weapon.weaponObjects.FireTagPoint.transform;
+        }
+        catch{}
     }
 
     public IEnumerator ChangeValueSmoothly(float startValue, float targetValue, float duration)
@@ -187,7 +202,7 @@ public class WeaponSystem : MonoBehaviour
         FBBIK.solver.leftHandEffector.positionWeight = startValue;
         FBBIK.solver.leftHandEffector.rotationWeight = startValue;
         FBBIK.solver.leftArmChain.bendConstraint.weight = startValue;
-        
+
         while (elapsedTime < duration)
         {
             var currentValue = Mathf.Lerp(startValue, targetValue, elapsedTime / duration);
@@ -195,12 +210,12 @@ public class WeaponSystem : MonoBehaviour
             FBBIK.solver.leftHandEffector.positionWeight = currentValue;
             FBBIK.solver.leftHandEffector.rotationWeight = currentValue;
             FBBIK.solver.leftArmChain.bendConstraint.weight = currentValue;
-            
+
             elapsedTime += Time.deltaTime;
 
             yield return null;
         }
-        
+
         FBBIK.solver.leftHandEffector.positionWeight = targetValue;
         FBBIK.solver.leftHandEffector.rotationWeight = targetValue;
         FBBIK.solver.leftArmChain.bendConstraint.weight = targetValue;
