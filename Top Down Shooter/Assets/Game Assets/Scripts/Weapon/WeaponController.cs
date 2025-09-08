@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
+using Photon.Pun;
 
 public class WeaponController : MonoBehaviour
 {
     private WeaponSystem _weaponSystem;
     public GameObject ShootPrefab;
-    public float BulletSpeed = 55f;
+    public float BulletSpeed;
     private void Start()
     {
         _weaponSystem = GetComponent<WeaponSystem>();
@@ -34,9 +35,18 @@ public class WeaponController : MonoBehaviour
     {
         _weaponSystem.Animator.SetTrigger("shoot");
 
-        GameObject bullet = Instantiate(ShootPrefab, _weaponSystem.EquipedWeapons[0].weaponObjects.FireTagPoint.transform.position, _weaponSystem.EquipedWeapons[0].weaponObjects.FireTagPoint.transform.rotation);
+        WeaponBase weapon = _weaponSystem.EquipedWeapons[0];
+
+        Vector3 position = weapon.weaponObjects.FireTagPoint.transform.position;
+        Quaternion rotation = weapon.weaponObjects.FireTagPoint.transform.rotation;
+
+        GameObject bullet = PhotonNetwork.Instantiate(ShootPrefab.name, position, rotation);
 
         yield return new WaitUntil(() => bullet != null);
+
+        BulletController bulletController = bullet.GetComponent<BulletController>();
+
+        bulletController.SetDamage(weapon.mainItemScriptable.DamageDeal);
 
         Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
 

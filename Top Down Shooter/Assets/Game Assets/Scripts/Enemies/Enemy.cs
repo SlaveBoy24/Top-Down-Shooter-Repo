@@ -6,7 +6,6 @@ using Photon.Pun;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private EnemyPhoton _enemyPhoton;
     [SerializeField] private float _healths;
     [SerializeField] private int _damage;
     [SerializeField] private bool _isAlive;
@@ -28,13 +27,20 @@ public class Enemy : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient)
         {
             Destroy(_agent);
-            Destroy(this);
         }
-        Initialize();
+        else
+        {
+            Initialize();
+        }
     }
 
+
+    #region owner
     public virtual void Initialize()
     {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
         Triangulation = NavMesh.CalculateTriangulation();
         _agent.updatePosition = false;
         _agent.updateRotation = true;
@@ -47,6 +53,9 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
         if (_initialized && _isAlive)
         {
             SynchronizeAnimatorAndAgent();
@@ -56,6 +65,9 @@ public class Enemy : MonoBehaviour
 
     private void SynchronizeAnimatorAndAgent()
     {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
         Vector3 worldDeltaPosition = _agent.nextPosition - transform.position;
         worldDeltaPosition.y = 0;
         // Map 'worldDeltaPosition' to local space
@@ -84,7 +96,9 @@ public class Enemy : MonoBehaviour
         while (enabled)
         {
             if (_currentTarget)
+            {
                 _agent.SetDestination(_currentTarget.position);
+            }
 
             yield return new WaitForSeconds(0.25f);
         }
@@ -92,12 +106,18 @@ public class Enemy : MonoBehaviour
 
     public void DamageDeal()
     {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
         if (Vector3.Distance(transform.position, _currentTarget.position) <= 4)
             _currentTargetController.GetDamage(_damage);
     }
 
     public void CheckAttack()
     {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
         if (_currentTarget == null)
             return;
 
@@ -106,7 +126,7 @@ public class Enemy : MonoBehaviour
             if (_canAttack)
             {
                 Debug.Log("ATAKA");
-                _enemyPhoton.SetTrigger("Punch");
+                SetTrigger("Punch");
                 _canAttack = false;
                 StartCoroutine("AttackEnd");
             }
@@ -121,7 +141,10 @@ public class Enemy : MonoBehaviour
 
     private void OnAnimatorMove()
     {
-        if (_initialized && _isAlive)
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
+        if (_initialized)
         {
             Vector3 rootPosition = _animator.rootPosition;
             rootPosition.y = _agent.nextPosition.y;
@@ -132,11 +155,62 @@ public class Enemy : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
         if (other.gameObject.tag == "MainCharacter" || other.gameObject.tag == "OtherCharacter")
         {
             _targets.Add(other.transform);
             _currentTarget = _targets[0];
             _currentTargetController = _currentTarget.transform.parent.GetComponent<GamePlayer>();
         }
+    }
+    #endregion
+
+    public void GetDamage(float damage)
+    {
+        PhotonView.Get(this).RPC("GetDamageRPC", RpcTarget.All, damage);
+    }
+
+    [PunRPC]
+    public void GetDamageRPC(float damage)
+    {
+        _healths -= damage;
+        Debug.Log(_healths);
+        if (_healths <= 0)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                StopAllCoroutines();
+                PhotonView.Get(this).RPC("Died", RpcTarget.All);
+                _animator.SetBool("Died", true);
+            }
+
+        }
+    }
+
+    [PunRPC]
+    public void Died()
+    {
+        _healths = 0;
+        _isAlive = false;
+        _canAttack = false;
+
+        Destroy(GetComponent<Rigidbody>());
+        Destroy(GetComponent<SphereCollider>());
+        Destroy(GetComponent<CapsuleCollider>());
+    }
+
+    public void SetTrigger(string name)
+    {
+        Debug.Log("settrigger");
+        PhotonView.Get(this).RPC("AnimatorTriggerRPC", RpcTarget.All, name);
+    }
+
+    [PunRPC]
+    public void AnimatorTriggerRPC(string name)
+    {
+        Debug.Log($"trigger name rpc {name}");
+        _animator.SetTrigger(name);
     }
 }

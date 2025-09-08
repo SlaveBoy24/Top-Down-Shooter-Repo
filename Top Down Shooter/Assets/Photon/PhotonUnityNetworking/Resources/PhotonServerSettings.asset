@@ -45,6 +45,7 @@ MonoBehaviour:
   - AnimatorTriggerRPC
   - GetDamageRPC
   - SetTriggerRPC
+  - Died
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

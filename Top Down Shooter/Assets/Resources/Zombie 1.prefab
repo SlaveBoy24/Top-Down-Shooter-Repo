@@ -892,7 +892,7 @@ GameObject:
   - component: {fileID: 4468695233621619891}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Enemy
+  m_TagString: EnemyHitBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1417,7 +1417,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5697299820110468457}
   - component: {fileID: 3804945527351450302}
-  - component: {fileID: 8463964526242523163}
   - component: {fileID: 4427148597649321079}
   - component: {fileID: 8909927872270684593}
   - component: {fileID: 3608402400450136395}
@@ -1428,7 +1427,7 @@ GameObject:
   - component: {fileID: 862391309037834104}
   m_Layer: 0
   m_Name: Zombie 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1474,19 +1473,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8463964526242523163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4073237428733331890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 808597e9e9cc69347a70a62ca6f0616e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 3804945527351450302}
 --- !u!114 &4427148597649321079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1499,7 +1485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab32b91f0a4be5a45801438aac62a700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPhoton: {fileID: 8463964526242523163}
   _healths: 100
   _damage: 5
   _isAlive: 0
@@ -1667,6 +1652,9 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 2
     Name: Velocity
+  - Type: 9
+    SynchronizeType: 2
+    Name: Died
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
