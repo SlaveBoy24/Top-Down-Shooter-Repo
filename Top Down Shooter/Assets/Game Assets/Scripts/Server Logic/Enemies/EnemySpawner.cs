@@ -11,9 +11,9 @@ public class EnemySpawner : MonoBehaviour
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            foreach (Transform t in _spawnPoints)
+            foreach (Transform spawnPoint in _spawnPoints)
             {
-                PhotonNetwork.Instantiate(_enemyPrefab.name, t.position, Quaternion.identity);
+                PhotonNetwork.Instantiate(_enemyPrefab.name, spawnPoint.position, Quaternion.identity);
             }
         }
     }

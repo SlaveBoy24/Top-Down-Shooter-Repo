@@ -12,6 +12,7 @@ TagManager:
   - Interactor
   - OtherCharacter
   - Enemy
+  - EnemyHitBox
   layers:
   - Default
   - TransparentFX
