@@ -6,6 +6,7 @@ public class WeaponController : MonoBehaviour
 {
     private WeaponSystem _weaponSystem;
     public GameObject ShootPrefab;
+    public GameObject GunshotPrefab;
     public float BulletSpeed;
     private void Start()
     {
@@ -42,6 +43,8 @@ public class WeaponController : MonoBehaviour
 
         GameObject bullet = PhotonNetwork.Instantiate(ShootPrefab.name, position, rotation);
 
+        GameObject gunShot = PhotonNetwork.Instantiate(GunshotPrefab.name, position, rotation);
+
         yield return new WaitUntil(() => bullet != null);
 
         BulletController bulletController = bullet.GetComponent<BulletController>();
@@ -52,9 +55,9 @@ public class WeaponController : MonoBehaviour
 
         bulletRigidbody.AddForce(bullet.transform.forward * BulletSpeed, ForceMode.VelocityChange);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
 
-        Destroy(bullet);
+        PhotonNetwork.Destroy(gunShot);
 
         yield break;
     }

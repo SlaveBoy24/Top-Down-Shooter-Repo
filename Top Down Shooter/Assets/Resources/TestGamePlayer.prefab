@@ -3070,7 +3070,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShootPrefab: {fileID: 8845335142526679131, guid: 09e876259e571c849a79c6240fb3b81c,
     type: 3}
-  BulletSpeed: 65
+  GunshotPrefab: {fileID: 1126046646508270, guid: 3ab819b2060ba80479fd5bb1f58674b1,
+    type: 3}
+  BulletSpeed: 85
 --- !u!1 &4532752334638246614
 GameObject:
   m_ObjectHideFlags: 0

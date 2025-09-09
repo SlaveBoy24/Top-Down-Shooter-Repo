@@ -185,7 +185,6 @@ public class Enemy : MonoBehaviour
                 PhotonView.Get(this).RPC("Died", RpcTarget.All);
                 _animator.SetBool("Died", true);
             }
-
         }
     }
 
@@ -199,6 +198,7 @@ public class Enemy : MonoBehaviour
         Destroy(GetComponent<Rigidbody>());
         Destroy(GetComponent<SphereCollider>());
         Destroy(GetComponent<CapsuleCollider>());
+        Destroy(GetComponentInChildren<CapsuleCollider>());
     }
 
     public void SetTrigger(string name)
