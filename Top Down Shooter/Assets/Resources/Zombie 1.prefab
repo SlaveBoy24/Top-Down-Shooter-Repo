@@ -1495,6 +1495,7 @@ MonoBehaviour:
   _currentTarget: {fileID: 0}
   _currentTargetController: {fileID: 0}
   _initialized: 0
+  _hitboxCollider: {fileID: 2464075592444041906}
 --- !u!195 &8909927872270684593
 NavMeshAgent:
   m_ObjectHideFlags: 0

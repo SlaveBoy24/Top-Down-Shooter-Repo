@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GamePlayer _currentTargetController;
 
     [SerializeField] private bool _initialized;
+    [SerializeField] private GameObject _hitboxCollider;
 
     private void Start()
     {
@@ -183,7 +184,6 @@ public class Enemy : MonoBehaviour
             {
                 StopAllCoroutines();
                 PhotonView.Get(this).RPC("Died", RpcTarget.All);
-                _animator.SetBool("Died", true);
             }
         }
     }
@@ -198,7 +198,9 @@ public class Enemy : MonoBehaviour
         Destroy(GetComponent<Rigidbody>());
         Destroy(GetComponent<SphereCollider>());
         Destroy(GetComponent<CapsuleCollider>());
-        Destroy(GetComponentInChildren<CapsuleCollider>());
+        Destroy(_hitboxCollider);
+
+        _animator.SetBool("Died", true);
     }
 
     public void SetTrigger(string name)
