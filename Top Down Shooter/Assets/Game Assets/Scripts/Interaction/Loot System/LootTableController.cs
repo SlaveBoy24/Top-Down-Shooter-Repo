@@ -9,6 +9,7 @@ public class LootTableController : MonoBehaviour
     [SerializeField] private GameObject _buttonFillImage;
 
     [Header("Logic")]
+    [SerializeField] private Interactor _interactor;
     [SerializeField] private bool _isOpened;
     [SerializeField] private List<InteractionStash> _stashes;
     [SerializeField] private List<LootTableUiElement> _uiItems;
@@ -17,6 +18,11 @@ public class LootTableController : MonoBehaviour
     private void Start()
     {
         _isOpened = true;
+        UpdateLootTableActiveState();
+    }
+
+    private void OnEnable()
+    {
         UpdateLootTableActiveState();
     }
 
@@ -57,18 +63,34 @@ public class LootTableController : MonoBehaviour
         if (_stashes.Count > 0)
         {
             ResetList();
-            gameObject.SetActive(true);
-        }
-
-        foreach (InteractionStash stash in _stashes)
-        {
-            List<StashItem> items = stash.GetList();
-
-            foreach (StashItem item in items)
+            int itemsCount = 0;
+            foreach (InteractionStash stash in _stashes)
             {
-                SetUiItem(item, stash);
+                List<StashItem> items = stash.GetList();
+
+                foreach (StashItem item in items)
+                {
+                    SetUiItem(item, stash);
+                    itemsCount++;
+                }
+            }
+
+            if (itemsCount > 0)
+            {
+                gameObject.SetActive(true);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+                _lootTablePanel.SetActive(false);
             }
         }
+
+    }
+
+    public void UpdateInteractorOnItemTake()
+    {
+        _interactor.UpdateUI();
     }
 
     private void SetUiItem(StashItem item, InteractionStash stash)

@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private bool _initialized;
     [SerializeField] private GameObject _hitboxCollider;
+    [SerializeField] private EnemyStash _enemyStash;
 
     private void Start()
     {
@@ -191,6 +192,7 @@ public class Enemy : MonoBehaviour
     [PunRPC]
     public void Died()
     {
+        _enemyStash.Unlock();
         _healths = 0;
         _isAlive = false;
         _canAttack = false;

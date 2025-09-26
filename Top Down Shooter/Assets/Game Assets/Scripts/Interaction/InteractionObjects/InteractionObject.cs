@@ -12,7 +12,8 @@ public enum InteractionLockedStatus
 { 
     Unlocked,
     Locked,
-    LockedByPerk
+    LockedByPerk,
+    LockedEnemy
 }
 
 public class InteractionObject : MonoBehaviour

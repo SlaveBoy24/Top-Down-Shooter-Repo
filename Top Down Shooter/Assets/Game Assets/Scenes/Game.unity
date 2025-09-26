@@ -8753,6 +8753,7 @@ MonoBehaviour:
   _lootTablePanel: {fileID: 502562110}
   _itemsContainer: {fileID: 1398511896}
   _buttonFillImage: {fileID: 2002771111}
+  _interactor: {fileID: 1609365797}
   _isOpened: 0
   _stashes: []
   _uiItems: []
