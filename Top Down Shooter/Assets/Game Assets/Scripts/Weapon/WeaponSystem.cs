@@ -12,6 +12,7 @@ public class WeaponSystem : MonoBehaviour
     public FullBodyBipedIK FBBIK;
     public AimIK AimIK;
     public List<WeaponBase> EquipedWeapons = new List<WeaponBase>();
+    private MainPlayer _mainPlayer;
 
     public void EquipWeapon(WeaponBase weapon)
     {
@@ -109,6 +110,24 @@ public class WeaponSystem : MonoBehaviour
         }
 
         AimIK.solver.IKPositionWeight = w;
+    }
+
+    [Obsolete]
+    private void Start()
+    {
+        _mainPlayer = FindObjectOfType<MainPlayer>();
+    }
+
+    public void ChangeWeapon(WeaponBase weapon = null)
+    {
+        if (weapon == null)
+        {
+            DeEquipAllWeapon();
+        }
+        else
+        {
+            
+        }
     }
 
     #region Spawn Weapon
