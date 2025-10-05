@@ -25,21 +25,30 @@ public struct LootListByLevel
     public List<LootItem> List;
 }
 
+[CreateAssetMenu(fileName = "LootListScriptable", menuName = "Loot Lists/new LootListScriptable")]
 public class LootListStriptable : ScriptableObject
 {
     public List<LootListByLevel> LootList;
 
     public List<LootItem> GetListByLevel(int level = 0)
     {
+        Debug.Log("getting list");
         if (LootList.Count == 1)
+        {
+            Debug.Log("first list");
             return LootList[0].List;
+        }
 
         List<LootItem> list = null;
 
+        Debug.Log("loop list");
         foreach (LootListByLevel item in LootList)
         {
+            Debug.Log($"{level} - {(int)item.Level}");
             if (level >= (int)item.Level)
+            {
                 list = item.List;
+            }
         }
 
         return list;

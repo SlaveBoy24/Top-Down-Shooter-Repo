@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class EnemyStash : InteractionObject
+public class EnemyStash : InteractionStash
 {
-    [SerializeField] private List<StashItem> _items;
+    [SerializeField] private Enemy _enemy;
 
     public override bool IsAbleToInteract()
     {
@@ -15,14 +15,12 @@ public class EnemyStash : InteractionObject
         return false;
     }
 
-    public void UpdateList()
+    public override void GenerateItems()
     {
-        foreach (StashItem item in _items.ToArray())
+        if (!_lootGenerated)
         {
-            if (item == null)
-                _items.Remove(item);
-            else if (item.Item == null)
-                _items.Remove(item);
+            _items = GenerateLoot(_enemy.GetLevel());
+            _lootGenerated = true;
         }
     }
 
@@ -31,10 +29,5 @@ public class EnemyStash : InteractionObject
         gameObject.SetActive(true);
         _lockedStatus = InteractionLockedStatus.Unlocked;
         FindAnyObjectByType<Interactor>().UpdateUI();
-    }
-
-    public List<StashItem> GetList()
-    {
-        return _items;
     }
 }

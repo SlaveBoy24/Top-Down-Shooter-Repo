@@ -6,6 +6,7 @@ using Photon.Pun;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private int _level;
     [SerializeField] private float _healths;
     [SerializeField] private int _damage;
     [SerializeField] private bool _isAlive;
@@ -34,6 +35,8 @@ public class Enemy : MonoBehaviour
         {
             Initialize();
         }
+
+        _enemyStash.GenerateItems();
     }
 
 
@@ -44,6 +47,7 @@ public class Enemy : MonoBehaviour
             return;
 
         Triangulation = NavMesh.CalculateTriangulation();
+        _level = 1;
         _agent.updatePosition = false;
         _agent.updateRotation = true;
         _canAttack = true;
@@ -168,6 +172,11 @@ public class Enemy : MonoBehaviour
         }
     }
     #endregion
+
+    public int GetLevel()
+    {
+        return _level;
+    }
 
     public void GetDamage(float damage)
     {

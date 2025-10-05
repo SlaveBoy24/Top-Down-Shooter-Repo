@@ -8470,6 +8470,62 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 767071740}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1593072704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1593072706}
+  - component: {fileID: 1593072705}
+  m_Layer: 0
+  m_Name: '[ Item Info Controller ]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1593072705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593072704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a097d2c06f0c834fa8e0d764a1bf287, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _infoPanelContainer: {fileID: 422420677348727337}
+  _typedPanels:
+  - Types: 150000001600000017000000
+    Panel: {fileID: 7372505054182553181, guid: e4a0462513dfe4843b20a812c8cbc5d2, type: 3}
+  - Types: 01000000
+    Panel: {fileID: 3977858807069177391, guid: 421222e54d2dc014e8b35d57b4f9bf7d, type: 3}
+  - Types: 05000000
+    Panel: {fileID: 7993545292011862645, guid: 359ddac043e940546b2600ea1a03facb, type: 3}
+  - Types: 290000002a000000
+    Panel: {fileID: 4985936487935328418, guid: 3f433138d9777144ba84823034b0a273, type: 3}
+  ShopInfoPanel: {fileID: 7998821840076335098, guid: e9a520570c20f21448520a0832cc14b7,
+    type: 3}
+--- !u!4 &1593072706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593072704}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1280.9711, y: 562.49664, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1593235578
 GameObject:
   m_ObjectHideFlags: 0
@@ -12013,6 +12069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 1
   _lockedStatus: 1
+  _lootList: {fileID: 11400000, guid: 05eb484565f3bdf448db534c51552983, type: 2}
   _items:
   - Item: {fileID: 11400000, guid: ddc4bcd34f3727744ac8f0ea3a2b65c1, type: 2}
     Amount: 1
@@ -12059,6 +12116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 1
   _lockedStatus: 0
+  _lootList: {fileID: 11400000, guid: 05eb484565f3bdf448db534c51552983, type: 2}
   _items:
   - Item: {fileID: 11400000, guid: ddc4bcd34f3727744ac8f0ea3a2b65c1, type: 2}
     Amount: 1
@@ -12105,6 +12163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 1
   _lockedStatus: 0
+  _lootList: {fileID: 11400000, guid: 05eb484565f3bdf448db534c51552983, type: 2}
   _items:
   - Item: {fileID: 11400000, guid: ddc4bcd34f3727744ac8f0ea3a2b65c1, type: 2}
     Amount: 1
@@ -12151,6 +12210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 2
   _lockedStatus: 0
+  _lootList: {fileID: 0}
   _isOpened: 0
   _isLocked: 0
   _requiredPerkLevel: 0
@@ -19493,3 +19553,4 @@ SceneRoots:
   - {fileID: 1070635721}
   - {fileID: 1458693832}
   - {fileID: 1611758471}
+  - {fileID: 1593072706}

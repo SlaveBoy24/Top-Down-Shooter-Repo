@@ -1486,6 +1486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab32b91f0a4be5a45801438aac62a700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _level: 0
   _healths: 100
   _damage: 5
   _isAlive: 0
@@ -2786,7 +2787,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1350577201042139860}
-  - component: {fileID: 164941845979562592}
   - component: {fileID: 1803311907460178286}
   - component: {fileID: 7425417602066988048}
   m_Layer: 0
@@ -2811,23 +2811,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5697299820110468457}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &164941845979562592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7823748729038970898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1648b6e4c87df340960f5afc7beb4c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _type: 1
-  _lockedStatus: 0
-  _items:
-  - Item: {fileID: 11400000, guid: ddc4bcd34f3727744ac8f0ea3a2b65c1, type: 2}
-    Amount: 1
 --- !u!114 &1803311907460178286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2842,9 +2825,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 1
   _lockedStatus: 3
+  _lootList: {fileID: 11400000, guid: a83890ffc9399454dbf7e435d9ed2934, type: 2}
   _items:
   - Item: {fileID: 11400000, guid: ddc4bcd34f3727744ac8f0ea3a2b65c1, type: 2}
     Amount: 1
+  _enemy: {fileID: 4427148597649321079}
 --- !u!65 &7425417602066988048
 BoxCollider:
   m_ObjectHideFlags: 0

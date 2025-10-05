@@ -10,7 +10,22 @@ public class StashItem
 
 public class InteractionStash : InteractionObject
 {
-    [SerializeField] private List<StashItem> _items;
+    [SerializeField] protected List<StashItem> _items;
+    [SerializeField] protected bool _lootGenerated;
+
+    private void Start()
+    {
+        GenerateItems();
+    }
+
+    public virtual void GenerateItems()
+    {
+        if (!_lootGenerated)
+        {
+            _items = GenerateLoot();
+            _lootGenerated = true;
+        }
+    }
 
     public override bool IsAbleToInteract()
     {
